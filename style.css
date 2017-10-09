@@ -1,0 +1,70 @@
+/* #myCanvas{
+    padding: 0;
+    margin: auto;
+    display: block;
+    width: 800px;
+    height: 600px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+} */
+
+body{
+    margin: 0;
+    overflow: hidden;
+    background-color: grey;
+}
+
+.inventory{
+    display: block;
+    height: 800px;
+    width: 300px;
+    float: left;
+    background-color: black;
+}
+
+.column{
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: flex; 
+    flex-wrap: -webkit-wrap;
+    flex-wrap: -moz-wrap;
+    flex-wrap: -ms-wrap;
+    flex-wrap: nowrap;
+    flex-direction: -webkit-column;
+    flex-direction: -moz-column;
+    flex-direction: -ms-column;
+    flex-direction: column;
+}
+
+.row{
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: flex; 
+    flex-wrap: -webkit-wrap;
+    flex-wrap: -moz-wrap;
+    flex-wrap: -ms-wrap;
+    flex-wrap: nowrap;
+    flex-direction: -webkit-row;
+    flex-direction: -moz-row;
+    flex-direction: -ms-row;
+    flex-direction: row;  
+}
+
+.inventory-container{
+    margin: 20% auto;
+    width: 90%;
+}
+
+.texture{
+    background-color: grey;
+    height: 50px;
+    width: 50px;
+    padding: 2px;
+    margin: 5px;
+}
+
