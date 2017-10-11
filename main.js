@@ -13,6 +13,7 @@ var cursorX = 500;
 var cursorY = 500;
 var rotatingRight = false;
 var currentMaterial;
+var currentTexture = "images/big/grass_top.png";
 var defaultTexture = "images/grass_top.png";
 
 app.service("blockService", function($http){
@@ -272,8 +273,31 @@ window.onload = function(){
     var icons = document.getElementsByClassName("texture-picture");
     for(var i = 0; i < icons.length; i++){
         icons[i].addEventListener("click", function(){
-            var texture = String(this.id).replace("/big", "");
-			currentMaterial = new THREE.MeshLambertMaterial({map: THREE.ImageUtils.loadTexture(texture)});
+			if(this.id.length > 0){
+				currentTexture = String(this.id);
+				var texture = currentTexture.replace("/big", "");
+				currentMaterial = new THREE.MeshLambertMaterial({map: THREE.ImageUtils.loadTexture(texture)});
+			}
         });
     };
+	var palette = document.getElementsByClassName("palette-icon");
+	for(var i = 0; i < palette.length; i++){
+		palette[i].addEventListener("contextmenu", function(){
+			this.removeAttribute("id");
+			this.src = "/images/big/transparent.png";
+			this.removeAttribute("title");
+		});
+		palette[i].addEventListener("click", function(){
+			if(this.id.length > 0){
+				currentTexture = String(this.id);
+				var texture = currentTexture.replace("/big", "");
+				currentMaterial = new THREE.MeshLambertMaterial({map: THREE.ImageUtils.loadTexture(texture)});
+			}else{
+				this.id = currentTexture;
+				this.src = currentTexture;
+				this.title = currentTexture;
+			}
+		});
+	};
 };
+

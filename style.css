@@ -69,6 +69,11 @@ body{
     display: inline-block;
 }
 
+.texture-picture{
+	height: 38px;
+	width: 38px;
+}
+
 .inventory-blocks{
     display: inline-block;
 }

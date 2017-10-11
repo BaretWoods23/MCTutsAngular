@@ -6,23 +6,52 @@
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
     </head> 
     <body>
-		<div class=row>
-			<canvas id="myCanvas"></canvas>
-			<div class="inventory" ng-app="myApp" ng-controller="blocksCtrl">
-	<!--
-				<div class="searchbar">                
-					<label class="searchlabel">Search</label>
-					<input id="searchtag" ng-model="tag.name" placeholder="Search for a block">
-				</div>
-	-->
-				<div class="inventory-container">
-					<div class="inventory-blocks" ng-repeat="x in blocks">
-						<button class="texture" id="{{ x.name }}">
-							<img class="texture-picture" src="{{ x.icon }}" id="{{ x.icon }}" title="{{ x.name }}">
-						</button>
+		<div class="column">
+			<div class=row>
+				<canvas id="myCanvas"></canvas>
+				<div class="inventory" ng-app="myApp" ng-controller="blocksCtrl">
+					<div class="inventory-container">
+						<div class="inventory-blocks" ng-repeat="x in blocks">
+							<button class="texture" id="{{ x.name }}">
+								<img class="texture-picture" src="{{ x.icon }}" id="{{ x.icon }}" title="{{ x.name }}">
+							</button>
+						</div>
 					</div>
 				</div>
 			</div>
+			<div class="palette">
+					<div class="inventory-container">
+						<button class="texture">
+							<img class="texture-picture palette-icon" src="images/big/transparent.png">
+						</button>
+						<button class="texture">
+							<img class="texture-picture palette-icon" src="images/big/transparent.png">
+						</button>
+						<button class="texture">
+							<img class="texture-picture palette-icon" src="images/big/transparent.png">
+						</button>
+						<button class="texture">
+							<img class="texture-picture palette-icon" src="images/big/transparent.png">
+						</button>
+						<button class="texture">
+							<img class="texture-picture palette-icon" src="images/big/transparent.png">
+						</button>
+						<button class="texture">
+							<img class="texture-picture palette-icon" src="images/big/transparent.png">
+						</button>
+						<button class="texture">
+							<img class="texture-picture palette-icon" src="images/big/transparent.png">
+						</button>
+						<button class="texture">
+							<img class="texture-picture palette-icon" src="images/big/transparent.png">
+						</button>
+						<button class="texture">
+							<img class="texture-picture palette-icon" src="images/big/transparent.png">
+						</button>
+						<button class="texture">
+							<img class="texture-picture palette-icon" src="images/big/transparent.png">
+						</button>
+					</div>
 		</div>
 		<script src="three.min.js"></script>
         <script src="three-trackballcontrols.js"></script>
