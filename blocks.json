@@ -265,6 +265,36 @@
             "texture" : "images/leaves_spruce_opaque.png",
             "icon" : "images/big/leaves_spruce_opaque.png"
         },
+		{
+			"name" : "log_acacia",
+            "texture" : "images/log_acacia.png",
+            "icon" : "images/big/log_acacia.png"
+		},
+		{
+			"name" : "log_big_oak",
+            "texture" : "images/log_big_oak.png",
+            "icon" : "images/big/log_big_oak.png"
+		},
+		{
+			"name" : "log_birch",
+            "texture" : "images/log_birch.png",
+            "icon" : "images/big/log_birch.png"
+		},
+		{
+			"name" : "log_jungle",
+            "texture" : "images/log_jungle.png",
+            "icon" : "images/big/log_jungle.png"
+		},
+		{
+			"name" : "log_oak",
+            "texture" : "images/log_oak.png",
+            "icon" : "images/big/log_oak.png"
+		},
+		{
+			"name" : "log_spruce",
+            "texture" : "images/log_spruce.png",
+            "icon" : "images/big/log_spruce.png"
+		},
         {
             "name" : "melon_side",
             "texture" : "images/melon_side.png",

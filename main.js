@@ -13,6 +13,7 @@ var cursorX = 500;
 var cursorY = 500;
 var rotatingRight = false;
 var currentMaterial;
+var defaultTexture = "images/grass_top.png";
 
 app.service("blockService", function($http){
     path = "http://localhost:8080/blocks.json";
@@ -59,7 +60,7 @@ function initialize(){
 
     geometry = new THREE.BoxGeometry(size, size, size);
 	
-	currentMaterial = new THREE.MeshLambertMaterial({map: THREE.ImageUtils.loadTexture('images/grass_top.png')});
+	currentMaterial = new THREE.MeshLambertMaterial({map: THREE.ImageUtils.loadTexture(defaultTexture)});
 
     window.addEventListener('resize', onWindowResize, false);
     document.addEventListener('mousemove', onmousemove, false);
@@ -217,7 +218,7 @@ function getNewMesh(x, y, z, transparent){
 function onDocumentKeyDown(event){
     if(!rotationActivated){
         var keyCode = event.which;
-        var theta = .05; //.785
+        var theta = .03; //.785
         var zoom = 1;
         var x = camera.position.x;
         var z = camera.position.z;
@@ -253,7 +254,7 @@ setInterval(function(){
 }, 50);
 
 function updateRotation(){
-    var theta = 0.05;
+    var theta = 0.07;
     var x = camera.position.x;
     var z = camera.position.z;
     if(rotatingRight){
