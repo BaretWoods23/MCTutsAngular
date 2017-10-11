@@ -1,0 +1,44 @@
+{
+    "blocks":[
+        {
+            "name" : "bloop",
+            "texture" : "images/bedrock.png",
+            "icon" : "images/big/bedrock.png"
+        },
+        {
+            "name" : "bloop",
+            "texture" : "images/bedrock.png",
+            "icon" : "images/big/bedrock.png"
+        },
+        {
+            "name" : "bloop",
+            "texture" : "images/bedrock.png",
+            "icon" : "images/big/bedrock.png"
+        },
+        {
+            "name" : "bloop",
+            "texture" : "images/bedrock.png",
+            "icon" : "images/big/bedrock.png"
+        },
+        {
+            "name" : "bloop",
+            "texture" : "images/bedrock.png",
+            "icon" : "images/big/bedrock.png"
+        },
+        {
+            "name" : "bloop",
+            "texture" : "images/bedrock.png",
+            "icon" : "images/big/bedrock.png"
+        },
+        {
+            "name" : "bloop",
+            "texture" : "images/bedrock.png",
+            "icon" : "images/big/bedrock.png"
+        },
+        {
+            "name" : "bloop",
+            "texture" : "images/bedrock.png",
+            "icon" : "images/big/bedrock.png"
+        }
+    ]
+}

@@ -1,3 +1,5 @@
+var app = angular.module('myApp', []);
+
 var renderer, camera, scene, cube, geometry, material, controls;
 var size = 16;
 var cubes = new THREE.Object3D();
@@ -12,10 +14,23 @@ var cursorX = 500;
 var cursorY = 500;
 var rotatingRight = false;
 
-var textures = [
-    {name: "grass"},
-    {name: "dirt"}
-]
+app.service("blockService", function($http){
+    path = "http://localhost:8080/blocks.json";
+    this.getData = function(){
+        return $http.get(path)
+        .then(function(response){
+            this.blocks = response.data;
+            return this.blocks;
+        });
+    };
+});
+
+app.controller('blocksCtrl', function($scope, blockService) {  
+    blockService.getData()
+    .then(function(blocks){
+        $scope.blocks = blocks.blocks;
+    })
+});
 
 initialize();
 render();
@@ -244,12 +259,21 @@ function updateRotation(){
     }
 }
 
-window.onload = function(){
-    var textures = [texture1, texture2, texture3, texture4, texture5];
-    for(var i = 0; i < textures.length; i++){
-        textures[i].addEventListener("click", function(){
-            console.log(this.id);
-        });
-    };
-};
+// window.onload = function(){
+//     var icons = document.getElementsByClassName("inventory-blocks");
+//     for(var i = 0; i < icons.length; i++){
+//         icons[i].addEventListener("click", function(){
+//             console.log("icons: " + icons[i]);
+//         });
+//     };
+// };
 
+
+//window.onload = function(){
+//    var textures = [texture1, texture2, texture3, texture4, texture5];
+//    for(var i = 0; i < textures.length; i++){
+//        textures[i].addEventListener("click", function(){
+//            console.log(this.id);
+//        });
+//    };
+//};
