@@ -14,14 +14,13 @@
 body{
     margin: 0;
     overflow: hidden;
-    background-color: grey;
+    background-color: #516066;
 }
 
 .inventory{
     height: 800px;
     width: 235px;
-    float: left;
-    background-color: black;
+    background-color: darkseagreen;
     overflow-y: scroll;
 }
 
@@ -62,7 +61,7 @@ body{
 }
 
 .texture{
-    background-color: grey;
+    background-color: rgba(255, 255, 255, 0.3);
     height: 48px;
     width: 48px;
     padding: 2px;

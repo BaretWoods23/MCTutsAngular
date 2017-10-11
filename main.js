@@ -8,11 +8,11 @@ var boardLength = 25;
 var cubeOpacity = 0.5;
 var canvWidth = 1000;
 var canvHeight = 800;
-var inventoryWidth = 235;
 var rotationActivated = false;
 var cursorX = 500;
 var cursorY = 500;
 var rotatingRight = false;
+var currentMaterial;
 
 app.service("blockService", function($http){
     path = "http://localhost:8080/blocks.json";
@@ -37,7 +37,7 @@ render();
 
 function initialize(){
     renderer = new THREE.WebGLRenderer({canvas: document.getElementById('myCanvas'), antialias: true});
-    renderer.setClearColor(0x555555);
+    renderer.setClearColor(0x9FD6D9);
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(canvWidth, canvHeight);
 
@@ -58,12 +58,14 @@ function initialize(){
     scene.add(light2);
 
     geometry = new THREE.BoxGeometry(size, size, size);
+	
+	currentMaterial = new THREE.MeshLambertMaterial({map: THREE.ImageUtils.loadTexture('images/grass_top.png')});
 
     window.addEventListener('resize', onWindowResize, false);
     document.addEventListener('mousemove', onmousemove, false);
     document.addEventListener("keydown", onDocumentKeyDown, false);
     document.addEventListener('mousedown', onDocumentMouseDown, false);
-    var transparentCube = getNewMesh(0,0,0);
+    var transparentCube = getNewMesh(0,0,0, true);
     transparentCube.material.color.setHex(0xAAAAFF);
     transparentCube.material.transparent = true;
     transparentCube.material.opacity = cubeOpacity;
@@ -75,7 +77,7 @@ function initialize(){
 function createBoard(){
     for(var i = -boardWidth/2; i < boardWidth/2; i++){
         for(var j = -boardLength/2; j < boardLength/2; j++){
-            cubes.add(getNewMesh(size*i, 0, size*j));
+            cubes.add(getNewMesh(size*i, 0, size*j, false));
         }
     }
 }
@@ -86,18 +88,18 @@ function render(){
 }
 
 function onDocumentMouseDown(event) {
-    var vector = new THREE.Vector3(((event.clientX-inventoryWidth)/canvWidth) * 2 - 1, - (event.clientY/canvHeight) * 2 + 1, 0.5);
+    var vector = new THREE.Vector3(((event.clientX)/canvWidth) * 2 - 1, - (event.clientY/canvHeight) * 2 + 1, 0.5);
     vector.unproject(camera);
     var raycaster = new THREE.Raycaster(camera.position, vector.sub(camera.position).normalize());
     var length = cubes.children.length;
     if(event.button == 1){
         rotationActivated = true;
-        if(cursorX-inventoryWidth > canvWidth/2){
+        if(cursorX > canvWidth/2){
             rotatingRight = true;
-        }else if(cursorX-inventoryWidth < canvWidth/2){
+        }else if(cursorX < canvWidth/2){
             rotatingRight = false;
         }
-    }else{
+    }else if(cursorX < canvWidth && cursorY < canvHeight){
     for(var i = length-1; i >= 0; i--){
             var cube = cubes.children[i];
             var x = cube.position.x;
@@ -111,19 +113,19 @@ function onDocumentMouseDown(event) {
                 }else if(event.button == 0){
                     var index = Math.floor(intersects[0].faceIndex/2);
                     if(index==0 && !spaceIsOccupied(x+size, y, z)){
-                        cubes.add(getNewMesh(x+size, y, z));
+                        cubes.add(getNewMesh(x+size, y, z, false));
                         break;
                     }else if(index==1 && !spaceIsOccupied(x-size, y, z)){
-                        cubes.add(getNewMesh(x-size, y, z));
+                        cubes.add(getNewMesh(x-size, y, z, false));
                         break;
                     }else if(index==2 && !spaceIsOccupied(x, y+size, z)){
-                        cubes.add(getNewMesh(x, y+size, z));
+                        cubes.add(getNewMesh(x, y+size, z, false));
                         break;
                     }else if(index==4 && !spaceIsOccupied(x, y, z+size)){
-                        cubes.add(getNewMesh(x, y, z+size));
+                        cubes.add(getNewMesh(x, y, z+size, false));
                         break;
                     }else if(index==5 && !spaceIsOccupied(x, y, z-size)){
-                        cubes.add(getNewMesh(x, y, z-size));
+                        cubes.add(getNewMesh(x, y, z-size, false));
                         break;
                     }
                 }
@@ -133,7 +135,7 @@ function onDocumentMouseDown(event) {
 };
 
 function onmousemove(event){
-    var vector = new THREE.Vector3(((event.clientX-inventoryWidth)/canvWidth) * 2 - 1, - (event.clientY/canvHeight) * 2 + 1, 0.5);
+    var vector = new THREE.Vector3(((event.clientX)/canvWidth) * 2 - 1, - (event.clientY/canvHeight) * 2 + 1, 0.5);
     vector.unproject(camera);
     var raycaster = new THREE.Raycaster(camera.position, vector.sub(camera.position).normalize());
     var length = cubes.children.length;
@@ -199,11 +201,15 @@ function onWindowResize() {
     renderer.setSize(canvWidth, canvHeight);
 };
 
-function getNewMesh(x, y, z){
-    var color = Math.random()*0xffffff;
-    var newMaterial = new THREE.MeshPhongMaterial({color: color, specular: 0x555555, shininess: 30});
-    newMaterial.shinyness = 2;
-    var newMesh = new THREE.Mesh(geometry, newMaterial);
+function getNewMesh(x, y, z, transparent){
+	var material;
+	if(transparent){
+		material = new THREE.MeshPhongMaterial({color: 0xffffff, specular: 0x555555, shininess: 30});
+	}else{
+		material = currentMaterial;
+	}
+	material.shininess = 2;
+    var newMesh = new THREE.Mesh(geometry, material);
     newMesh.position.set(x, y, z);
     return newMesh;
 };
@@ -266,7 +272,7 @@ window.onload = function(){
     for(var i = 0; i < icons.length; i++){
         icons[i].addEventListener("click", function(){
             var texture = String(this.id).replace("/big", "");
-            console.log("texture src: " + texture);
+			currentMaterial = new THREE.MeshLambertMaterial({map: THREE.ImageUtils.loadTexture(texture)});
         });
     };
 };
