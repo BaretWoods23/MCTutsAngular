@@ -8,7 +8,7 @@ var boardLength = 25;
 var cubeOpacity = 0.5;
 var canvWidth = 1000;
 var canvHeight = 800;
-var inventoryWidth = 300;
+var inventoryWidth = 235;
 var rotationActivated = false;
 var cursorX = 500;
 var cursorY = 500;
@@ -43,6 +43,8 @@ function initialize(){
 
     camera = new THREE.PerspectiveCamera(35, canvWidth / canvHeight, 0.1, 5000);
     camera.position.set(800,500,500);
+    camera.zoom += 1;
+    camera.updateProjectionMatrix();
 
     controls = new THREE.TrackballControls(camera);
     controls.addEventListener('change', render);
@@ -259,21 +261,12 @@ function updateRotation(){
     }
 }
 
-// window.onload = function(){
-//     var icons = document.getElementsByClassName("inventory-blocks");
-//     for(var i = 0; i < icons.length; i++){
-//         icons[i].addEventListener("click", function(){
-//             console.log("icons: " + icons[i]);
-//         });
-//     };
-// };
-
-
-//window.onload = function(){
-//    var textures = [texture1, texture2, texture3, texture4, texture5];
-//    for(var i = 0; i < textures.length; i++){
-//        textures[i].addEventListener("click", function(){
-//            console.log(this.id);
-//        });
-//    };
-//};
+window.onload = function(){
+    var icons = document.getElementsByClassName("texture-picture");
+    for(var i = 0; i < icons.length; i++){
+        icons[i].addEventListener("click", function(){
+            var texture = String(this.id).replace("/big", "");
+            console.log("texture src: " + texture);
+        });
+    };
+};
