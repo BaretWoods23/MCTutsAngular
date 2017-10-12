@@ -114,19 +114,19 @@ function onDocumentMouseDown(event) {
                     break;
                 }else if(event.button == 0){
                     var index = Math.floor(intersects[0].faceIndex/2);
-                    if(index==0 && !spaceIsOccupied(x+size, y, z)){
+                    if(index==0 && !spaceIsOccupied(x+size, y, z) && inBounds(x+size, z)){
                         cubes.add(getNewMesh(x+size, y, z, false));
                         break;
-                    }else if(index==1 && !spaceIsOccupied(x-size, y, z)){
+                    }else if(index==1 && !spaceIsOccupied(x-size, y, z) && inBounds(x-size, z)){
                         cubes.add(getNewMesh(x-size, y, z, false));
                         break;
-                    }else if(index==2 && !spaceIsOccupied(x, y+size, z)){
+                    }else if(index==2 && !spaceIsOccupied(x, y+size, z) && inBounds(x, z)){
                         cubes.add(getNewMesh(x, y+size, z, false));
                         break;
-                    }else if(index==4 && !spaceIsOccupied(x, y, z+size)){
+                    }else if(index==4 && !spaceIsOccupied(x, y, z+size) && inBounds(x, z+size)){
                         cubes.add(getNewMesh(x, y, z+size, false));
                         break;
-                    }else if(index==5 && !spaceIsOccupied(x, y, z-size)){
+                    }else if(index==5 && !spaceIsOccupied(x, y, z-size) && inBounds(x, z-size)){
                         cubes.add(getNewMesh(x, y, z-size, false));
                         break;
                     }
@@ -134,6 +134,19 @@ function onDocumentMouseDown(event) {
             }
         }
     }
+};
+
+function inBounds(x, z){
+    var isInBounds = true;
+    var xDistance = boardWidth/2*size;
+    var zDistance = boardLength/2*size;
+    if(x < -xDistance || x >= xDistance){
+        isInBounds = false;
+    }
+    if(z < -zDistance || z >= zDistance){
+        isInBounds = false;
+    }
+    return isInBounds;
 };
 
 function onmousemove(event){
@@ -269,12 +282,22 @@ function updateRotation(){
     }
 }
 
+function removeSelector(){
+    var icons = document.getElementsByClassName("texture");
+    for(var i = 0; i < icons.length; i++){
+        icons[i].classList.remove("shiny");
+    }
+}
+
 window.onload = function(){
-    var icons = document.getElementsByClassName("texture-picture");
+    document.getElementById("grass_top").classList.add("shiny");
+    var icons = document.getElementsByClassName("texture");
     for(var i = 0; i < icons.length; i++){
         icons[i].addEventListener("click", function(){
-			if(this.id.length > 0){
-				currentTexture = String(this.id);
+			if(this.childNodes[1].id.length > 0){
+                removeSelector();
+                this.classList.add("shiny");
+				currentTexture = String(this.childNodes[1].id);
 				var texture = currentTexture.replace("/big", "");
 				currentMaterial = new THREE.MeshLambertMaterial({map: THREE.ImageUtils.loadTexture(texture)});
 			}
@@ -283,19 +306,19 @@ window.onload = function(){
 	var palette = document.getElementsByClassName("palette-icon");
 	for(var i = 0; i < palette.length; i++){
 		palette[i].addEventListener("contextmenu", function(){
-			this.removeAttribute("id");
-			this.src = "/images/big/transparent.png";
-			this.removeAttribute("title");
+			this.childNodes[1].removeAttribute("id");
+			this.childNodes[1].src = "/images/big/transparent.png";
+			this.childNodes[1].removeAttribute("title");
 		});
 		palette[i].addEventListener("click", function(){
 			if(this.id.length > 0){
-				currentTexture = String(this.id);
+				currentTexture = String(this.childNodes[1].id);
 				var texture = currentTexture.replace("/big", "");
 				currentMaterial = new THREE.MeshLambertMaterial({map: THREE.ImageUtils.loadTexture(texture)});
 			}else{
-				this.id = currentTexture;
-				this.src = currentTexture;
-				this.title = currentTexture;
+				this.childNodes[1].id = currentTexture;
+				this.childNodes[1].src = currentTexture;
+				this.childNodes[1].title = currentTexture;
 			}
 		});
 	};
