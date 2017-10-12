@@ -233,7 +233,7 @@ function onDocumentKeyDown(event){
     if(!rotationActivated){
         var keyCode = event.which;
         var theta = .03; //.785
-        var zoom = 1;
+        var zoom = 0.5;
         var x = camera.position.x;
         var z = camera.position.z;
         var y = camera.position.y;
