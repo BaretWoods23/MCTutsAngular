@@ -102,38 +102,35 @@ function onDocumentMouseDown(event) {
             rotatingRight = false;
         }
     }else if(cursorX < canvWidth && cursorY < canvHeight){
-    for(var i = length-1; i >= 0; i--){
-            var cube = cubes.children[i];
-            var x = cube.position.x;
-            var y = cube.position.y;
-            var z = cube.position.z;
-            var intersects = raycaster.intersectObject(cube);
-            if(intersects.length > 0){
-                if(event.button == 2){
-                    cubes.remove(cube);
-                    break;
-                }else if(event.button == 0){
-                    var index = Math.floor(intersects[0].faceIndex/2);
-                    if(index==0 && !spaceIsOccupied(x+size, y, z) && inBounds(x+size, z)){
-                        cubes.add(getNewMesh(x+size, y, z, false));
-                        break;
-                    }else if(index==1 && !spaceIsOccupied(x-size, y, z) && inBounds(x-size, z)){
-                        cubes.add(getNewMesh(x-size, y, z, false));
-                        break;
-                    }else if(index==2 && !spaceIsOccupied(x, y+size, z) && inBounds(x, z)){
-                        cubes.add(getNewMesh(x, y+size, z, false));
-                        break;
-                    }else if(index==4 && !spaceIsOccupied(x, y, z+size) && inBounds(x, z+size)){
-                        cubes.add(getNewMesh(x, y, z+size, false));
-                        break;
-                    }else if(index==5 && !spaceIsOccupied(x, y, z-size) && inBounds(x, z-size)){
-                        cubes.add(getNewMesh(x, y, z-size, false));
-                        break;
-                    }
-                }
-            }
-        }
-    }
+		cubes.add(getNewMesh(x, y, z, false));
+		var cubeArray = [];
+		var intersects;
+		for(var i = length-1; i >= 1; i--){
+			var cubeCur = cubes.children[i];
+			var intersectsCur = raycaster.intersectObject(cubeCur);
+			if(intersectsCur.length > 0){
+				var cubeDistance = intersectsCur[0].distance;
+				cubeArray.push([cubeCur, cubeDistance]);
+				intersects = intersectsCur;
+			}
+		}
+		cubeArray.sort(function(a, b){
+			return a[1] - b[1];
+		});
+		if(cubeArray.length > 0){
+			var cube = cubeArray[0][0];
+			if(event.button == 2){
+				cubes.remove(cube);
+			}else if(event.button == 0){
+				var transparentCube = cubes.children[0];
+				console.log(transparentCube.position.x);
+				var x = transparentCube.position.x;
+				var y = transparentCube.position.y;
+				var z = transparentCube.position.z;
+				cubes.add(getNewMesh(x, y, z, false));
+			}
+		}
+	}
 };
 
 function inBounds(x, z){
@@ -149,65 +146,76 @@ function inBounds(x, z){
     return isInBounds;
 };
 
-function onmousemove(event){
+function onmousemove(event) {
     var vector = new THREE.Vector3(((event.clientX)/canvWidth) * 2 - 1, - (event.clientY/canvHeight) * 2 + 1, 0.5);
     vector.unproject(camera);
     var raycaster = new THREE.Raycaster(camera.position, vector.sub(camera.position).normalize());
     var length = cubes.children.length;
-    cursorX = event.clientX;
+	var cubeArray = [];
+	var intersects;
+	cursorX = event.clientX;
     cursorY = event.clientY;
-    for(var i = length-1; i >= 0; i--){
-        var cube = cubes.children[i];
-        var transparentCube = cubes.children[0];
-        var x = cube.position.x;
-        var y = cube.position.y;
-        var z = cube.position.z;
-        var intersects = raycaster.intersectObject(cube);
-        if(intersects.length > 0){
-            var index = Math.floor(intersects[0].faceIndex/2);
-            transparentCube.material.opacity = cubeOpacity;
-            if(index==0 && !spaceIsOccupied(x+size, y, z)){
-                transparentCube.position.x = x+size;
-                transparentCube.position.y = y;
-                transparentCube.position.z = z;
-                break;
-            }else if(index==1 && !spaceIsOccupied(x-size, y, z)){
-                transparentCube.position.x = x-size;
-                transparentCube.position.y = y;
-                transparentCube.position.z = z;
-                break;
-            }else if(index==2 && !spaceIsOccupied(x, y+size, z)){
-                transparentCube.position.x = x;
-                transparentCube.position.y = y+size;
-                transparentCube.position.z = z;
-                break;
-            }else if(index==4 && !spaceIsOccupied(x, y, z+size)){
-                transparentCube.position.x = x;
-                transparentCube.position.y = y;
-                transparentCube.position.z = z+size;
-                break;
-            }else if(index==5 && !spaceIsOccupied(x, y, z-size)){
-                transparentCube.position.x = x;
-                transparentCube.position.y = y;
-                transparentCube.position.z = z-size;
-                break;
-            }
-        }else{
-            transparentCube.material.opacity = 0;
-        }
-    }
+	for(var i = length-1; i >= 1; i--){
+		var cubeCur = cubes.children[i];
+		var intersectsCur = raycaster.intersectObject(cubeCur);
+		if(intersectsCur.length > 0){
+			var cubeDistance = intersectsCur[0].distance;
+			cubeArray.push([cubeCur, cubeDistance]);
+			intersects = intersectsCur;
+		}
+	}
+	cubeArray.sort(function(a, b){
+		return a[1] - b[1];
+	});
+	if(cubeArray.length > 0){
+		var cube = cubeArray[0][0];
+		var transparentCube = cubes.children[0];
+		var x = cube.position.x;
+		var y = cube.position.y;
+		var z = cube.position.z;
+		var intersects = raycaster.intersectObject(cube);
+		if(intersects.length > 0){
+			var index = Math.floor(intersects[0].faceIndex/2);
+			transparentCube.material.opacity = cubeOpacity;
+			if(index==0 && !spaceIsOccupied(x+size, y, z)){
+				transparentCube.position.x = x+size;
+				transparentCube.position.y = y;
+				transparentCube.position.z = z;
+			}else if(index==1 && !spaceIsOccupied(x-size, y, z)){
+				transparentCube.position.x = x-size;
+				transparentCube.position.y = y;
+				transparentCube.position.z = z;
+			}else if(index==2 && !spaceIsOccupied(x, y+size, z)){
+				transparentCube.position.x = x;
+				transparentCube.position.y = y+size;
+				transparentCube.position.z = z;
+			}else if(index==4 && !spaceIsOccupied(x, y, z+size)){
+				transparentCube.position.x = x;
+				transparentCube.position.y = y;
+				transparentCube.position.z = z+size;
+			}else if(index==5 && !spaceIsOccupied(x, y, z-size)){
+				transparentCube.position.x = x;
+				transparentCube.position.y = y;
+				transparentCube.position.z = z-size;
+			}
+		}else{
+			transparentCube.material.opacity = 0;
+		}
+	}
 };
 
 function spaceIsOccupied(x, y, z){
+	var occupied = false;
     for(var i = 1; i < cubes.children.length; i++){
         var sameXValues = x == cubes.children[i].position.x;
         var sameYValues = y == cubes.children[i].position.y;
         var sameZValues = z == cubes.children[i].position.z;
         if(sameXValues && sameYValues && sameZValues){
-            return true;
+            occupied = true;
         }
     }
-    return false;
+	console.log(occupied);
+    return occupied;
 };
 
 function onWindowResize() {
@@ -268,17 +276,20 @@ setInterval(function(){
 }, 50);
 
 function updateRotation(){
-    var theta = 0.07;
-    var x = camera.position.x;
-    var z = camera.position.z;
+    var rotationSpeed = 0.05;
+    // var theta = 0.07;
+    // var x = camera.position.x;
+    // var z = camera.position.z;
     if(rotatingRight){
-        camera.position.x = x * Math.cos(theta) + z * Math.sin(theta);  
-        camera.position.z = z * Math.cos(theta) - x * Math.sin(theta);
-        camera.lookAt(scene.position);
+        cubes.rotation.y -= rotationSpeed;
+        // camera.position.x = x * Math.cos(theta) + z * Math.sin(theta);  
+        // camera.position.z = z * Math.cos(theta) - x * Math.sin(theta);
+        // camera.lookAt(scene.position);
     }else{
-        camera.position.x = x * Math.cos(theta) - z * Math.sin(theta);
-        camera.position.z = z * Math.cos(theta) + x * Math.sin(theta);
-        camera.lookAt(scene.position);
+        cubes.rotation.y += rotationSpeed;
+        // camera.position.x = x * Math.cos(theta) - z * Math.sin(theta);
+        // camera.position.z = z * Math.cos(theta) + x * Math.sin(theta);
+        // camera.lookAt(scene.position);
     }
 }
 
