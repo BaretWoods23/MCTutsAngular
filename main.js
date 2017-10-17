@@ -3,8 +3,8 @@ var app = angular.module('myApp', []);
 var renderer, camera, scene, cube, geometry, material, controls;
 var size = 16;
 var cubes = new THREE.Object3D();
-var boardWidth = 25;
-var boardLength = 25;
+var boardWidth = 5;
+var boardLength = 5;
 var cubeOpacity = 0.5;
 var canvWidth = 1000;
 var canvHeight = 800;
@@ -123,11 +123,12 @@ function onDocumentMouseDown(event) {
 				cubes.remove(cube);
 			}else if(event.button == 0){
 				var transparentCube = cubes.children[0];
-				console.log(transparentCube.position.x);
 				var x = transparentCube.position.x;
 				var y = transparentCube.position.y;
 				var z = transparentCube.position.z;
-				cubes.add(getNewMesh(x, y, z, false));
+				if(inBounds(x, z)){
+					cubes.add(getNewMesh(x, y, z, false));
+				}
 			}
 		}
 	}
@@ -214,7 +215,6 @@ function spaceIsOccupied(x, y, z){
             occupied = true;
         }
     }
-	console.log(occupied);
     return occupied;
 };
 
@@ -234,6 +234,7 @@ function getNewMesh(x, y, z, transparent){
 	material.shininess = 2;
     var newMesh = new THREE.Mesh(geometry, material);
     newMesh.position.set(x, y, z);
+	newMesh.name = currentMaterial;
     return newMesh;
 };
 
@@ -276,20 +277,17 @@ setInterval(function(){
 }, 50);
 
 function updateRotation(){
-    var rotationSpeed = 0.05;
-    // var theta = 0.07;
-    // var x = camera.position.x;
-    // var z = camera.position.z;
+    var theta = 0.07;
+    var x = camera.position.x;
+    var z = camera.position.z;
     if(rotatingRight){
-        cubes.rotation.y -= rotationSpeed;
-        // camera.position.x = x * Math.cos(theta) + z * Math.sin(theta);  
-        // camera.position.z = z * Math.cos(theta) - x * Math.sin(theta);
-        // camera.lookAt(scene.position);
+		camera.position.x = x * Math.cos(theta) + z * Math.sin(theta);  
+		camera.position.z = z * Math.cos(theta) - x * Math.sin(theta);
+		camera.lookAt(scene.position);
     }else{
-        cubes.rotation.y += rotationSpeed;
-        // camera.position.x = x * Math.cos(theta) - z * Math.sin(theta);
-        // camera.position.z = z * Math.cos(theta) + x * Math.sin(theta);
-        // camera.lookAt(scene.position);
+        camera.position.x = x * Math.cos(theta) - z * Math.sin(theta);
+        camera.position.z = z * Math.cos(theta) + x * Math.sin(theta);
+        camera.lookAt(scene.position);
     }
 }
 
@@ -335,3 +333,51 @@ window.onload = function(){
 	};
 };
 
+//function findHighestYValue(){
+//	var highestYValue = 0;
+//	for(var i = 0; i < cubes.children.length; i++){
+//		var currentYValue = cubes.children[i].position.y;
+//		if(currentYValue > highestYValue){
+//			highestYValue = currentYValue;
+//		}
+//	}
+//	return highestYValue;
+//};
+
+function submit(){
+	var orderedCubeLayers = orderedLayers();
+	writeToJSONFile(orderedCubeLayers);
+};
+
+function orderedLayers(){
+	var cubeArray = [];
+	for(var i = 1; i < cubes.children.length; i++){
+		var y = cubes.children[i].position.y;
+		if(y || y == 0){
+			cubeArray.push(cubes.children[i])
+		}
+	};
+	cubeArray.sort(function(a, b){
+		return a.position.y - b.position.y;
+	});
+	return cubeArray;
+};
+
+function writeToJSONFile(cubeArray){
+	var finishedObject = {
+		"layers":[]
+	};
+	for(var i = 1; i < cubeArray.length; i++){
+		var texture = cubeArray[i].material.map.image.currentSrc;
+		texture = texture.substring(texture.indexOf("/images/")+1);
+		finishedObject.layers.push({
+			"x" : cubeArray[i].position.x,
+			"y" : cubeArray[i].position.y,
+			"z" : cubeArray[i].position.z,
+			"texture" : texture
+		})
+	};
+	console.log(finishedObject);
+	var finishedJSON = JSON.stringify(finishedObject);
+	fs.writeFile('builds.json', finishedJSON, 'utf8', callback);
+};
