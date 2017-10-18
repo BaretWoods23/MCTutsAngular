@@ -1,0 +1,539 @@
+{
+    "blocks":[
+        {
+            "name" : "grass_top",
+            "texture" : "images/grass_top.png",
+            "icon" : "images/big/grass_top.png"
+        },
+        {
+            "name" : "bedrock",
+            "texture" : "images/bedrock.png",
+            "icon" : "images/big/bedrock.png"
+        },
+        {
+            "name" : "bookshelf",
+            "texture" : "images/bookshelf.png",
+            "icon" : "images/big/bookshelf.png"
+        },
+        {
+            "name" : "brick",
+            "texture" : "images/brick.png",
+            "icon" : "images/big/brick.png"
+        },
+        {
+            "name" : "clay",
+            "texture" : "images/clay.png",
+            "icon" : "images/big/clay.png"
+        },
+        {
+            "name" : "coal_block",
+            "texture" : "images/coal_block.png",
+            "icon" : "images/big/coal_block.png"
+        },
+        {
+            "name" : "cobblestone_mossy",
+            "texture" : "images/cobblestone_mossy.png",
+            "icon" : "images/big/cobblestone_mossy.png"
+        },
+        {
+            "name" : "cobblestone",
+            "texture" : "images/cobblestone.png",
+            "icon" : "images/big/cobblestone.png"
+        },
+        {
+            "name" : "command_block",
+            "texture" : "images/command_block.png",
+            "icon" : "images/big/command_block.png"
+        },
+        {
+            "name" : "crafting_table",
+            "texture" : "images/crafting_table.png",
+            "icon" : "images/big/crafting_table.png"
+        },
+        {
+            "name" : "diamond_block",
+            "texture" : "images/diamond_block.png",
+            "icon" : "images/big/diamond_block.png"
+        },
+        {
+            "name" : "diamond_ore",
+            "texture" : "images/diamond_ore.png",
+            "icon" : "images/big/diamond_ore.png"
+        },
+        {
+            "name" : "dirt_podzol",
+            "texture" : "images/dirt_podzol.png",
+            "icon" : "images/big/dirt_podzol.png"
+        },
+        {
+            "name" : "dirt",
+            "texture" : "images/dirt.png",
+            "icon" : "images/big/dirt.png"
+        },
+        {
+            "name" : "emerald_block",
+            "texture" : "images/emerald_block.png",
+            "icon" : "images/big/emerald_block.png"
+        },
+        {
+            "name" : "emerald_ore",
+            "texture" : "images/emerald_ore.png",
+            "icon" : "images/big/emerald_ore.png"
+        },
+        {
+            "name" : "furnace_front_off",
+            "texture" : "images/furnace_front_off.png",
+            "icon" : "images/big/furnace_front_off.png"
+        },
+        {
+            "name" : "glass",
+            "texture" : "images/glass.png",
+            "icon" : "images/big/glass.png"
+        },
+        {
+            "name" : "glowstone",
+            "texture" : "images/glowstone.png",
+            "icon" : "images/big/glowstone.png"
+        },
+        {
+            "name" : "gold_block",
+            "texture" : "images/gold_block.png",
+            "icon" : "images/big/gold_block.png"
+        },
+        {
+            "name" : "gold_ore",
+            "texture" : "images/gold_ore.png",
+            "icon" : "images/big/gold_ore.png"
+        },
+        {
+            "name" : "gravel",
+            "texture" : "images/gravel.png",
+            "icon" : "images/big/gravel.png"
+        },
+        {
+            "name" : "hardened_clay_stained_black",
+            "texture" : "images/hardened_clay_stained_black.png",
+            "icon" : "images/big/hardened_clay_stained_black.png"
+        },
+        {
+            "name" : "hardened_clay_stained_blue",
+            "texture" : "images/hardened_clay_stained_blue.png",
+            "icon" : "images/big/hardened_clay_stained_blue.png"
+        },
+        {
+            "name" : "hardened_clay_stained_brown",
+            "texture" : "images/hardened_clay_stained_brown.png",
+            "icon" : "images/big/hardened_clay_stained_brown.png"
+        },
+        {
+            "name" : "hardened_clay_stained_cyan",
+            "texture" : "images/hardened_clay_stained_cyan.png",
+            "icon" : "images/big/hardened_clay_stained_cyan.png"
+        },
+        {
+            "name" : "hardened_clay_stained_gray",
+            "texture" : "images/hardened_clay_stained_gray.png",
+            "icon" : "images/big/hardened_clay_stained_gray.png"
+        },
+        {
+            "name" : "hardened_clay_stained_green",
+            "texture" : "images/hardened_clay_stained_green.png",
+            "icon" : "images/big/hardened_clay_stained_green.png"
+        },
+        {
+            "name" : "hardened_clay_stained_light_blue",
+            "texture" : "images/hardened_clay_stained_light_blue.png",
+            "icon" : "images/big/hardened_clay_stained_light_blue.png"
+        },
+        {
+            "name" : "hardened_clay_stained_lime",
+            "texture" : "images/hardened_clay_stained_lime.png",
+            "icon" : "images/big/hardened_clay_stained_lime.png"
+        },
+        {
+            "name" : "hardened_clay_stained_magenta",
+            "texture" : "images/hardened_clay_stained_magenta.png",
+            "icon" : "images/big/hardened_clay_stained_magenta.png"
+        },
+        {
+            "name" : "hardened_clay_stained_orange",
+            "texture" : "images/hardened_clay_stained_orange.png",
+            "icon" : "images/big/hardened_clay_stained_orange.png"
+        },
+        {
+            "name" : "hardened_clay_stained_pink",
+            "texture" : "images/hardened_clay_stained_pink.png",
+            "icon" : "images/big/hardened_clay_stained_pink.png"
+        },
+        {
+            "name" : "hardened_clay_stained_purple",
+            "texture" : "images/hardened_clay_stained_purple.png",
+            "icon" : "images/big/hardened_clay_stained_purple.png"
+        },
+        {
+            "name" : "hardened_clay_stained_red",
+            "texture" : "images/hardened_clay_stained_red.png",
+            "icon" : "images/big/hardened_clay_stained_red.png"
+        },
+        {
+            "name" : "hardened_clay_stained_silver",
+            "texture" : "images/hardened_clay_stained_silver.png",
+            "icon" : "images/big/hardened_clay_stained_silver.png"
+        },
+        {
+            "name" : "hardened_clay_stained_white",
+            "texture" : "images/hardened_clay_stained_white.png",
+            "icon" : "images/big/hardened_clay_stained_white.png"
+        },
+        {
+            "name" : "hardened_clay_stained_yellow",
+            "texture" : "images/hardened_clay_stained_yellow.png",
+            "icon" : "images/big/hardened_clay_stained_yellow.png"
+        },
+        {
+            "name" : "hardened_clay",
+            "texture" : "images/hardened_clay.png",
+            "icon" : "images/big/hardened_clay.png"
+        },
+        {
+            "name" : "hay_block",
+            "texture" : "images/hay_block.png",
+            "icon" : "images/big/hay_block.png"
+        },
+        {
+            "name" : "ice_packed",
+            "texture" : "images/ice_packed.png",
+            "icon" : "images/big/ice_packed.png"
+        },
+        {
+            "name" : "ice",
+            "texture" : "images/ice.png",
+            "icon" : "images/big/ice.png"
+        },
+        {
+            "name" : "iron_block",
+            "texture" : "images/iron_block.png",
+            "icon" : "images/big/iron_block.png"
+        },
+        {
+            "name" : "iron_ore",
+            "texture" : "images/iron_ore.png",
+            "icon" : "images/big/iron_ore.png"
+        },
+        {
+            "name" : "jukebox",
+            "texture" : "images/jukebox.png",
+            "icon" : "images/big/jukebox.png"
+        },
+        {
+            "name" : "lapis_block",
+            "texture" : "images/lapis_block.png",
+            "icon" : "images/big/lapis_block.png"
+        },
+        {
+            "name" : "lapis_ore",
+            "texture" : "images/lapis_ore.png",
+            "icon" : "images/big/lapis_ore.png"
+        },
+        {
+            "name" : "leaves_acacia_opaque",
+            "texture" : "images/leaves_acacia_opaque.png",
+            "icon" : "images/big/leaves_acacia_opaque.png"
+        },
+        {
+            "name" : "leaves_big_oak_opaque",
+            "texture" : "images/leaves_big_oak_opaque.png",
+            "icon" : "images/big/leaves_big_oak_opaque.png"
+        },
+        {
+            "name" : "leaves_birch_opaque",
+            "texture" : "images/leaves_birch_opaque.png",
+            "icon" : "images/big/leaves_birch_opaque.png"
+        },
+        {
+            "name" : "leaves_jungle_opaque",
+            "texture" : "images/leaves_jungle_opaque.png",
+            "icon" : "images/big/leaves_jungle_opaque.png"
+        },
+        {
+            "name" : "leaves_oak_opaque",
+            "texture" : "images/leaves_oak_opaque.png",
+            "icon" : "images/big/leaves_oak_opaque.png"
+        },
+        {
+            "name" : "leaves_spruce_opaque",
+            "texture" : "images/leaves_spruce_opaque.png",
+            "icon" : "images/big/leaves_spruce_opaque.png"
+        },
+		{
+			"name" : "log_acacia",
+            "texture" : "images/log_acacia.png",
+            "icon" : "images/big/log_acacia.png"
+		},
+		{
+			"name" : "log_big_oak",
+            "texture" : "images/log_big_oak.png",
+            "icon" : "images/big/log_big_oak.png"
+		},
+		{
+			"name" : "log_birch",
+            "texture" : "images/log_birch.png",
+            "icon" : "images/big/log_birch.png"
+		},
+		{
+			"name" : "log_jungle",
+            "texture" : "images/log_jungle.png",
+            "icon" : "images/big/log_jungle.png"
+		},
+		{
+			"name" : "log_oak",
+            "texture" : "images/log_oak.png",
+            "icon" : "images/big/log_oak.png"
+		},
+		{
+			"name" : "log_spruce",
+            "texture" : "images/log_spruce.png",
+            "icon" : "images/big/log_spruce.png"
+		},
+        {
+            "name" : "melon_side",
+            "texture" : "images/melon_side.png",
+            "icon" : "images/big/melon_side.png"
+        },
+        {
+            "name" : "mob_spawner",
+            "texture" : "images/mob_spawner.png",
+            "icon" : "images/big/mob_spawner.png"
+        },
+        {
+            "name" : "mushroom_block_inside",
+            "texture" : "images/mushroom_block_inside.png",
+            "icon" : "images/big/mushroom_block_inside.png"
+        },
+        {
+            "name" : "mushroom_block_skin_brown",
+            "texture" : "images/mushroom_block_skin_brown.png",
+            "icon" : "images/big/mushroom_block_skin_brown.png"
+        },
+        {
+            "name" : "mushroom_block_skin_red",
+            "texture" : "images/mushroom_block_skin_red.png",
+            "icon" : "images/big/mushroom_block_skin_red.png"
+        },
+        {
+            "name" : "mushroom_block_skin_stem",
+            "texture" : "images/mushroom_block_skin_stem.png",
+            "icon" : "images/big/mushroom_block_skin_stem.png"
+        },
+        {
+            "name" : "mycelium_top",
+            "texture" : "images/mycelium_top.png",
+            "icon" : "images/big/mycelium_top.png"
+        },
+        {
+            "name" : "nether_brick",
+            "texture" : "images/nether_brick.png",
+            "icon" : "images/big/nether_brick.png"
+        },
+        {
+            "name" : "planks_acacia",
+            "texture" : "images/planks_acacia.png",
+            "icon" : "images/big/planks_acacia.png"
+        },
+        {
+            "name" : "planks_big_oak",
+            "texture" : "images/planks_big_oak.png",
+            "icon" : "images/big/planks_big_oak.png"
+        },
+        {
+            "name" : "planks_birch",
+            "texture" : "images/planks_birch.png",
+            "icon" : "images/big/planks_birch.png"
+        },
+        {
+            "name" : "planks_jungle",
+            "texture" : "images/planks_jungle.png",
+            "icon" : "images/big/planks_jungle.png"
+        },
+        {
+            "name" : "planks_oak",
+            "texture" : "images/planks_oak.png",
+            "icon" : "images/big/planks_oak.png"
+        },
+        {
+            "name" : "planks_spruce",
+            "texture" : "images/planks_spruce.png",
+            "icon" : "images/big/planks_spruce.png"
+        },
+        {
+            "name" : "pumpkin",
+            "texture" : "images/pumpkin.png",
+            "icon" : "images/big/pumpkin.png"
+        },
+        {
+            "name" : "quartz_block_chiseled",
+            "texture" : "images/quartz_block_chiseled.png",
+            "icon" : "images/big/quartz_block_chiseled.png"
+        },
+        {
+            "name" : "quartz_block_lines",
+            "texture" : "images/quartz_block_lines.png",
+            "icon" : "images/big/quartz_block_lines.png"
+        },
+        {
+            "name" : "quartz_block",
+            "texture" : "images/quartz_block.png",
+            "icon" : "images/big/quartz_block.png"
+        },
+        {
+            "name" : "red_sand",
+            "texture" : "images/red_sand.png",
+            "icon" : "images/big/red_sand.png"
+        },
+        {
+            "name" : "redstone_block",
+            "texture" : "images/redstone_block.png",
+            "icon" : "images/big/redstone_block.png"
+        },
+        {
+            "name" : "sand",
+            "texture" : "images/sand.png",
+            "icon" : "images/big/sand.png"
+        },
+        {
+            "name" : "sandstone_normal",
+            "texture" : "images/sandstone_normal.png",
+            "icon" : "images/big/sandstone_normal.png"
+        },
+        {
+            "name" : "sandstone_smooth",
+            "texture" : "images/sandstone_smooth.png",
+            "icon" : "images/big/sandstone_smooth.png"
+        },
+        {
+            "name" : "snow",
+            "texture" : "images/snow.png",
+            "icon" : "images/big/snow.png"
+        },
+        {
+            "name" : "soul_sand",
+            "texture" : "images/soul_sand.png",
+            "icon" : "images/big/soul_sand.png"
+        },
+        {
+            "name" : "sponge",
+            "texture" : "images/sponge.png",
+            "icon" : "images/big/sponge.png"
+        },
+        {
+            "name" : "stone",
+            "texture" : "images/stone.png",
+            "icon" : "images/big/stone.png"
+        },
+        {
+            "name" : "stonebrick_carved",
+            "texture" : "images/stonebrick_carved.png",
+            "icon" : "images/big/stonebrick_carved.png"
+        },
+        {
+            "name" : "stonebrick_cracked",
+            "texture" : "images/stonebrick_cracked.png",
+            "icon" : "images/big/stonebrick_cracked.png"
+        },
+        {
+            "name" : "stonebrick_mossy",
+            "texture" : "images/stonebrick_mossy.png",
+            "icon" : "images/big/stonebrick_mossy.png"
+        },
+        {
+            "name" : "stonebrick",
+            "texture" : "images/stonebrick.png",
+            "icon" : "images/big/stonebrick.png"
+        },
+        {
+            "name" : "tnt_side",
+            "texture" : "images/tnt_side.png",
+            "icon" : "images/big/tnt_side.png"
+        },
+        {
+            "name" : "wool_colored_black",
+            "texture" : "images/wool_colored_black.png",
+            "icon" : "images/big/wool_colored_black.png"
+        },
+        {
+            "name" : "wool_colored_blue",
+            "texture" : "images/wool_colored_blue.png",
+            "icon" : "images/big/wool_colored_blue.png"
+        },
+        {
+            "name" : "wool_colored_brown",
+            "texture" : "images/wool_colored_brown.png",
+            "icon" : "images/big/wool_colored_brown.png"
+        },
+        {
+            "name" : "wool_colored_cyan",
+            "texture" : "images/wool_colored_cyan.png",
+            "icon" : "images/big/wool_colored_cyan.png"
+        },
+        {
+            "name" : "wool_colored_gray",
+            "texture" : "images/wool_colored_gray.png",
+            "icon" : "images/big/wool_colored_gray.png"
+        },
+        {
+            "name" : "wool_colored_green",
+            "texture" : "images/wool_colored_green.png",
+            "icon" : "images/big/wool_colored_green.png"
+        },
+        {
+            "name" : "wool_colored_light_blue",
+            "texture" : "images/wool_colored_light_blue.png",
+            "icon" : "images/big/wool_colored_light_blue.png"
+        },
+        {
+            "name" : "wool_colored_lime",
+            "texture" : "images/wool_colored_lime.png",
+            "icon" : "images/big/wool_colored_lime.png"
+        },
+        {
+            "name" : "wool_colored_magenta",
+            "texture" : "images/wool_colored_magenta.png",
+            "icon" : "images/big/wool_colored_magenta.png"
+        },
+        {
+            "name" : "wool_colored_orange",
+            "texture" : "images/wool_colored_orange.png",
+            "icon" : "images/big/wool_colored_orange.png"
+        },
+        {
+            "name" : "wool_colored_pink",
+            "texture" : "images/wool_colored_pink.png",
+            "icon" : "images/big/wool_colored_pink.png"
+        },
+        {
+            "name" : "wool_colored_purple",
+            "texture" : "images/wool_colored_purple.png",
+            "icon" : "images/big/wool_colored_purple.png"
+        },
+        {
+            "name" : "wool_colored_red",
+            "texture" : "images/wool_colored_red.png",
+            "icon" : "images/big/wool_colored_red.png"
+        },
+        {
+            "name" : "wool_colored_silver",
+            "texture" : "images/wool_colored_silver.png",
+            "icon" : "images/big/wool_colored_silver.png"
+        },
+        {
+            "name" : "wool_colored_white",
+            "texture" : "images/wool_colored_white.png",
+            "icon" : "images/big/wool_colored_white.png"
+        },
+        {
+            "name" : "wool_colored_yellow",
+            "texture" : "images/wool_colored_yellow.png",
+            "icon" : "images/big/wool_colored_yellow.png"
+        }
+    ]
+}

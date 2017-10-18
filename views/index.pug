@@ -1,0 +1,13 @@
+extends layout
+
+block vars
+	-var title = "MCTuts"
+	
+block content
+	a(href="builder")
+		button Create a Build!
+	div(ng-app="myApp" ng-controller="buildsCtrl")
+		div(ng-repeat="x in builds")
+			a(href="tutorial") {{ x.build_name }}
+	script(src="home.js")
+	

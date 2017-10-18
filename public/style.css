@@ -1,0 +1,110 @@
+body{
+    margin: 0;
+    overflow: hidden;
+    background-color: #516066;
+}
+
+.shiny{
+    background-color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.inventory{
+    height: 800px;
+    width: 235px;
+    background-color: darkseagreen;
+    overflow-y: scroll;
+}
+
+.column{
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: flex; 
+    flex-wrap: -webkit-wrap;
+    flex-wrap: -moz-wrap;
+    flex-wrap: -ms-wrap;
+    flex-wrap: nowrap;
+    flex-direction: -webkit-column;
+    flex-direction: -moz-column;
+    flex-direction: -ms-column;
+    flex-direction: column;
+}
+
+.row{
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: flex; 
+    flex-wrap: -webkit-wrap;
+    flex-wrap: -moz-wrap;
+    flex-wrap: -ms-wrap;
+    flex-wrap: nowrap;
+    flex-direction: -webkit-row;
+    flex-direction: -moz-row;
+    flex-direction: -ms-row;
+    flex-direction: row;  
+}
+
+.inventory-container{
+    margin: 0 auto;
+    width: 90%; 
+    padding-bottom: 50px;
+}
+
+.texture{
+    background-color: rgba(255, 255, 255, 0.3);
+    height: 48px;
+    width: 48px;
+    padding: 2px;
+    margin: 8px;
+    display: inline-block;
+}
+
+.texture-picture{
+	height: 38px;
+	width: 38px;
+}
+
+.inventory-blocks{
+    display: inline-block;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 5px;
+    top: 5px;
+    width: 100%;
+    height: 100%;
+}
+
+.modal-content {
+    background-color: #ccc;
+    padding: 5px;
+    border: 1px solid #000;
+    width: 15%;
+	text-align: center;
+	display: block;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.submit{
+	position: fixed;
+	top: 5px;
+	left: 5px;
+	font-size: 1.5em;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
