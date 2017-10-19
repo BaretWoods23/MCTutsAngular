@@ -9,8 +9,7 @@ app.service("buildsService", function($http){
         return $http.get(path)
         .then(function(response){
             this.builds = response.data;
-			console.log(this.builds.build_name);
-            return this.builds;
+            return this.builds.builds;
         });
     };
 });

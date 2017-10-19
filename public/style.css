@@ -65,6 +65,14 @@ body{
 	width: 38px;
 }
 
+.tutorials{
+	background-color: white;
+	padding: 2px;
+	margin: 0 auto;
+	width: 10%;
+	text-align: center;
+}
+
 .inventory-blocks{
     display: inline-block;
 }
