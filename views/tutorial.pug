@@ -1,0 +1,16 @@
+extends layout
+
+block vars
+	-var title = "Tutorial"
+	
+block content
+	canvas(id="myCanvas")
+	a(href="../")
+		button Back
+	div(class="row")
+		button(id="previous" disabled="true") Previous
+		button(id="next") Next
+	script(src="../three.min.js")
+	script(src="../three-trackballcontrols.js")
+	script(src="../tutorial.js")
+	link(href="../style.css", rel="stylesheet")

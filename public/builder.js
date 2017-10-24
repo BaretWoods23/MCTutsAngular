@@ -3,8 +3,8 @@ var app = angular.module("myApp", []);
 var renderer, camera, scene, cube, geometry, material, controls;
 var size = 16;
 var cubes = new THREE.Object3D();
-var boardWidth = 25;
-var boardLength = 25;
+var boardWidth = 5;
+var boardLength = 5;
 var cubeOpacity = 0.5;
 var canvWidth = 1000;
 var canvHeight = 800;
@@ -354,11 +354,10 @@ function getSortedCubeArray(){
 	return cubeArray;
 };
 
-function writeToJSONFile(cubeArray){
+function writeToJSONFile(){
 	var xhr = new XMLHttpRequest();
 	xhr.withCredentials = true;
 	xhr.open("POST", "/");
-	xhr.setRequestHeader("cache-control", "no-cache");
 	xhr.setRequestHeader("content-type", "application/json;charset=UTF-8");
 	var jsonObject = getLayeredJSONObject();
 	xhr.send(JSON.stringify(jsonObject));
@@ -374,7 +373,7 @@ function getLayeredJSONObject(){
 	};
 	var currentLayer = 0;
 	finishedObject.layers.push([]);
-	for(var i = 1; i < cubeArray.length; i++){
+	for(var i = 0; i < cubeArray.length; i++){
 		var texture = cubeArray[i].material.map.image.currentSrc;
 		texture = texture.substring(texture.indexOf("/images/")+1);
 		if(cubeArray[i].position.y != currentLayer*size){
