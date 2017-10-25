@@ -3,8 +3,8 @@ var app = angular.module("myApp", []);
 var renderer, camera, scene, cube, geometry, material, controls;
 var size = 16;
 var cubes = new THREE.Object3D();
-var boardWidth = 5;
-var boardLength = 5;
+var boardWidth = 15;
+var boardLength = 15;
 var cubeOpacity = 0.5;
 var canvWidth = 1000;
 var canvHeight = 800;
@@ -338,6 +338,7 @@ function submit(){
 
 function upload(){
 	writeToJSONFile();
+	window.location = "../";
 };
 
 function getSortedCubeArray(){

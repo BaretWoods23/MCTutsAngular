@@ -41,7 +41,6 @@ window.onload = function(){
 function changeLayerVisibility(visible){
 	for(var i = 0; i < cubes.children.length; i++){
 		if(cubes.children[i].position.y == stepIndex*size){
-			console.log("bloop");
 			cubes.children[i].visible = visible;
 		}
 	}
@@ -92,7 +91,7 @@ function createBuild(){
 			var x = buildData.layers[j][i].x;
 			var y = buildData.layers[j][i].y;
 			var z = buildData.layers[j][i].z;
-			var texture = "../" + buildData.layers[0][i].texture;
+			var texture = "../" + buildData.layers[j][i].texture;
 			cubes.add(getNewMesh(x, y, z, texture));
 		}
 	}
