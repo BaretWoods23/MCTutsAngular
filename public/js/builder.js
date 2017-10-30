@@ -13,12 +13,18 @@ var cursorX = 500;
 var cursorY = 500;
 var rotatingRight = false;
 var currentMaterial;
-var currentTexture = "images/big/grass_top.png";
-var defaultTexture = "images/grass_top.png";
+var currentTexture = "../images/big/grass_top.png";
+var defaultTexture = "../images/grass_top.png";
 var locked = false;
+var heightDif = 180;
+
+app.config(function($interpolateProvider) {
+  $interpolateProvider.startSymbol('{[{');
+  $interpolateProvider.endSymbol('}]}');
+});
 
 app.service("blockService", function($http){
-    path = "/blocks.json";
+    path = "../json/blocks.json";
     this.getData = function(){
         return $http.get(path)
         .then(function(response){
@@ -88,7 +94,7 @@ function render(){
 }
 
 function onDocumentMouseDown(event) {
-    var vector = new THREE.Vector3(((event.clientX)/canvWidth) * 2 - 1, - (event.clientY/canvHeight) * 2 + 1, 0.5);
+    var vector = new THREE.Vector3(((event.clientX)/canvWidth) * 2 - 1, - (event.clientY/(canvHeight+heightDif)) * 2 + 1, 0.5);
     vector.unproject(camera);
     var raycaster = new THREE.Raycaster(camera.position, vector.sub(camera.position).normalize());
     var length = cubes.children.length;
@@ -146,7 +152,7 @@ function inBounds(x, z){
 };
 
 function onmousemove(event) {
-    var vector = new THREE.Vector3(((event.clientX)/canvWidth) * 2 - 1, - (event.clientY/canvHeight) * 2 + 1, 0.5);
+    var vector = new THREE.Vector3(((event.clientX)/canvWidth) * 2 - 1, - (event.clientY/(canvHeight+heightDif)) * 2 + 1, 0.5);
     vector.unproject(camera);
     var raycaster = new THREE.Raycaster(camera.position, vector.sub(camera.position).normalize());
     var length = cubes.children.length;
@@ -301,10 +307,10 @@ window.onload = function(){
     var icons = document.getElementsByClassName("texture");
     for(var i = 0; i < icons.length; i++){
         icons[i].addEventListener("click", function(){
-			if(this.childNodes[0].id.length > 0){
+			if(this.childNodes[1].id.length > 0){
                 removeSelector();
                 this.classList.add("shiny");
-				currentTexture = String(this.childNodes[0].id);
+				currentTexture = String(this.childNodes[1].id);
 				var texture = currentTexture.replace("/big", "");
 				currentMaterial = new THREE.MeshLambertMaterial({map: THREE.ImageUtils.loadTexture(texture)});
 			}
@@ -313,19 +319,19 @@ window.onload = function(){
 	var palette = document.getElementsByClassName("palette-icon");
 	for(var i = 0; i < palette.length; i++){
 		palette[i].addEventListener("contextmenu", function(){
-			this.childNodes[0].removeAttribute("id");
-			this.childNodes[0].src = "images/big/transparent.png";
-			this.childNodes[0].removeAttribute("title");
+			this.childNodes[1].removeAttribute("id");
+			this.childNodes[1].src = "../images/big/transparent.png";
+			this.childNodes[1].removeAttribute("title");
 		});
 		palette[i].addEventListener("click", function(){
 			if(this.id.length > 0){
-				currentTexture = String(this.childNodes[0].id);
+				currentTexture = String(this.childNodes[1].id);
 				var texture = currentTexture.replace("/big", "");
 				currentMaterial = new THREE.MeshLambertMaterial({map: THREE.ImageUtils.loadTexture(texture)});
 			}else{
-				this.childNodes[0].id = currentTexture;
-				this.childNodes[0].src = currentTexture;
-				this.childNodes[0].title = currentTexture;
+				this.childNodes[1].id = currentTexture;
+				this.childNodes[1].src = currentTexture;
+				this.childNodes[1].title = currentTexture;
 			}
 		});
 	};
@@ -338,7 +344,6 @@ function submit(){
 
 function upload(){
 	writeToJSONFile();
-	window.location = "../";
 };
 
 function getSortedCubeArray(){
@@ -366,10 +371,11 @@ function writeToJSONFile(){
 
 function getLayeredJSONObject(){
 	var buildName = document.getElementById("buildName").value;
+	var buildUser = document.getElementById("buildUser").value;
 	var cubeArray = getSortedCubeArray();
 	var finishedObject = {
-		"build_name":buildName,
-		"build_user":"Placeholder",
+		"build_name": buildName,
+		"build_user": buildUser,
 		"layers":[]
 	};
 	var currentLayer = 0;

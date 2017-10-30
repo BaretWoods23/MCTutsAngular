@@ -9,10 +9,15 @@ var rotationActivated = false;
 var cursorX = 500;
 var cursorY = 500;
 var rotatingRight = false;
-var requestURL = "../builds.json"
+var requestURL = "../../json/builds.json"
 var request = new XMLHttpRequest();
 var buildData;
 var stepIndex = 0;
+
+app.config(function($interpolateProvider) {
+  $interpolateProvider.startSymbol('{[{');
+  $interpolateProvider.endSymbol('}]}');
+});
 
 window.onload = function(){
 	request.open("GET", requestURL);

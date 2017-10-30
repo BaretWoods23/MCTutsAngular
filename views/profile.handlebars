@@ -1,0 +1,15 @@
+<h2 id="profile-header"></h2>
+<div ng-app="myApp" ng-controller="buildsCtrl">
+		<h2 id="profile-header">{[{username}]}'s Builds: </h2>
+		<div class="tutorials" ng-repeat="x in builds  = (builds | filter:{ build_user: username})">
+			<div class="row" class="center">
+				<p>
+					<a href="tutorial/{[{$index}]}" class="tutorial">{[{ x.build_name }]}</a>
+					 by 
+					<a href="profile/{[{x.build_user}]}" class="tutorial">{[{ x.build_user }]}</a>
+				</p>
+			</div>
+		</div>
+	</div>
+<script src="../js/home.js"></script>
+<link href="../css/style.css", rel="stylesheet">

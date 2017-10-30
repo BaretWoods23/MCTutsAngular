@@ -1,0 +1,19 @@
+<div class="box">
+	{{#if user}}
+		<a href="builder">
+			<button>Create a Build!</button>
+		</a>
+	{{/if}}
+	<div ng-app="myApp" ng-controller="buildsCtrl">
+		<div class="tutorials" ng-repeat="x in builds">
+			<div class="row" class="center">
+				<p>
+					<a href="tutorial/{[{$index}]}" class="tutorial">{[{ x.build_name }]}</a>
+					 by 
+					<a href="profile/{[{x.build_user}]}" class="tutorial">{[{ x.build_user }]}</a>
+				</p>
+			</div>
+		</div>
+	</div>
+	<script src="js/home.js"></script>
+</div>
