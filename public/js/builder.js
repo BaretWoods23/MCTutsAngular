@@ -1,6 +1,6 @@
 var app = angular.module("myApp", []);
 
-var renderer, camera, scene, cube, geometry, material, controls;
+var renderer, camera, scene, cube, geometry, stairGeo, material, controls;
 var size = 16;
 var cubes = new THREE.Object3D();
 var cubeOpacity = 0.5;
@@ -71,6 +71,7 @@ function initialize(){
     scene.add(light2);
 
     geometry = new THREE.BoxGeometry(size, size, size);
+	stairGeo = new THREE.BoxGeometry(size, size/2, size);
 	
 	currentMaterial = new THREE.MeshLambertMaterial({map: THREE.ImageUtils.loadTexture(defaultTexture)});
 
@@ -78,10 +79,7 @@ function initialize(){
     document.addEventListener("mousemove", onmousemove, false);
     document.addEventListener("keydown", onDocumentKeyDown, false);
     document.addEventListener("mousedown", onDocumentMouseDown, false);
-    var transparentCube = getNewMesh(0,0,0, true);
-    transparentCube.material.color.setHex(0xAAAAFF);
-    transparentCube.material.transparent = true;
-    transparentCube.material.opacity = cubeOpacity;
+    var transparentCube = getNewMesh(0,0,0);
     cubes.add(transparentCube);
     scene.add(cubes);
     createBoard();
@@ -90,7 +88,7 @@ function initialize(){
 function createBoard(){
     for(var i = -boardWidth/2; i < boardWidth/2; i++){
         for(var j = -boardLength/2; j < boardLength/2; j++){
-            cubes.add(getNewMesh(size*i, 0, size*j, false));
+            cubes.add(getNewMesh(size*i, 0, size*j));
         }
     }
 }
@@ -114,7 +112,6 @@ function onDocumentMouseDown(event) {
             rotatingRight = false;
         }
     }else if(cursorX < canvWidth && cursorY < canvHeight){
-		cubes.add(getNewMesh(x, y, z, false));
 		var cubeArray = [];
 		var intersects;
 		for(var i = length-1; i >= 1; i--){
@@ -139,7 +136,10 @@ function onDocumentMouseDown(event) {
 				var y = transparentCube.position.y;
 				var z = transparentCube.position.z;
 				if(inBounds(x, z)){
-					cubes.add(getNewMesh(x, y, z, false));
+					var newCube = cubes.children[0].clone();
+					newCube.material = newCube.material.clone();
+					newCube.material.transparent = false;
+					cubes.add(newCube);
 				}
 			}
 		}
@@ -188,9 +188,10 @@ function onmousemove(event) {
 		var y = cube.position.y;
 		var z = cube.position.z;
 		var intersects = raycaster.intersectObject(cube);
+		transparentCube.material.transparent = true;
+		transparentCube.material.opacity = 0.5;
 		if(intersects.length > 0){
 			var index = Math.floor(intersects[0].faceIndex/2);
-			transparentCube.material.opacity = cubeOpacity;
 			if(index==0 && !spaceIsOccupied(x+size, y, z)){
 				transparentCube.position.x = x+size;
 				transparentCube.position.y = y;
@@ -212,8 +213,6 @@ function onmousemove(event) {
 				transparentCube.position.y = y;
 				transparentCube.position.z = z-size;
 			}
-		}else{
-			transparentCube.material.opacity = 0;
 		}
 	}
 };
@@ -237,19 +236,37 @@ function onWindowResize() {
     renderer.setSize(canvWidth, canvHeight);
 };
 
-function getNewMesh(x, y, z, transparent){
-	var material;
-	if(transparent){
-		material = new THREE.MeshPhongMaterial({color: 0xffffff, specular: 0x555555, shininess: 30});
+function getNewMesh(x, y, z){
+	var newMesh;
+	var material = currentMaterial.clone();
+	if(currentTexture.includes("stairs")){
+		newMesh = createStairMesh();
 	}else{
-		material = currentMaterial;
+		newMesh = new THREE.Mesh(geometry, material);
 	}
-	material.shininess = 2;
-    var newMesh = new THREE.Mesh(geometry, material);
     newMesh.position.set(x, y, z);
-	newMesh.name = currentMaterial;
+	newMesh.name = material;
     return newMesh;
 };
+
+function createStairMesh(){
+	var texture = currentTexture.substr(0, currentTexture.lastIndexOf("_")) + ".png";
+	var material = new THREE.MeshLambertMaterial({map: THREE.ImageUtils.loadTexture(texture)});
+	material.specular =  0x555555;
+	material.shininess = 30;
+	var newGeometry = new THREE.Geometry();	
+	var newMeshPt1 = new THREE.Mesh(stairGeo);
+	newMeshPt1.position.y = -size/4;
+	var newMeshPt2 = new THREE.Mesh(stairGeo);
+	newMeshPt2.rotation.x = Math.PI / 2;
+	newMeshPt2.position.z = -size/4;
+	newMeshPt1.updateMatrix();
+	newGeometry.merge(newMeshPt1.geometry, newMeshPt1.matrix);
+	newMeshPt2.updateMatrix();
+	newGeometry.merge(newMeshPt2.geometry, newMeshPt2.matrix);
+	newMesh = new THREE.Mesh(newGeometry, material);
+	return newMesh;
+}
 
 function onDocumentKeyDown(event){
     if(!rotationActivated && !locked){
@@ -259,16 +276,22 @@ function onDocumentKeyDown(event){
         var x = camera.position.x;
         var z = camera.position.z;
         var y = camera.position.y;
-        if (keyCode == 37 || keyCode == 65) {
+        if (keyCode == 65) {
             cubes.position.x -= (x * Math.cos(theta) - z * Math.sin(theta)) - camera.position.x;
             cubes.position.z -= (z * Math.cos(theta) + x * Math.sin(theta)) - camera.position.z;
-        }else if(keyCode == 39 || keyCode == 68) {
+        }else if(keyCode == 68) {
             cubes.position.x -= (x * Math.cos(theta) + z * Math.sin(theta)) - camera.position.x;
             cubes.position.z -= (z * Math.cos(theta) - x * Math.sin(theta)) - camera.position.z;
-        }else if(keyCode == 38 || keyCode == 87) {
+        }else if(keyCode == 87) {
             cubes.position.y -= (y * Math.cos(theta*2) + (y * Math.sin(theta*2)/2)) - camera.position.y;
-        }else if(keyCode == 40 || keyCode == 83) {
+        }else if(keyCode == 83) {
             cubes.position.y -= (y * Math.cos(theta*2) - (y * Math.sin(theta*2)/2)) - camera.position.y;
+		}else if(keyCode == 37){
+			cubes.children[0].rotation.y -= Math.PI / 2;
+			cubes.children[0].updateMatrix();
+		}else if(keyCode == 39){
+			cubes.children[0].rotation.y += Math.PI / 2;
+			cubes.children[0].updateMatrix();
         }else if(keyCode == 187){
             camera.zoom += zoom;
             camera.updateProjectionMatrix();
@@ -322,6 +345,7 @@ window.onload = function(){
 				currentTexture = String(this.childNodes[1].id);
 				var texture = currentTexture.replace("/big", "");
 				currentMaterial = new THREE.MeshLambertMaterial({map: THREE.ImageUtils.loadTexture(texture)});
+				cubes.children[0] = getNewMesh(cubes.children[0].position.x,cubes.children[0].position.y,cubes.children[0].position.z);
 			}
         });
     };
@@ -337,6 +361,7 @@ window.onload = function(){
 				currentTexture = String(this.childNodes[1].id);
 				var texture = currentTexture.replace("/big", "");
 				currentMaterial = new THREE.MeshLambertMaterial({map: THREE.ImageUtils.loadTexture(texture)});
+				cubes.children[0] = getNewMesh(cubes.children[0].position.x,cubes.children[0].position.y,cubes.children[0].position.z);
 			}else{
 				this.childNodes[1].id = currentTexture;
 				this.childNodes[1].src = currentTexture;

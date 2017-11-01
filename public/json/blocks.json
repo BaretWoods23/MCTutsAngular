@@ -360,6 +360,11 @@
             "texture" : "../images/planks_oak.png",
             "icon" : "../images/big/planks_oak.png"
         },
+		{
+            "name" : "planks_oak_stairs",
+            "texture" : "../images/planks_oak_stairs.png",
+            "icon" : "../images/big/planks_oak_stairs.png"
+        },
         {
             "name" : "planks_spruce",
             "texture" : "../images/planks_spruce.png",
