@@ -1,8 +1,27 @@
+<div id="preferences-modal" class="preferences-modal">
+	<div class="preferences-modal-content">
+		<span class="close">x</span>
+		<p>Preferences:</p>
+		<form action="/builder">
+			<input id="buildLength" type="number" name="buildLength" value="25">
+			<br>
+			<input id="buildWidth" type="number" name="buildWidth" value="25">
+			<br>
+			<select id="buildFloor" name="buildFloor">
+			  <option value="grass_top">Grass</option>
+			  <option value="sand">Sand</option>
+			  <option value="snow">Snow</option>
+			</select>
+			<br>
+			<button class="submitPreferences" onclick="submitPreferences()">Upload</button>
+		</form>
+	</div>
+</div>
 <div class="box">
 	{{#if user}}
-		<a href="builder">
-			<button>Create a Build!</button>
-		</a>
+<!--		<a href="builder">-->
+			<button id="create">Create a Build!</button>
+<!--		</a>-->
 	{{/if}}
 	<div ng-app="myApp" ng-controller="buildsCtrl">
 		<div class="tutorials" ng-repeat="x in builds">

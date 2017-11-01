@@ -26,7 +26,7 @@ router.get("/builder", ensureAuthenticated, function(req, res){
 //	res.render(req.params.viewname);
 //});
 
-router.post("/", function(req, res) {
+router.post("/", function(req, res){
 	fs.readFile('public/json/builds.json', 'utf8', function (err, data) {
 		if (err){
 			return console.log(err);
@@ -42,6 +42,10 @@ router.post("/", function(req, res) {
 			}
 		});
 	});
+});
+
+router.post("/builder", function(req, res, next){
+	console.log("BLOOP");
 });
 
 function ensureAuthenticated(req, res, next){

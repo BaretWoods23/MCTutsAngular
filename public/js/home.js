@@ -43,12 +43,26 @@ function loadComplete(evt) {
     buildData = JSON.parse(request.responseText); 
 };
 
-//
-//function returnUsersBuilds(){
-//	var url = window.location.pathname;
-//	var username = url.substr(url.lastIndexOf("/")+1);
-//	return username + "'s builds: ";
-//};
+var modal = document.getElementById("preferences-modal");
 
+if(document.body.contains(modal)){
+    var btn = document.getElementById("create"),
+        span = document.getElementsByClassName("close")[0];
+    btn.addEventListener("click", function(){
+        modal.style.display = "block";
+    });
+    span.addEventListener("click", function(){
+        modal.style.display = "none";
+    });
+    window.addEventListener("click", function(){
+        if(event.target == modal){
+            modal.style.display = "none";
+        }
+    });
+};
+
+function submitPreferences(){
+	
+}
 
 

@@ -3,8 +3,6 @@ var app = angular.module("myApp", []);
 var renderer, camera, scene, cube, geometry, material, controls;
 var size = 16;
 var cubes = new THREE.Object3D();
-var boardWidth = 15;
-var boardLength = 15;
 var cubeOpacity = 0.5;
 var canvWidth = 1000;
 var canvHeight = 800;
@@ -16,7 +14,9 @@ var currentMaterial;
 var currentTexture = "../images/big/grass_top.png";
 var defaultTexture = "../images/grass_top.png";
 var locked = false;
-var heightDif = 180;
+var heightOffset = 106;
+var widthOffset = 0;
+var boardWidth, boardLength;
 
 app.config(function($interpolateProvider) {
   $interpolateProvider.startSymbol('{[{');
@@ -45,6 +45,13 @@ initialize();
 render();
 
 function initialize(){
+	var url = window.location.href;
+	var params = url.split("&");
+	boardWidth = params[0].substr(params[0].indexOf("=")+1);
+	boardLength = params[1].substr(params[1].indexOf("=")+1);
+	baseBlock = params[2].substr(params[2].indexOf("=")+1);
+	defaultTexture = "../images/" + baseBlock + ".png"
+	
     renderer = new THREE.WebGLRenderer({canvas: document.getElementById("myCanvas"), antialias: true});
     renderer.setClearColor(0x9FD6D9);
     renderer.setPixelRatio(window.devicePixelRatio);
@@ -94,7 +101,8 @@ function render(){
 }
 
 function onDocumentMouseDown(event) {
-    var vector = new THREE.Vector3(((event.clientX)/canvWidth) * 2 - 1, - (event.clientY/(canvHeight+heightDif)) * 2 + 1, 0.5);
+    var vector = new THREE.Vector3(((event.clientX-widthOffset)/canvWidth) * 2 - 1
+		, - ((event.clientY-heightOffset)/canvHeight) * 2 + 1, 0.5);
     vector.unproject(camera);
     var raycaster = new THREE.Raycaster(camera.position, vector.sub(camera.position).normalize());
     var length = cubes.children.length;
@@ -152,7 +160,8 @@ function inBounds(x, z){
 };
 
 function onmousemove(event) {
-    var vector = new THREE.Vector3(((event.clientX)/canvWidth) * 2 - 1, - (event.clientY/(canvHeight+heightDif)) * 2 + 1, 0.5);
+    var vector = new THREE.Vector3(((event.clientX-widthOffset)/canvWidth) * 2 - 1
+		, - ((event.clientY-heightOffset)/canvHeight) * 2 + 1, 0.5);
     vector.unproject(camera);
     var raycaster = new THREE.Raycaster(camera.position, vector.sub(camera.position).normalize());
     var length = cubes.children.length;
@@ -397,7 +406,7 @@ function getLayeredJSONObject(){
 	return finishedObject;
 }
 
-var modal = document.getElementById("modal");
+var modal = document.getElementById("submit-modal");
 
 if(document.body.contains(modal)){
     var btn = document.getElementById("submit"),

@@ -99,7 +99,7 @@ body{
 	text-align: center;
 }
 
-.modal {
+.submit-modal {
     display: none;
     position: fixed;
     z-index: 1;
@@ -109,7 +109,26 @@ body{
     height: 100%;
 }
 
-.modal-content {
+.submit-modal-content {
+    background-color: #ccc;
+    padding: 5px;
+    border: 1px solid #000;
+    width: 15%;
+	text-align: center;
+	display: block;
+}
+
+.preferences-modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 15px;
+    top: 105px;
+    width: 100%;
+    height: 100%;
+}
+
+.preferences-modal-content {
     background-color: #ccc;
     padding: 5px;
     border: 1px solid #000;

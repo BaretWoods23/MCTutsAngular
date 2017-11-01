@@ -1,12 +1,11 @@
-<div id="modal" class="modal">
-	<div class="modal-content">
+<div id="submit-modal" class="submit-modal">
+	<div class="submit-modal-content">
 		<span class="close">x</span>
 		<p>Name your Build:</p>
-		<form>
+		<form action="../">
 			<input id="buildName" type="text" name="buildName" value="My Build">
 			<br>
 			<input id="buildUser" type="text" name="buildUser" value="{{user.username}}">
-			<img id="screenshot">
 			<button class="upload" onclick="upload()">Upload</button>
 		</form>
 	</div>
