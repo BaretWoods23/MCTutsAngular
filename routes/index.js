@@ -33,7 +33,7 @@ router.post("/", function(req, res){
 		}
 		var data = JSON.parse(data);
 		var jsonBuild = req.body;
-		data.builds.push(jsonBuild);
+		data.builds.unshift(jsonBuild);
 		var stringifiedData = JSON.stringify(data);
 		console.log(stringifiedData);
 		fs.writeFile("public/json/builds.json", stringifiedData, function(err, stringifiedData){

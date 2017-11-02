@@ -1,6 +1,7 @@
 var app = angular.module("myApp", []);
 
-var renderer, camera, scene, cube, geometry, stairGeo, material, controls;
+var renderer, camera, scene, cube, material, controls;
+var geometry, slabGeo, stairGeo, doorGeo, paneGeo, fenceGeo;
 var size = 16;
 var cubes = new THREE.Object3D();
 var cubeOpacity = 0.5;
@@ -71,7 +72,11 @@ function initialize(){
     scene.add(light2);
 
     geometry = new THREE.BoxGeometry(size, size, size);
-	stairGeo = new THREE.BoxGeometry(size, size/2, size);
+	slabGeo = new THREE.BoxGeometry(size, size/2, size);
+	doorGeo = new THREE.BoxGeometry(size, size*2, size/5);
+	paneGeo = new THREE.BoxGeometry(size, size, size/8);
+	fenceGeo = new THREE.BoxGeometry(size/5, size, size/5);
+	stairGeo = createStairGeometry();
 	
 	currentMaterial = new THREE.MeshLambertMaterial({map: THREE.ImageUtils.loadTexture(defaultTexture)});
 
@@ -138,7 +143,7 @@ function onDocumentMouseDown(event) {
 				if(inBounds(x, z)){
 					var newCube = cubes.children[0].clone();
 					newCube.material = newCube.material.clone();
-					newCube.material.transparent = false;
+					newCube.material.opacity = 1;
 					cubes.add(newCube);
 				}
 			}
@@ -239,33 +244,24 @@ function onWindowResize() {
 function getNewMesh(x, y, z){
 	var newMesh;
 	var material = currentMaterial.clone();
-	if(currentTexture.includes("stairs")){
-		newMesh = createStairMesh();
-	}else{
-		newMesh = new THREE.Mesh(geometry, material);
-	}
+	newMesh = new THREE.Mesh(geometry, material);
     newMesh.position.set(x, y, z);
 	newMesh.name = material;
     return newMesh;
 };
 
-function createStairMesh(){
-	var texture = currentTexture.substr(0, currentTexture.lastIndexOf("_")) + ".png";
-	var material = new THREE.MeshLambertMaterial({map: THREE.ImageUtils.loadTexture(texture)});
-	material.specular =  0x555555;
-	material.shininess = 30;
-	var newGeometry = new THREE.Geometry();	
-	var newMeshPt1 = new THREE.Mesh(stairGeo);
+function createStairGeometry(){
+	var stairGeometry = new THREE.Geometry();	
+	var newMeshPt1 = new THREE.Mesh(slabGeo);
 	newMeshPt1.position.y = -size/4;
-	var newMeshPt2 = new THREE.Mesh(stairGeo);
+	var newMeshPt2 = new THREE.Mesh(slabGeo);
 	newMeshPt2.rotation.x = Math.PI / 2;
 	newMeshPt2.position.z = -size/4;
 	newMeshPt1.updateMatrix();
-	newGeometry.merge(newMeshPt1.geometry, newMeshPt1.matrix);
+	stairGeometry.merge(newMeshPt1.geometry, newMeshPt1.matrix);
 	newMeshPt2.updateMatrix();
-	newGeometry.merge(newMeshPt2.geometry, newMeshPt2.matrix);
-	newMesh = new THREE.Mesh(newGeometry, material);
-	return newMesh;
+	stairGeometry.merge(newMeshPt2.geometry, newMeshPt2.matrix);
+	return stairGeometry;
 }
 
 function onDocumentKeyDown(event){
@@ -334,8 +330,26 @@ function removeSelector(){
     }
 }
 
+function changeTransparentCube(texture){
+	var newMesh;
+	currentMaterial = new THREE.MeshLambertMaterial({map: THREE.ImageUtils.loadTexture(texture)});
+	if(currentTexture.includes("stairs")){
+		var stairTexture = currentTexture.substr(0, currentTexture.lastIndexOf("_")) + ".png";
+		currentMaterial = new THREE.MeshLambertMaterial({map: THREE.ImageUtils.loadTexture(stairTexture)});
+		cubes.children[0].geometry = stairGeo;
+	}else if(currentTexture.includes("door")){
+		cubes.children[0].geometry = doorGeo;
+	}else if(currentTexture.includes("pane")){
+		cubes.children[0].geometry = paneGeo;
+	}else if(currentTexture.includes("fence")){
+		cubes.children[0].geometry = fenceGeo;
+	}else{
+		cubes.children[0].geometry = geometry;
+	}
+	cubes.children[0].material = currentMaterial;
+}
+
 window.onload = function(){
-    document.getElementById("grass_top").classList.add("shiny");
     var icons = document.getElementsByClassName("texture");
     for(var i = 0; i < icons.length; i++){
         icons[i].addEventListener("click", function(){
@@ -344,8 +358,7 @@ window.onload = function(){
                 this.classList.add("shiny");
 				currentTexture = String(this.childNodes[1].id);
 				var texture = currentTexture.replace("/big", "");
-				currentMaterial = new THREE.MeshLambertMaterial({map: THREE.ImageUtils.loadTexture(texture)});
-				cubes.children[0] = getNewMesh(cubes.children[0].position.x,cubes.children[0].position.y,cubes.children[0].position.z);
+				changeTransparentCube(texture);
 			}
         });
     };
@@ -360,8 +373,7 @@ window.onload = function(){
 			if(this.id.length > 0){
 				currentTexture = String(this.childNodes[1].id);
 				var texture = currentTexture.replace("/big", "");
-				currentMaterial = new THREE.MeshLambertMaterial({map: THREE.ImageUtils.loadTexture(texture)});
-				cubes.children[0] = getNewMesh(cubes.children[0].position.x,cubes.children[0].position.y,cubes.children[0].position.z);
+				changeTransparentCube();
 			}else{
 				this.childNodes[1].id = currentTexture;
 				this.childNodes[1].src = currentTexture;
