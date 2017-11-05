@@ -45,6 +45,11 @@
             "texture" : "../images/cobblestone_stairs.png",
             "icon" : "../images/big/cobblestone_stairs.png"
         },
+		{
+            "name" : "cobblestone_corner",
+            "texture" : "../images/cobblestone_corner.png",
+            "icon" : "../images/big/cobblestone_corner.png"
+        },
         {
             "name" : "command_block",
             "texture" : "../images/command_block.png",
@@ -256,11 +261,6 @@
             "icon" : "../images/big/leaves_acacia_opaque.png"
         },
         {
-            "name" : "leaves_big_oak_opaque",
-            "texture" : "../images/leaves_big_oak_opaque.png",
-            "icon" : "../images/big/leaves_big_oak_opaque.png"
-        },
-        {
             "name" : "leaves_birch_opaque",
             "texture" : "../images/leaves_birch_opaque.png",
             "icon" : "../images/big/leaves_birch_opaque.png"
@@ -284,11 +284,6 @@
 			"name" : "log_acacia",
             "texture" : "../images/log_acacia.png",
             "icon" : "../images/big/log_acacia.png"
-		},
-		{
-			"name" : "log_big_oak",
-            "texture" : "../images/log_big_oak.png",
-            "icon" : "../images/big/log_big_oak.png"
 		},
 		{
 			"name" : "log_birch",
@@ -355,6 +350,11 @@
             "texture" : "../images/nether_brick_stairs.png",
             "icon" : "../images/big/nether_brick_stairs.png"
         },
+		{
+            "name" : "nether_brick_corner",
+            "texture" : "../images/nether_brick_corner.png",
+            "icon" : "../images/big/nether_brick_corner.png"
+        },
         {
             "name" : "planks_acacia",
             "texture" : "../images/planks_acacia.png",
@@ -365,10 +365,10 @@
             "texture" : "../images/planks_acacia_stairs.png",
             "icon" : "../images/big/planks_acacia_stairs.png"
         },
-        {
-            "name" : "planks_big_oak",
-            "texture" : "../images/planks_big_oak.png",
-            "icon" : "../images/big/planks_big_oak.png"
+		{
+            "name" : "planks_acacia_corner",
+            "texture" : "../images/planks_acacia_corner.png",
+            "icon" : "../images/big/planks_acacia_corner.png"
         },
         {
             "name" : "planks_birch",
@@ -380,6 +380,11 @@
             "texture" : "../images/planks_birch_stairs.png",
             "icon" : "../images/big/planks_birch_stairs.png"
         },
+		{
+            "name" : "planks_birch_corner",
+            "texture" : "../images/planks_birch_corner.png",
+            "icon" : "../images/big/planks_birch_corner.png"
+        },
         {
             "name" : "planks_jungle",
             "texture" : "../images/planks_jungle.png",
@@ -389,6 +394,11 @@
             "name" : "planks_jungle_stairs",
             "texture" : "../images/planks_jungle_stairs.png",
             "icon" : "../images/big/planks_jungle_stairs.png"
+        },
+		{
+            "name" : "planks_jungle_corner",
+            "texture" : "../images/planks_jungle_corner.png",
+            "icon" : "../images/big/planks_jungle_corner.png"
         },
         {
             "name" : "planks_oak",
@@ -406,9 +416,19 @@
             "icon" : "../images/big/fence.png"
         },
 		{
+            "name" : "fencing",
+            "texture" : "../images/fencing.png",
+            "icon" : "../images/big/fencing.png"
+        },
+		{
             "name" : "planks_oak_stairs",
             "texture" : "../images/planks_oak_stairs.png",
             "icon" : "../images/big/planks_oak_stairs.png"
+        },
+		{
+            "name" : "planks_oak_corner",
+            "texture" : "../images/planks_oak_corner.png",
+            "icon" : "../images/big/planks_oak_corner.png"
         },
         {
             "name" : "planks_spruce",
@@ -419,6 +439,11 @@
             "name" : "planks_spruce_stairs",
             "texture" : "../images/planks_spruce_stairs.png",
             "icon" : "../images/big/planks_spruce_stairs.png"
+        },
+		{
+            "name" : "planks_spruce_corner",
+            "texture" : "../images/planks_spruce_corner.png",
+            "icon" : "../images/big/planks_spruce_corner.png"
         },
         {
             "name" : "pumpkin",
@@ -445,6 +470,11 @@
             "texture" : "../images/quartz_block_stairs.png",
             "icon" : "../images/big/quartz_block_stairs.png"
         },
+		{
+            "name" : "quartz_block_corner",
+            "texture" : "../images/quartz_block_corner.png",
+            "icon" : "../images/big/quartz_block_corner.png"
+        },
         {
             "name" : "red_sand",
             "texture" : "../images/red_sand.png",
@@ -469,6 +499,11 @@
             "name" : "sandstone_normal_stairs",
             "texture" : "../images/sandstone_normal_stairs.png",
             "icon" : "../images/big/sandstone_normal_stairs.png"
+        },
+		{
+            "name" : "sandstone_normal_corner",
+            "texture" : "../images/sandstone_normal_corner.png",
+            "icon" : "../images/big/sandstone_normal_corner.png"
         },
         {
             "name" : "sandstone_smooth",
@@ -499,6 +534,11 @@
             "name" : "stone_stairs",
             "texture" : "../images/stone_stairs.png",
             "icon" : "../images/big/stone_stairs.png"
+        },
+		{
+            "name" : "stone_corner",
+            "texture" : "../images/stone_corner.png",
+            "icon" : "../images/big/stone_corner.png"
         },
         {
             "name" : "stonebrick_carved",

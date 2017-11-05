@@ -1,7 +1,7 @@
 var app = angular.module("myApp", []);
 
 var renderer, camera, scene, cube, material, controls;
-var geometry, slabGeo, stairGeo, doorGeo, paneGeo, fenceGeo;
+var geometry, slabGeo, stairGeo, doorGeo, paneGeo, fenceGeo, fencingGeo, cornerGeo;
 var size = 16;
 var cubes = new THREE.Object3D();
 var cubeOpacity = 0.5;
@@ -73,10 +73,12 @@ function initialize(){
 
     geometry = new THREE.BoxGeometry(size, size, size);
 	slabGeo = new THREE.BoxGeometry(size, size/2, size);
-	doorGeo = new THREE.BoxGeometry(size, size*2, size/5);
+	doorGeo = createDoorGeometry();
 	paneGeo = new THREE.BoxGeometry(size, size, size/8);
-	fenceGeo = new THREE.BoxGeometry(size/5, size, size/5);
+	fenceGeo = new THREE.BoxGeometry(size/3.5, size, size/3.5);
+	fencingGeo = createFencingGeometry();
 	stairGeo = createStairGeometry();
+	cornerGeo = createCornerGeometry();
 	
 	currentMaterial = new THREE.MeshLambertMaterial({map: THREE.ImageUtils.loadTexture(defaultTexture)});
 
@@ -116,7 +118,7 @@ function onDocumentMouseDown(event) {
         }else if(cursorX < canvWidth/2){
             rotatingRight = false;
         }
-    }else if(cursorX < canvWidth && cursorY < canvHeight){
+    }else if(cursorX < canvWidth && cursorY < canvHeight + heightOffset && cursorY > heightOffset){
 		var cubeArray = [];
 		var intersects;
 		for(var i = length-1; i >= 1; i--){
@@ -196,43 +198,12 @@ function onmousemove(event) {
 		transparentCube.material.transparent = true;
 		transparentCube.material.opacity = 0.5;
 		if(intersects.length > 0){
-			var index = Math.floor(intersects[0].faceIndex/2);
-			if(index==0 && !spaceIsOccupied(x+size, y, z)){
-				transparentCube.position.x = x+size;
-				transparentCube.position.y = y;
-				transparentCube.position.z = z;
-			}else if(index==1 && !spaceIsOccupied(x-size, y, z)){
-				transparentCube.position.x = x-size;
-				transparentCube.position.y = y;
-				transparentCube.position.z = z;
-			}else if(index==2 && !spaceIsOccupied(x, y+size, z)){
-				transparentCube.position.x = x;
-				transparentCube.position.y = y+size;
-				transparentCube.position.z = z;
-			}else if(index==4 && !spaceIsOccupied(x, y, z+size)){
-				transparentCube.position.x = x;
-				transparentCube.position.y = y;
-				transparentCube.position.z = z+size;
-			}else if(index==5 && !spaceIsOccupied(x, y, z-size)){
-				transparentCube.position.x = x;
-				transparentCube.position.y = y;
-				transparentCube.position.z = z-size;
-			}
+			var face = intersects[0].face.clone();
+			transparentCube.position.x = x + (size*face.normal.x);
+			transparentCube.position.y = y + (size*face.normal.y);
+			transparentCube.position.z = z + (size*face.normal.z);
 		}
 	}
-};
-
-function spaceIsOccupied(x, y, z){
-	var occupied = false;
-    for(var i = 1; i < cubes.children.length; i++){
-        var sameXValues = x == cubes.children[i].position.x;
-        var sameYValues = y == cubes.children[i].position.y;
-        var sameZValues = z == cubes.children[i].position.z;
-        if(sameXValues && sameYValues && sameZValues){
-            occupied = true;
-        }
-    }
-    return occupied;
 };
 
 function onWindowResize() {
@@ -250,6 +221,23 @@ function getNewMesh(x, y, z){
     return newMesh;
 };
 
+function createFencingGeometry(){
+	var fencingGeometry = new THREE.Geometry();
+	var fencePostMesh = new THREE.Mesh(fenceGeo);
+	var fencingPiece = new THREE.BoxGeometry(size/6.5, size/5.5, size);
+	var fencingMesh1 = new THREE.Mesh(fencingPiece);
+	var fencingMesh2 = new THREE.Mesh(fencingPiece);
+	fencingMesh1.position.y = 5;
+	fencingMesh1.position.z = size/2
+	fencingMesh1.updateMatrix();
+	fencingMesh2.position.z = size/2
+	fencingMesh2.updateMatrix();
+	fencingGeometry.merge(fencePostMesh.geometry, fencePostMesh.matrix);
+	fencingGeometry.merge(fencingMesh1.geometry, fencingMesh1.matrix);
+	fencingGeometry.merge(fencingMesh2.geometry, fencingMesh2.matrix);
+	return fencingGeometry;
+}
+
 function createStairGeometry(){
 	var stairGeometry = new THREE.Geometry();	
 	var newMeshPt1 = new THREE.Mesh(slabGeo);
@@ -262,6 +250,29 @@ function createStairGeometry(){
 	newMeshPt2.updateMatrix();
 	stairGeometry.merge(newMeshPt2.geometry, newMeshPt2.matrix);
 	return stairGeometry;
+}
+
+function createCornerGeometry(){
+	var cornerGeometry = new THREE.Geometry();
+	var stairMesh1 = new THREE.Mesh(createStairGeometry());
+	var stairMesh2 = new THREE.Mesh(createStairGeometry());
+	stairMesh2.rotation.z -= Math.PI / 2;
+	stairMesh2.updateMatrix();
+	cornerGeometry.merge(stairMesh1.geometry, stairMesh1.matrix);
+	cornerGeometry.merge(stairMesh2.geometry, stairMesh2.matrix);
+	return cornerGeometry;
+}
+
+function createDoorGeometry(){
+	var doorGeo = new THREE.BoxGeometry(size, size*2, size/5);
+	var doorGeometry = new THREE.Geometry();
+	var doorMesh = new THREE.Mesh(doorGeo);
+	doorMesh.position.y += size/2;
+	doorMesh.position.z -= size/2.5;
+	doorMesh.updateMatrix();
+	doorGeometry.merge(doorMesh.geometry, doorMesh.matrix);
+	return doorGeometry;
+	
 }
 
 function onDocumentKeyDown(event){
@@ -282,12 +293,18 @@ function onDocumentKeyDown(event){
             cubes.position.y -= (y * Math.cos(theta*2) + (y * Math.sin(theta*2)/2)) - camera.position.y;
         }else if(keyCode == 83) {
             cubes.position.y -= (y * Math.cos(theta*2) - (y * Math.sin(theta*2)/2)) - camera.position.y;
-		}else if(keyCode == 37){
-			cubes.children[0].rotation.y -= Math.PI / 2;
-			cubes.children[0].updateMatrix();
-		}else if(keyCode == 39){
-			cubes.children[0].rotation.y += Math.PI / 2;
-			cubes.children[0].updateMatrix();
+		}else if(keyCode == 82){
+			var cube = cubes.children[0];
+			var oldMesh = cubes.children[0];
+			oldMesh.rotateY(-Math.PI/2);
+			oldMesh.position.set(0,0,0);
+			oldMesh.updateMatrix();
+			var newGeo = new THREE.Geometry();
+			newGeo.merge(oldMesh.geometry, oldMesh.matrix);
+			var newMesh = new THREE.Mesh(newGeo, currentMaterial);
+			cubes.children[0] = newMesh;
+			newMesh.position.set(cursorX, cursorY, 0);
+			newMesh.updateMatrix();
         }else if(keyCode == 187){
             camera.zoom += zoom;
             camera.updateProjectionMatrix();
@@ -331,9 +348,12 @@ function removeSelector(){
 }
 
 function changeTransparentCube(texture){
-	var newMesh;
 	currentMaterial = new THREE.MeshLambertMaterial({map: THREE.ImageUtils.loadTexture(texture)});
-	if(currentTexture.includes("stairs")){
+	if(currentTexture.includes("corner")){
+		var cornerTexture = currentTexture.substr(0, currentTexture.lastIndexOf("_")) + ".png";
+		currentMaterial = new THREE.MeshLambertMaterial({map: THREE.ImageUtils.loadTexture(cornerTexture)});
+		cubes.children[0].geometry = cornerGeo;
+	}else if(currentTexture.includes("stairs")){
 		var stairTexture = currentTexture.substr(0, currentTexture.lastIndexOf("_")) + ".png";
 		currentMaterial = new THREE.MeshLambertMaterial({map: THREE.ImageUtils.loadTexture(stairTexture)});
 		cubes.children[0].geometry = stairGeo;
@@ -343,6 +363,8 @@ function changeTransparentCube(texture){
 		cubes.children[0].geometry = paneGeo;
 	}else if(currentTexture.includes("fence")){
 		cubes.children[0].geometry = fenceGeo;
+	}else if(currentTexture.includes("fencing")){
+		cubes.children[0].geometry = fencingGeo;
 	}else{
 		cubes.children[0].geometry = geometry;
 	}

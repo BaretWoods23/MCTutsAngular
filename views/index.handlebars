@@ -29,9 +29,10 @@
 <!--		</a>-->
 	{{/if}}
 	<div ng-app="myApp" ng-controller="buildsCtrl">
-		<div class="tutorials" ng-repeat="x in builds">
-			<div class="row" class="center">
-				<p>
+		<input type="text" class="searchbar" placeholder="Search" ng-model="filter">
+		<div class="tutorials" ng-repeat="x in builds | filter:filter">
+			<div class="row">
+				<p class="center">
 					<a href="tutorial/{[{$index}]}" class="tutorial">{[{ x.build_name }]}</a>
 					 by 
 					<a href="profile/{[{x.build_user}]}" class="tutorial">{[{ x.build_user }]}</a>
