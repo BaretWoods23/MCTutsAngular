@@ -4,6 +4,7 @@ var renderer, camera, scene, cube, material, controls;
 var geometry, slabGeo, stairGeo, doorGeo, paneGeo, fenceGeo, fencingGeo, cornerGeo;
 var size = 16;
 var cubes = new THREE.Object3D();
+var fencing = new THREE.Object3D();
 var cubeOpacity = 0.5;
 var canvWidth = 1000;
 var canvHeight = 800;
@@ -89,6 +90,7 @@ function initialize(){
     var transparentCube = getNewMesh(0,0,0);
     cubes.add(transparentCube);
     scene.add(cubes);
+	scene.add(fencing);
     createBoard();
 }
 
@@ -136,6 +138,22 @@ function onDocumentMouseDown(event) {
 		if(cubeArray.length > 0){
 			var cube = cubeArray[0][0];
 			if(event.button == 2){
+				var loopNum = fencing.children.length-1;
+				while(loopNum >= 0){
+					var sameYPosition = fencing.children[loopNum].position.y == cube.position.y;
+					var sameXPosition = fencing.children[loopNum].position.x == cube.position.x;
+					var sameZPosition = fencing.children[loopNum].position.z == cube.position.z;
+					if(sameYPosition && (sameXPosition || sameZPosition)){
+						var xDifference = cube.position.x - fencing.children[loopNum].position.x;
+						var closeXPosition = Math.abs(xDifference) == size/2;
+						var zDifference = cube.position.z - fencing.children[loopNum].position.z;
+						var closeZPosition = Math.abs(zDifference) == size/2;
+						if(closeXPosition ? !closeZPosition : closeZPosition){
+							fencing.remove(fencing.children[loopNum]);
+						}
+					}
+					loopNum--;
+				}
 				cubes.remove(cube);
 			}else if(event.button == 0){
 				var transparentCube = cubes.children[0];
@@ -146,11 +164,40 @@ function onDocumentMouseDown(event) {
 					var newCube = cubes.children[0].clone();
 					newCube.material = newCube.material.clone();
 					newCube.material.opacity = 1;
+					if(newCube.material.map.image.currentSrc.includes("fence")){
+						for(var i = 1; i < cubes.children.length; i++){
+							var sameYPosition = newCube.position.y == cubes.children[i].position.y;
+							var sameXPosition = newCube.position.x == cubes.children[i].position.x;
+							var sameZPosition = newCube.position.z == cubes.children[i].position.z;
+							if(sameYPosition && (sameXPosition || sameZPosition)){
+								var xDifference = newCube.position.x - cubes.children[i].position.x;
+								var closeXPosition = Math.abs(xDifference) == size;
+								var zDifference = newCube.position.z - cubes.children[i].position.z;
+								var closeZPosition = Math.abs(zDifference) == size;
+								if(closeXPosition ? !closeZPosition : closeZPosition){
+									var newFencing = new THREE.Mesh(fencingGeo, newCube.material);
+									var fencingLoc = findFencingPosition(newCube.position, cubes.children[i].position);
+									newFencing.position.set(fencingLoc.x, fencingLoc.y, fencingLoc.z);
+									newFencing.rotateY(closeZPosition ? 0 : Math.PI / 2);
+									newFencing.updateMatrix();
+									fencing.add(newFencing);
+								}
+							}
+						}
+					}
 					cubes.add(newCube);
 				}
 			}
 		}
 	}
+};
+
+function findFencingPosition(fencePosition, otherPosition){
+	var fencingPosition = {x: 0,y: 0,z: 0};
+	fencingPosition.x = (fencePosition.x+otherPosition.x)/2;
+	fencingPosition.y = fencePosition.y;
+	fencingPosition.z = (fencePosition.z+otherPosition.z)/2;
+	return fencingPosition;
 };
 
 function inBounds(x, z){
@@ -223,16 +270,12 @@ function getNewMesh(x, y, z){
 
 function createFencingGeometry(){
 	var fencingGeometry = new THREE.Geometry();
-	var fencePostMesh = new THREE.Mesh(fenceGeo);
 	var fencingPiece = new THREE.BoxGeometry(size/6.5, size/5.5, size);
 	var fencingMesh1 = new THREE.Mesh(fencingPiece);
 	var fencingMesh2 = new THREE.Mesh(fencingPiece);
 	fencingMesh1.position.y = 5;
-	fencingMesh1.position.z = size/2
 	fencingMesh1.updateMatrix();
-	fencingMesh2.position.z = size/2
 	fencingMesh2.updateMatrix();
-	fencingGeometry.merge(fencePostMesh.geometry, fencePostMesh.matrix);
 	fencingGeometry.merge(fencingMesh1.geometry, fencingMesh1.matrix);
 	fencingGeometry.merge(fencingMesh2.geometry, fencingMesh2.matrix);
 	return fencingGeometry;
@@ -286,13 +329,19 @@ function onDocumentKeyDown(event){
         if (keyCode == 65) {
             cubes.position.x -= (x * Math.cos(theta) - z * Math.sin(theta)) - camera.position.x;
             cubes.position.z -= (z * Math.cos(theta) + x * Math.sin(theta)) - camera.position.z;
+			fencing.position.x -= (x * Math.cos(theta) - z * Math.sin(theta)) - camera.position.x;
+            fencing.position.z -= (z * Math.cos(theta) + x * Math.sin(theta)) - camera.position.z;
         }else if(keyCode == 68) {
             cubes.position.x -= (x * Math.cos(theta) + z * Math.sin(theta)) - camera.position.x;
             cubes.position.z -= (z * Math.cos(theta) - x * Math.sin(theta)) - camera.position.z;
+			fencing.position.x -= (x * Math.cos(theta) + z * Math.sin(theta)) - camera.position.x;
+            fencing.position.z -= (z * Math.cos(theta) - x * Math.sin(theta)) - camera.position.z;
         }else if(keyCode == 87) {
             cubes.position.y -= (y * Math.cos(theta*2) + (y * Math.sin(theta*2)/2)) - camera.position.y;
+			fencing.position.y -= (y * Math.cos(theta*2) + (y * Math.sin(theta*2)/2)) - camera.position.y;
         }else if(keyCode == 83) {
             cubes.position.y -= (y * Math.cos(theta*2) - (y * Math.sin(theta*2)/2)) - camera.position.y;
+			fencing.position.y -= (y * Math.cos(theta*2) - (y * Math.sin(theta*2)/2)) - camera.position.y;
 		}else if(keyCode == 82){
 			var cube = cubes.children[0];
 			var oldMesh = cubes.children[0];

@@ -416,11 +416,6 @@
             "icon" : "../images/big/fence.png"
         },
 		{
-            "name" : "fencing",
-            "texture" : "../images/fencing.png",
-            "icon" : "../images/big/fencing.png"
-        },
-		{
             "name" : "planks_oak_stairs",
             "texture" : "../images/planks_oak_stairs.png",
             "icon" : "../images/big/planks_oak_stairs.png"
