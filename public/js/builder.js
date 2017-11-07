@@ -160,7 +160,7 @@ function onDocumentMouseDown(event) {
 				var x = transparentCube.position.x;
 				var y = transparentCube.position.y;
 				var z = transparentCube.position.z;
-				if(inBounds(x, z)){
+				if(inBounds(x, z) && unblocked(x,y,z)){
 					var newCube = cubes.children[0].clone();
 					newCube.material = newCube.material.clone();
 					newCube.material.opacity = 1;
@@ -191,6 +191,19 @@ function onDocumentMouseDown(event) {
 		}
 	}
 };
+
+function unblocked(x, y, z){
+	var unblocked = true;
+	for(var i = 1; i < cubes.children.length; i++){
+		var sameX = cubes.children[i].position.x == x;
+		var sameY = cubes.children[i].position.y == y;
+		var sameZ = cubes.children[i].position.z == z;
+		if(sameX && sameY && sameZ){
+			unblocked = false;
+		}
+	}
+	return unblocked;
+}
 
 function findFencingPosition(fencePosition, otherPosition){
 	var fencingPosition = {x: 0,y: 0,z: 0};
