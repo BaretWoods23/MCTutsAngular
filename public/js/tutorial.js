@@ -3,6 +3,7 @@ var app = angular.module("myApp", []);
 var renderer, camera, scene, cube, geometry, material, controls;
 var size = 16;
 var cubes = new THREE.Object3D();
+var fencing = new THREE.Object3D();
 var canvWidth = 1000;
 var canvHeight = 800;
 var rotationActivated = false;
@@ -49,6 +50,11 @@ function changeLayerVisibility(visible){
 			cubes.children[i].visible = visible;
 		}
 	}
+	for(var i = 0; i < fencing.children.length; i++){
+		if(fencing.children[i].position.y == stepIndex*size){
+			fencing.children[i].visible = visible;
+		}
+	}
 };
 
 request.onload = function(){
@@ -80,6 +86,13 @@ function initialize(){
     scene.add(light2);
 
     geometry = new THREE.BoxGeometry(size, size, size);
+	slabGeo = new THREE.BoxGeometry(size, size/2, size);
+	doorGeo = createDoorGeometry();
+	paneGeo = new THREE.BoxGeometry(size, size, size/8);
+	fenceGeo = new THREE.BoxGeometry(size/3.5, size, size/3.5);
+	fencingGeo = createFencingGeometry();
+	stairGeo = createStairGeometry();
+	cornerGeo = createCornerGeometry();
 
     window.addEventListener("resize", onWindowResize, false);
     document.addEventListener("mousemove", onmousemove, false);
@@ -87,8 +100,59 @@ function initialize(){
     document.addEventListener("mousedown", onDocumentMouseDown, false);
 
     scene.add(cubes);
+	scene.add(fencing);
     createBuild();
 };
+
+function createFencingGeometry(){
+	var fencingGeometry = new THREE.Geometry();
+	var fencingPiece = new THREE.BoxGeometry(size/6.5, size/5.5, size);
+	var fencingMesh1 = new THREE.Mesh(fencingPiece);
+	var fencingMesh2 = new THREE.Mesh(fencingPiece);
+	fencingMesh1.position.y = 5;
+	fencingMesh1.updateMatrix();
+	fencingMesh2.updateMatrix();
+	fencingGeometry.merge(fencingMesh1.geometry, fencingMesh1.matrix);
+	fencingGeometry.merge(fencingMesh2.geometry, fencingMesh2.matrix);
+	return fencingGeometry;
+}
+
+function createStairGeometry(){
+	var stairGeometry = new THREE.Geometry();	
+	var newMeshPt1 = new THREE.Mesh(slabGeo);
+	newMeshPt1.position.y = -size/4;
+	var newMeshPt2 = new THREE.Mesh(slabGeo);
+	newMeshPt2.rotation.x = Math.PI / 2;
+	newMeshPt2.position.z = -size/4;
+	newMeshPt1.updateMatrix();
+	stairGeometry.merge(newMeshPt1.geometry, newMeshPt1.matrix);
+	newMeshPt2.updateMatrix();
+	stairGeometry.merge(newMeshPt2.geometry, newMeshPt2.matrix);
+	return stairGeometry;
+}
+
+function createCornerGeometry(){
+	var cornerGeometry = new THREE.Geometry();
+	var stairMesh1 = new THREE.Mesh(createStairGeometry());
+	var stairMesh2 = new THREE.Mesh(createStairGeometry());
+	stairMesh2.rotation.z -= Math.PI / 2;
+	stairMesh2.updateMatrix();
+	cornerGeometry.merge(stairMesh1.geometry, stairMesh1.matrix);
+	cornerGeometry.merge(stairMesh2.geometry, stairMesh2.matrix);
+	return cornerGeometry;
+}
+
+function createDoorGeometry(){
+	var doorGeo = new THREE.BoxGeometry(size, size*2, size/5);
+	var doorGeometry = new THREE.Geometry();
+	var doorMesh = new THREE.Mesh(doorGeo);
+	doorMesh.position.y += size/2;
+	doorMesh.position.z -= size/2.5;
+	doorMesh.updateMatrix();
+	doorGeometry.merge(doorMesh.geometry, doorMesh.matrix);
+	return doorGeometry;
+	
+}
 
 function createBuild(){
 	for(var j = 0; j < buildData.layers.length; j++){
@@ -96,8 +160,10 @@ function createBuild(){
 			var x = buildData.layers[j][i].x;
 			var y = buildData.layers[j][i].y;
 			var z = buildData.layers[j][i].z;
+			var rotationAmount = buildData.layers[j][i].rotationAmount+1;
+			var rotation = rotationAmount * (-Math.PI/2);
 			var texture = "../" + buildData.layers[j][i].texture;
-			cubes.add(getNewMesh(x, y, z, texture));
+			cubes.add(getNewMesh(x, y, z, rotation, texture));
 		}
 	}
 };
@@ -129,15 +195,60 @@ function onWindowResize() {
     renderer.setSize(canvWidth, canvHeight);
 };
 
-function getNewMesh(x, y, z, texture){
+function getNewMesh(x, y, z, rotation, texture){
 	var material = new THREE.MeshLambertMaterial({map: THREE.ImageUtils.loadTexture(texture)});
-	material.shininess = 2;
-    var newMesh = new THREE.Mesh(geometry, material);
+	material.transparent = true;
+	var newFencing;
+	var currentGeometry;
+	if(texture.includes("corner")){
+		currentGeometry = cornerGeo;
+	}else if(texture.includes("stairs")){
+		currentGeometry = stairGeo;
+	}else if(texture.includes("door")){
+		currentGeometry = doorGeo;
+	}else if(texture.includes("pane")){
+		currentGeometry = paneGeo;
+	}else if(texture.includes("fence")){
+		currentGeometry = fenceGeo;
+		for(var i = 1; i < cubes.children.length; i++){
+			var sameYPosition = y == cubes.children[i].position.y;
+			var sameXPosition = x == cubes.children[i].position.x;
+			var sameZPosition = z == cubes.children[i].position.z;
+			if(sameYPosition && (sameXPosition || sameZPosition)){
+				var xDifference = x - cubes.children[i].position.x;
+				var closeXPosition = Math.abs(xDifference) == size;
+				var zDifference = z - cubes.children[i].position.z;
+				var closeZPosition = Math.abs(zDifference) == size;
+				if(closeXPosition ? !closeZPosition : closeZPosition){
+					newFencing = new THREE.Mesh(fencingGeo, material);
+					var fencePostPosition = {x:x,y:y,z:z};
+					var fencingLoc = findFencingPosition(fencePostPosition, cubes.children[i].position);
+					newFencing.position.set(fencingLoc.x, fencingLoc.y, fencingLoc.z);
+					newFencing.rotateY(closeZPosition ? 0 : Math.PI / 2);
+					newFencing.updateMatrix();
+					fencing.add(newFencing);
+					newFencing.visible = false;
+				}
+			}
+		}
+	}else{
+		currentGeometry = geometry;
+	}
+    var newMesh = new THREE.Mesh(currentGeometry, material);
     newMesh.position.set(x, y, z);
+	newMesh.rotation.set(0, rotation, 0);
 	if(y>0){
 		newMesh.visible = false;
 	}
     return newMesh;
+};
+
+function findFencingPosition(fencePosition, otherPosition){
+	var fencingPosition = {x: 0,y: 0,z: 0};
+	fencingPosition.x = (fencePosition.x+otherPosition.x)/2;
+	fencingPosition.y = fencePosition.y;
+	fencingPosition.z = (fencePosition.z+otherPosition.z)/2;
+	return fencingPosition;
 };
 
 function onDocumentKeyDown(event){
@@ -151,13 +262,19 @@ function onDocumentKeyDown(event){
         if (keyCode == 37 || keyCode == 65) {
             cubes.position.x -= (x * Math.cos(theta) - z * Math.sin(theta)) - camera.position.x;
             cubes.position.z -= (z * Math.cos(theta) + x * Math.sin(theta)) - camera.position.z;
+			fencing.position.x -= (x * Math.cos(theta) - z * Math.sin(theta)) - camera.position.x;
+            fencing.position.z -= (z * Math.cos(theta) + x * Math.sin(theta)) - camera.position.z;
         }else if(keyCode == 39 || keyCode == 68) {
             cubes.position.x -= (x * Math.cos(theta) + z * Math.sin(theta)) - camera.position.x;
             cubes.position.z -= (z * Math.cos(theta) - x * Math.sin(theta)) - camera.position.z;
+			fencing.position.x -= (x * Math.cos(theta) + z * Math.sin(theta)) - camera.position.x;
+            fencing.position.z -= (z * Math.cos(theta) - x * Math.sin(theta)) - camera.position.z;
         }else if(keyCode == 38 || keyCode == 87) {
             cubes.position.y -= (y * Math.cos(theta*2) + (y * Math.sin(theta*2)/2)) - camera.position.y;
+			fencing.position.y -= (y * Math.cos(theta*2) + (y * Math.sin(theta*2)/2)) - camera.position.y;
         }else if(keyCode == 40 || keyCode == 83) {
             cubes.position.y -= (y * Math.cos(theta*2) - (y * Math.sin(theta*2)/2)) - camera.position.y;
+			fencing.position.y -= (y * Math.cos(theta*2) - (y * Math.sin(theta*2)/2)) - camera.position.y;
         }else if(keyCode == 187){
             camera.zoom += zoom;
             camera.updateProjectionMatrix();

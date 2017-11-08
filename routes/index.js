@@ -10,8 +10,36 @@ router.get("/index", function(req, res){
 	res.render("index");
 });
 
+router.get("/delete/:buildID", function(req,res){
+	fs.readFile('public/json/builds.json', 'utf8', function (err, data) {
+		if (err){
+			return console.log(err);
+		}
+		var data = JSON.parse(data);
+		console.log(data.builds);
+		var newBuilds = [];
+		for(var i = 0; i < data.builds.length; i++){
+			if(i != req.params.buildID){
+				newBuilds.push(data.builds[i]);
+			}
+		}
+		data.builds = newBuilds;
+		var stringifiedData = JSON.stringify(data);
+		fs.writeFile("public/json/builds.json", stringifiedData, function(err, stringifiedData){
+			if(err){
+				return console.log(err);
+			}
+		});
+	});
+	res.render("delete");
+});
+
 router.get("/tutorial/:buildID", function(req,res){
 	res.render("tutorial");
+});
+
+router.get("/editer/:buildID", function(req,res){
+	res.render("editer");
 });
 
 router.get("/profile/:username", function(req,res){
@@ -26,7 +54,7 @@ router.get("/builder", ensureAuthenticated, function(req, res){
 //	res.render(req.params.viewname);
 //});
 
-router.post("/", function(req, res){
+router.post("/index", function(req, res){
 	fs.readFile('public/json/builds.json', 'utf8', function (err, data) {
 		if (err){
 			return console.log(err);
@@ -35,7 +63,6 @@ router.post("/", function(req, res){
 		var jsonBuild = req.body;
 		data.builds.unshift(jsonBuild);
 		var stringifiedData = JSON.stringify(data);
-		console.log(stringifiedData);
 		fs.writeFile("public/json/builds.json", stringifiedData, function(err, stringifiedData){
 			if(err){
 				return console.log(err);
@@ -44,9 +71,46 @@ router.post("/", function(req, res){
 	});
 });
 
-router.post("/builder", function(req, res, next){
-	console.log("BLOOP");
+router.post("/edited/:buildID", function(req, res){
+	fs.readFile('public/json/builds.json', 'utf8', function (err, data) {
+		if (err){
+			return console.log(err);
+		}
+		var data = JSON.parse(data);
+		var newBuilds = [];
+		for(var i = 0; i < data.builds.length; i++){
+			if(i != req.params.buildID){
+				newBuilds.push(data.builds[i]);
+			}
+		}
+		data.builds = newBuilds;
+		var jsonBuild = req.body;
+		data.builds.unshift(jsonBuild);
+		var stringifiedData = JSON.stringify(data);
+		fs.writeFile("public/json/builds.json", stringifiedData, function(err, stringifiedData){
+			if(err){
+				return console.log(err);
+			}
+		});
+	});
 });
+
+//router.get("added", function(req, res){
+//	fs.readFile('public/json/builds.json', 'utf8', function (err, data) {
+//		if (err){
+//			return console.log(err);
+//		}
+//		var data = JSON.parse(data);
+//		var jsonBuild = req.body;
+//		data.builds.unshift(jsonBuild);
+//		var stringifiedData = JSON.stringify(data);
+//		fs.writeFile("public/json/builds.json", stringifiedData, function(err, stringifiedData){
+//			if(err){
+//				return console.log(err);
+//			}
+//		});
+//	});
+//});
 
 function ensureAuthenticated(req, res, next){
 	if(req.isAuthenticated()){

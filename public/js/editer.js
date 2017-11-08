@@ -13,12 +13,17 @@ var cursorX = 500;
 var cursorY = 500;
 var rotatingRight = false;
 var currentMaterial;
-var currentTexture = "../images/big/grass_top.png";
-var defaultTexture = "../images/grass_top.png";
+var currentTexture = "../../images/big/grass_top.png";
+var defaultTexture = "../../images/grass_top.png";
 var locked = false;
 var heightOffset = 106;
 var widthOffset = 0;
 var boardWidth, boardLength;
+var requestURL = "../../json/builds.json"
+var request = new XMLHttpRequest();
+var buildData;
+var stepIndex = 0;
+var buildID;
 
 app.config(function($interpolateProvider) {
   $interpolateProvider.startSymbol('{[{');
@@ -26,7 +31,7 @@ app.config(function($interpolateProvider) {
 });
 
 app.service("blockService", function($http){
-    path = "../json/blocks.json";
+    path = "../../json/blocks.json";
     this.getData = function(){
         return $http.get(path)
         .then(function(response){
@@ -43,16 +48,10 @@ app.controller("blocksCtrl", function($scope, blockService) {
     })
 });
 
-initialize();
-render();
 
 function initialize(){
-	var url = window.location.href;
-	var params = url.split("&");
-	boardWidth = params[0].substr(params[0].indexOf("=")+1);
-	boardLength = params[1].substr(params[1].indexOf("=")+1);
-	baseBlock = params[2].substr(params[2].indexOf("=")+1);
-	defaultTexture = "../images/" + baseBlock + ".png"
+	boardWidth = 25;
+	boardLength = 25;
 	
     renderer = new THREE.WebGLRenderer({canvas: document.getElementById("myCanvas"), antialias: true});
     renderer.setClearColor(0x9FD6D9);
@@ -95,12 +94,69 @@ function initialize(){
 }
 
 function createBoard(){
-    for(var i = -boardWidth/2; i < boardWidth/2; i++){
-        for(var j = -boardLength/2; j < boardLength/2; j++){
-            cubes.add(getNewMesh(size*i, 0, size*j));
-        }
-    }
-}
+    for(var j = 0; j < buildData.layers.length; j++){
+		for(var i = 0; i < buildData.layers[j].length; i++){
+			var x = buildData.layers[j][i].x;
+			var y = buildData.layers[j][i].y;
+			var z = buildData.layers[j][i].z;
+			var rotationAmount = buildData.layers[j][i].rotationAmount+1;
+			var rotation = rotationAmount * (-Math.PI/2);
+			var texture = "../" + buildData.layers[j][i].texture;
+			cubes.add(getNewMeshForBoard(x, y, z, rotationAmount-1, rotation, texture));
+		}
+	}
+};
+
+function getNewMeshForBoard(x, y, z, rotationAmount, rotation, texture){
+	var material = new THREE.MeshLambertMaterial({map: THREE.ImageUtils.loadTexture(texture)});
+	material.transparent = true;
+	var newFencing;
+	var currentGeometry;
+	if(texture.includes("corner")){
+		currentGeometry = cornerGeo;
+	}else if(texture.includes("stairs")){
+		currentGeometry = stairGeo;
+	}else if(texture.includes("door")){
+		currentGeometry = doorGeo;
+	}else if(texture.includes("pane")){
+		currentGeometry = paneGeo;
+	}else if(texture.includes("fence")){
+		currentGeometry = fenceGeo;
+		for(var i = 1; i < cubes.children.length; i++){
+			var sameYPosition = y == cubes.children[i].position.y;
+			var sameXPosition = x == cubes.children[i].position.x;
+			var sameZPosition = z == cubes.children[i].position.z;
+			if(sameYPosition && (sameXPosition || sameZPosition)){
+				var xDifference = x - cubes.children[i].position.x;
+				var closeXPosition = Math.abs(xDifference) == size;
+				var zDifference = z - cubes.children[i].position.z;
+				var closeZPosition = Math.abs(zDifference) == size;
+				if(closeXPosition ? !closeZPosition : closeZPosition){
+					newFencing = new THREE.Mesh(fencingGeo, material);
+					var fencePostPosition = {x:x,y:y,z:z};
+					var fencingLoc = findFencingPosition(fencePostPosition, cubes.children[i].position);
+					newFencing.position.set(fencingLoc.x, fencingLoc.y, fencingLoc.z);
+					newFencing.rotateY(closeZPosition ? 0 : Math.PI / 2);
+					newFencing.updateMatrix();
+					fencing.add(newFencing);
+				}
+			}
+		}
+	}else{
+		currentGeometry = geometry;
+	}
+	var oldMesh = new THREE.Mesh(currentGeometry, material);
+	var position = cubes.children[0].position;
+	oldMesh.rotation.set(0,rotation,0);
+	oldMesh.updateMatrix();
+	var newGeo = new THREE.Geometry();
+	newGeo.merge(oldMesh.geometry, oldMesh.matrix);
+	var newMesh = new THREE.Mesh(newGeo, material);
+	newMesh.position.set(x, y, z);
+	newMesh.name = rotationAmount;
+	return newMesh;
+	
+};
 
 function render(){
     requestAnimationFrame(render);
@@ -426,10 +482,23 @@ function changeTransparentCube(texture){
 		cubes.children[0].geometry = geometry;
 	}
 	cubes.children[0].material = currentMaterial;
+	cubes.children[0].name = "";
 }
 
 window.onload = function(){
-    var icons = document.getElementsByClassName("texture");
+	request.open("GET", requestURL);
+	request.responseType = "json";
+	request.send();
+};
+
+request.onload = function(){
+	var data = request.response;
+	var url = window.location.pathname;
+	buildID = url.substr(url.lastIndexOf("/")+1);
+	buildData = data.builds[buildID];
+	initialize();
+	render();
+	var icons = document.getElementsByClassName("texture");
     for(var i = 0; i < icons.length; i++){
         icons[i].addEventListener("click", function(){
 			if(this.childNodes[1].id.length > 0){
@@ -445,7 +514,7 @@ window.onload = function(){
 	for(var i = 0; i < palette.length; i++){
 		palette[i].addEventListener("contextmenu", function(){
 			this.childNodes[1].removeAttribute("id");
-			this.childNodes[1].src = "../images/big/transparent.png";
+			this.childNodes[1].src = "../../images/big/transparent.png";
 			this.childNodes[1].removeAttribute("title");
 		});
 		palette[i].addEventListener("click", function(){
@@ -460,7 +529,7 @@ window.onload = function(){
 			}
 		});
 	};
-};
+}
 
 function submit(){
 	locked = true;
@@ -488,7 +557,7 @@ function getSortedCubeArray(){
 function writeToJSONFile(){
 	var xhr = new XMLHttpRequest();
 	xhr.withCredentials = true;
-	xhr.open("POST", "/index");
+	xhr.open("POST", "/edited/"+buildID);
 	xhr.setRequestHeader("content-type", "application/json;charset=UTF-8");
 	var jsonObject = getLayeredJSONObject();
 	xhr.send(JSON.stringify(jsonObject));
@@ -521,7 +590,6 @@ function getLayeredJSONObject(){
 			"rotationAmount" : cubeArray[i].name,
 			"texture" : texture
 		});
-		console.log(cubeArray[i].name);
 	};
 	return finishedObject;
 }

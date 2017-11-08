@@ -29,7 +29,7 @@ app.controller("buildsCtrl", function($scope, buildsService) {
     })
 });
 
-window.onload = function(){
+window.onloadstart = function(){
 	loadData();
 };
 

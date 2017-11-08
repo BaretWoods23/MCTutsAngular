@@ -6,9 +6,12 @@
 			<div class="row">
 				<p class="center">
 					<a href="tutorial/{[{$index}]}" class="tutorial">{[{ x.build_name }]}</a>
-					 by 
-					<a href="profile/{[{x.build_user}]}" class="tutorial">{[{ x.build_user }]}</a>
+					 by {[{ x.build_user }]}
 				</p>
+				{{#if user}}
+					<a href="../editer/{[{$index}]}"><button class="edit">edit</button></a>
+					<a href="../delete/{[{$index}]}"><button class="delete">x</button></a>
+				{{/if}}
 			</div>
 		</div>
 	</div>

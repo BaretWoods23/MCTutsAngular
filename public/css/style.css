@@ -83,6 +83,14 @@ body{
 	width: 38px;
 }
 
+.delete{
+	padding: 5px;
+}
+
+.edit{
+	padding: 5px;
+}
+
 .tutorials{
 	background-color: white;
 	padding: 0px;
