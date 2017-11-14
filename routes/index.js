@@ -2,36 +2,31 @@ var express = require("express");
 var router = express.Router();
 var fs = require("fs");
 
+var Build = require("../models/build");
+
 router.get("/", function(req, res){
 	res.render("index");
 });
 
-router.get("/index", function(req, res){
-	res.render("index");
+router.get("/buildData", function(req, res){
+	Build.returnAllBuilds(function(err, build){
+		if(err) throw err;
+		else res.json(build);
+	});
+});
+
+router.get("/buildData/:buildID", function(req, res){
+	Build.getBuildById(req.params.buildID, function(err, build){
+		if(err) throw err;
+		else res.json(build);
+	});
 });
 
 router.get("/delete/:buildID", function(req,res){
-	fs.readFile('public/json/builds.json', 'utf8', function (err, data) {
-		if (err){
-			return console.log(err);
-		}
-		var data = JSON.parse(data);
-		console.log(data.builds);
-		var newBuilds = [];
-		for(var i = 0; i < data.builds.length; i++){
-			if(i != req.params.buildID){
-				newBuilds.push(data.builds[i]);
-			}
-		}
-		data.builds = newBuilds;
-		var stringifiedData = JSON.stringify(data);
-		fs.writeFile("public/json/builds.json", stringifiedData, function(err, stringifiedData){
-			if(err){
-				return console.log(err);
-			}
-		});
+	Build.deleteById(req.params.buildID, function(err){
+		if(err) throw err;
+		res.render("delete");
 	});
-	res.render("delete");
 });
 
 router.get("/tutorial/:buildID", function(req,res){
@@ -43,74 +38,44 @@ router.get("/editer/:buildID", function(req,res){
 });
 
 router.get("/profile/:username", function(req,res){
-	res.render("profile");
+	var username = req.params.username;
+	res.render("profile", {
+		helpers: {
+			if_equal: function(a, opts) {
+				if (a == username) {
+					return opts.fn(this)
+				} else {
+					return opts.inverse(this)
+				}
+        	}
+		}
+	});
 });
 
 router.get("/builder", ensureAuthenticated, function(req, res){
 	res.render("builder");
 });
 
-//router.get("/:viewname", function(req, res){
-//	res.render(req.params.viewname);
-//});
-
 router.post("/index", function(req, res){
-	fs.readFile('public/json/builds.json', 'utf8', function (err, data) {
-		if (err){
-			return console.log(err);
-		}
-		var data = JSON.parse(data);
-		var jsonBuild = req.body;
-		data.builds.unshift(jsonBuild);
-		var stringifiedData = JSON.stringify(data);
-		fs.writeFile("public/json/builds.json", stringifiedData, function(err, stringifiedData){
-			if(err){
-				return console.log(err);
-			}
-		});
+	var jsonBuild = req.body;
+	Build.createBuild(jsonBuild, function(err, build){
+		if(err) throw err;
 	});
 });
+
 
 router.post("/edited/:buildID", function(req, res){
-	fs.readFile('public/json/builds.json', 'utf8', function (err, data) {
-		if (err){
-			return console.log(err);
-		}
-		var data = JSON.parse(data);
-		var newBuilds = [];
-		for(var i = 0; i < data.builds.length; i++){
-			if(i != req.params.buildID){
-				newBuilds.push(data.builds[i]);
-			}
-		}
-		data.builds = newBuilds;
-		var jsonBuild = req.body;
-		data.builds.unshift(jsonBuild);
-		var stringifiedData = JSON.stringify(data);
-		fs.writeFile("public/json/builds.json", stringifiedData, function(err, stringifiedData){
-			if(err){
-				return console.log(err);
-			}
-		});
+	console.log("CHECK");
+	var jsonBuild = req.body;
+	console.log(req.params.buildID);
+	Build.createBuild(jsonBuild, function(err, build){
+		if(err) throw err;
+	});
+	Build.deleteById(req.params.buildID, function(err){
+		if(err) throw err;
 	});
 });
 
-//router.get("added", function(req, res){
-//	fs.readFile('public/json/builds.json', 'utf8', function (err, data) {
-//		if (err){
-//			return console.log(err);
-//		}
-//		var data = JSON.parse(data);
-//		var jsonBuild = req.body;
-//		data.builds.unshift(jsonBuild);
-//		var stringifiedData = JSON.stringify(data);
-//		fs.writeFile("public/json/builds.json", stringifiedData, function(err, stringifiedData){
-//			if(err){
-//				return console.log(err);
-//			}
-//		});
-//	});
-//});
 
 function ensureAuthenticated(req, res, next){
 	if(req.isAuthenticated()){

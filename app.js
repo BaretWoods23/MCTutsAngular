@@ -15,11 +15,23 @@ var db = mongoose.connection;
 
 var routes = require("./routes/index");
 var users = require("./routes/users");
+var builds = require("./routes/builds");
 
 var app = express();
 app.set("views", path.join(__dirname, "views"));
-app.engine("handlebars", expressHandlebars({defaultLayout:"layout"}));
-app.set("view engine", "handlebars");
+var handlebars = expressHandlebars.create({
+    helpers: {
+        if_equal: function(a, opts) {
+				if (a == username) {
+					return opts.fn(this)
+				} else {
+					return opts.inverse(this)
+				}
+        	}
+    }
+});
+app.engine(".handlebars", expressHandlebars({defaultLayout:"layout"},{extname: ".handlebars"}));
+app.set("view engine", ".handlebars");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:false}));
@@ -64,6 +76,7 @@ app.use(function(req,res,next){
 
 app.use("/", routes);
 app.use("/users", users);
+app.use("/builds", builds);
 
 app.set("port", (process.env.PORT || 3000));
 

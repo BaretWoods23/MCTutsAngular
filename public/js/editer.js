@@ -19,7 +19,6 @@ var locked = false;
 var heightOffset = 106;
 var widthOffset = 0;
 var boardWidth, boardLength;
-var requestURL = "../../json/builds.json"
 var request = new XMLHttpRequest();
 var buildData;
 var stepIndex = 0;
@@ -45,6 +44,7 @@ app.controller("blocksCtrl", function($scope, blockService) {
     blockService.getData()
     .then(function(blocks){
         $scope.blocks = blocks.blocks;
+		$scope.buildID = buildID;
     })
 });
 
@@ -99,7 +99,9 @@ function createBoard(){
 			var x = buildData.layers[j][i].x;
 			var y = buildData.layers[j][i].y;
 			var z = buildData.layers[j][i].z;
-			var rotationAmount = buildData.layers[j][i].rotationAmount+1;
+			var rotateDefault = buildData.layers[j][i].rotationAmount === "";
+			var rotationAmount = rotateDefault? 0:buildData.layers[j][i].rotationAmount+1;
+			//var rotationAmount = buildData.layers[j][i].rotationAmount+1;
 			var rotation = rotationAmount * (-Math.PI/2);
 			var texture = "../" + buildData.layers[j][i].texture;
 			cubes.add(getNewMeshForBoard(x, y, z, rotationAmount-1, rotation, texture));
@@ -486,16 +488,16 @@ function changeTransparentCube(texture){
 }
 
 window.onload = function(){
+	var url = window.location.pathname;
+	buildID = url.substr(url.lastIndexOf("/")+1);
+	var requestURL = "../../buildData/" + buildID;
 	request.open("GET", requestURL);
 	request.responseType = "json";
 	request.send();
 };
 
 request.onload = function(){
-	var data = request.response;
-	var url = window.location.pathname;
-	buildID = url.substr(url.lastIndexOf("/")+1);
-	buildData = data.builds[buildID];
+	buildData = request.response;
 	initialize();
 	render();
 	var icons = document.getElementsByClassName("texture");

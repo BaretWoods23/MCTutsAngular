@@ -521,7 +521,6 @@ function getLayeredJSONObject(){
 			"rotationAmount" : cubeArray[i].name,
 			"texture" : texture
 		});
-		console.log(cubeArray[i].name);
 	};
 	return finishedObject;
 }

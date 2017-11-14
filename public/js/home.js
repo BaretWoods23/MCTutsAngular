@@ -4,17 +4,19 @@ var request = new XMLHttpRequest();
 var buildData;
 
 app.config(function($interpolateProvider) {
-  $interpolateProvider.startSymbol('{[{');
-  $interpolateProvider.endSymbol('}]}');
+  $interpolateProvider.startSymbol('(');
+  $interpolateProvider.endSymbol(')');
 });
 
 app.service("buildsService", function($http){
-    path = "../json/builds.json";
+    path = "../buildData";
+	//path = "../json/builds.json";
     this.getData = function(){
         return $http.get(path)
         .then(function(response){
             this.builds = response.data;
-            return this.builds.builds;
+            return this.builds;
+			//return this.builds.builds
         });
     };
 });

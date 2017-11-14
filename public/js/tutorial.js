@@ -10,7 +10,6 @@ var rotationActivated = false;
 var cursorX = 500;
 var cursorY = 500;
 var rotatingRight = false;
-var requestURL = "../../json/builds.json"
 var request = new XMLHttpRequest();
 var buildData;
 var stepIndex = 0;
@@ -21,6 +20,9 @@ app.config(function($interpolateProvider) {
 });
 
 window.onload = function(){
+	var url = window.location.pathname;
+	var buildID = url.substr(url.lastIndexOf("/")+1);
+	var requestURL = "../../buildData/" + buildID;
 	request.open("GET", requestURL);
 	request.responseType = "json";
 	request.send();
@@ -58,10 +60,10 @@ function changeLayerVisibility(visible){
 };
 
 request.onload = function(){
-	var data = request.response;
-	var url = window.location.pathname;
-	var buildID = url.substr(url.lastIndexOf("/")+1);
-	buildData = data.builds[buildID];
+	buildData = request.response;
+	//var url = window.location.pathname;
+//	var buildID = url.substr(url.lastIndexOf("/")+1);
+//	buildData = data.builds[buildID];
 	initialize();
 	render();
 }
@@ -160,7 +162,8 @@ function createBuild(){
 			var x = buildData.layers[j][i].x;
 			var y = buildData.layers[j][i].y;
 			var z = buildData.layers[j][i].z;
-			var rotationAmount = buildData.layers[j][i].rotationAmount+1;
+			var rotateDefault = buildData.layers[j][i].rotationAmount === "";
+			var rotationAmount = rotateDefault? 0:buildData.layers[j][i].rotationAmount+1;
 			var rotation = rotationAmount * (-Math.PI/2);
 			var texture = "../" + buildData.layers[j][i].texture;
 			cubes.add(getNewMesh(x, y, z, rotation, texture));
