@@ -12,7 +12,7 @@ var cursorY = 500;
 var rotatingRight = false;
 var request = new XMLHttpRequest();
 var buildData, layerData;
-var stepIndex = 0;
+var stepIndex = 0, layerIndex = 0;
 
 app.config(function($interpolateProvider) {
   $interpolateProvider.startSymbol('{[{');
@@ -30,6 +30,7 @@ window.onload = function(){
 	var prevButton = document.getElementById("previous");
 	nextButton.addEventListener("click", function(){
 		stepIndex++;
+		layerIndex++;
 		if(stepIndex == buildData.layers.length-1){
 			this.disabled = true;
 		}
@@ -38,6 +39,7 @@ window.onload = function(){
     });
 	prevButton.addEventListener("click", function(){
 		nextButton.disabled = false;
+		layerIndex--;
 		changeLayerVisibility(false);
 		stepIndex--;
 		if(stepIndex == 0){
@@ -47,6 +49,14 @@ window.onload = function(){
 };
 
 function changeLayerVisibility(visible){
+	
+	var layers = document.getElementsByClassName("layer");
+	console.log(layers.length);
+	for(var i = 0; i < layers.length; i++){
+		layers[i].style.display = "none";
+		layers[layerIndex].style.display = "block";
+	};
+	
 	for(var i = 0; i < cubes.children.length; i++){
 		if(cubes.children[i].position.y == stepIndex*size){
 			cubes.children[i].visible = visible;
@@ -63,7 +73,6 @@ request.onload = function(){
 	buildData = request.response;
 	layerData = createLayerData(buildData);
 	generateLayers();
-	//console.log(layerData);
 	initialize();
 	render();
 }
@@ -95,7 +104,10 @@ function generateLayers(){
 	var element = document.getElementById("generateLayers");
 	for(var i = 0; i < layerData.length; i++){
 		var generatedLayer = document.createElement("div");
-		generatedLayer.class = "layer";
+		generatedLayer.classList.add("layer");
+		if(i > 0){
+			generatedLayer.style.display = "none";
+		}
 		for(var j = 0; j < layerData[i].length; j++){
 			var texture = document.createElement("button");
 			var texturePicture = document.createElement("img");
