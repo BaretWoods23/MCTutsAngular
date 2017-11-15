@@ -164,6 +164,7 @@ function createBuild(){
 			var z = buildData.layers[j][i].z;
 			var rotateDefault = buildData.layers[j][i].rotationAmount === "";
 			var rotationAmount = rotateDefault? 0:buildData.layers[j][i].rotationAmount+1;
+		//	var rotationAmount = buildData.layers[j][i].rotationAmount+1;
 			var rotation = rotationAmount * (-Math.PI/2);
 			var texture = "../" + buildData.layers[j][i].texture;
 			cubes.add(getNewMesh(x, y, z, rotation, texture));

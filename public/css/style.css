@@ -91,13 +91,24 @@ body{
 	padding: 5px;
 }
 
+#screenshot{
+	width: 30%;
+	height: auto;
+	margin-top: 20px;
+}
+
 .tutorials{
 	background-color: white;
 	padding: 0px;
-	margin: 0 auto;
-	width: 40%;
 	text-align: center; 
 	border: 1px solid darkseagreen;
+}
+
+.tutorialbox{
+	height: 500px;
+	overflow-y: auto;
+	margin: 20px auto;
+	width: 40%;
 }
 
 .center{

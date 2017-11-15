@@ -65,9 +65,7 @@ router.post("/index", function(req, res){
 
 
 router.post("/edited/:buildID", function(req, res){
-	console.log("CHECK");
 	var jsonBuild = req.body;
-	console.log(req.params.buildID);
 	Build.createBuild(jsonBuild, function(err, build){
 		if(err) throw err;
 	});

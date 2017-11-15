@@ -10,13 +10,11 @@ app.config(function($interpolateProvider) {
 
 app.service("buildsService", function($http){
     path = "../buildData";
-	//path = "../json/builds.json";
     this.getData = function(){
         return $http.get(path)
         .then(function(response){
             this.builds = response.data;
             return this.builds;
-			//return this.builds.builds
         });
     };
 });

@@ -19,6 +19,7 @@ var locked = false;
 var heightOffset = 106;
 var widthOffset = 0;
 var boardWidth, boardLength;
+var imgsrc = "";
 
 app.config(function($interpolateProvider) {
   $interpolateProvider.startSymbol('{[{');
@@ -54,7 +55,7 @@ function initialize(){
 	baseBlock = params[2].substr(params[2].indexOf("=")+1);
 	defaultTexture = "../images/" + baseBlock + ".png"
 	
-    renderer = new THREE.WebGLRenderer({canvas: document.getElementById("myCanvas"), antialias: true});
+    renderer = new THREE.WebGLRenderer({canvas: document.getElementById("myCanvas"), antialias: true, preserveDrawingBuffer : true});
     renderer.setClearColor(0x9FD6D9);
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(canvWidth, canvHeight);
@@ -426,6 +427,7 @@ function changeTransparentCube(texture){
 		cubes.children[0].geometry = geometry;
 	}
 	cubes.children[0].material = currentMaterial;
+	cubes.children[0].name = "";
 }
 
 window.onload = function(){
@@ -465,6 +467,10 @@ window.onload = function(){
 function submit(){
 	locked = true;
 	controls.enabled = false;
+	imgsrc = renderer.domElement.toDataURL();
+	//imgsrc = "../images/big/grass_top.png";
+	var img = document.getElementById("screenshot")
+	img.src = imgsrc;
 }
 
 function upload(){
@@ -503,6 +509,7 @@ function getLayeredJSONObject(){
 		"build_user": buildUser,
 		"build_width": boardWidth,
 		"build_length": boardLength,
+		"screenshot": imgsrc,
 		"layers":[]
 	};
 	var currentLayer = 0;

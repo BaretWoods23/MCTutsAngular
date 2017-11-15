@@ -2,16 +2,19 @@
 <div ng-app="myApp" ng-controller="buildsCtrl" class="box">
 		<h2 id="profile-header">(username)'s Builds: </h2>
 		<input type="text" class="searchbar" placeholder="Search" ng-model="filter">
-		<div class="tutorials" ng-repeat="x in builds  = (builds | filter:{ build_user: username}) | filter:filter | orderBy:'-'">
-			<div class="row">
-				<p class="center">
-					<a href="../tutorial/(x._id)" class="tutorial">( x.build_name )</a>
-					 by ( x.build_user )
-				</p>
-				{{#if user }}
-					<a href="../editer/(x._id)" id="show"><button class="edit">edit</button></a>
-					<a href="../delete/(x._id)" id="show"><button class="delete">x</button></a>
-				{{/if}}
+		<div class="tutorialbox">
+			<div class="tutorials" ng-repeat="x in builds  = (builds | filter:{ build_user: username}) | filter:filter | orderBy:'-'">
+				<img id="screenshot" src="(x.screenshot)">
+				<div class="row">
+					<p class="center">
+						<a href="../tutorial/(x._id)" class="tutorial">( x.build_name )</a>
+						 by ( x.build_user )
+					</p>
+					{{#if user }}
+						<a href="../editer/(x._id)" id="show"><button class="edit">edit</button></a>
+						<a href="../delete/(x._id)" id="show"><button class="delete">x</button></a>
+					{{/if}}
+				</div>
 			</div>
 		</div>
 	</div>

@@ -50,8 +50,8 @@ app.controller("blocksCtrl", function($scope, blockService) {
 
 
 function initialize(){
-	boardWidth = 25;
-	boardLength = 25;
+	boardWidth = buildData.build_width;
+	boardLength = buildData.build_length;
 	
     renderer = new THREE.WebGLRenderer({canvas: document.getElementById("myCanvas"), antialias: true});
     renderer.setClearColor(0x9FD6D9);

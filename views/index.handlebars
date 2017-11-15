@@ -30,12 +30,15 @@
 	{{/if}}
 	<div ng-app="myApp" ng-controller="buildsCtrl">
 		<input type="text" class="searchbar" placeholder="Search" ng-model="filter">
-		<div class="tutorials" ng-repeat="x in builds | filter:filter | orderBy:'-'">
-			<div class="row">
-				<p class="center">
-					<a href="tutorial/(x._id)" class="tutorial">( x.build_name )</a>
-					by ( x.build_user )
-				</p>
+		<div class="tutorialbox">
+			<div class="tutorials" ng-repeat="x in builds | filter:filter | orderBy:'-'">
+				<img id="screenshot" src="(x.screenshot)">
+				<div class="row">
+					<p class="center">
+						<a href="tutorial/(x._id)" class="tutorial">( x.build_name )</a>
+						by ( x.build_user )
+					</p>
+				</div>
 			</div>
 		</div>
 	</div>
