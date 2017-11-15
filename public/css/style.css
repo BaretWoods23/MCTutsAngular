@@ -30,7 +30,7 @@ body{
     height: 800px;
     width: 235px;
     background-color: darkseagreen;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .column{

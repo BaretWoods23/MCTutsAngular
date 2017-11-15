@@ -11,7 +11,7 @@ var cursorX = 500;
 var cursorY = 500;
 var rotatingRight = false;
 var request = new XMLHttpRequest();
-var buildData;
+var buildData, layerData;
 var stepIndex = 0;
 
 app.config(function($interpolateProvider) {
@@ -61,12 +61,57 @@ function changeLayerVisibility(visible){
 
 request.onload = function(){
 	buildData = request.response;
-	//var url = window.location.pathname;
-//	var buildID = url.substr(url.lastIndexOf("/")+1);
-//	buildData = data.builds[buildID];
+	layerData = createLayerData(buildData);
+	generateLayers();
+	//console.log(layerData);
 	initialize();
 	render();
 }
+
+function createLayerData(buildData){
+	var layers = [];
+	for(var i = 0; i < buildData.layers.length; i++){
+		var layer = [];
+		for(var j = 0; j < buildData.layers[i].length; j++){
+			var containsTexture = {index:0, boolean:false};
+			for(var z = 0; z < layer.length; z++){
+				if(layer[z].texture.includes(buildData.layers[i][j].texture)){
+					containsTexture.boolean = true;
+					containsTexture.index = z;
+				}
+			}
+			if(containsTexture.boolean){
+				layer[containsTexture.index].amount+=1;
+			}else{
+				layer.push({texture: buildData.layers[i][j].texture, amount: 1})
+			}
+		}
+		layers.push(layer);
+	}
+	return layers;
+};
+
+function generateLayers(){
+	var element = document.getElementById("generateLayers");
+	for(var i = 0; i < layerData.length; i++){
+		var generatedLayer = document.createElement("div");
+		generatedLayer.class = "layer";
+		for(var j = 0; j < layerData[i].length; j++){
+			var texture = document.createElement("button");
+			var texturePicture = document.createElement("img");
+			texture.disabled = true;
+			texturePicture.class = "texture-picture";
+			texturePicture.src = "../images/big/" 
+				+ layerData[i][j].texture.substr(layerData[i][j].texture.lastIndexOf("/")+1);
+			var textureAmount = document.createElement("h2");
+			textureAmount.innerHTML = layerData[i][j].amount;
+			generatedLayer.appendChild(texture);
+			texture.appendChild(texturePicture);
+			texture.appendChild(textureAmount);
+		}
+		element.appendChild(generatedLayer);
+	}
+};
 
 function initialize(){
     renderer = new THREE.WebGLRenderer({canvas: document.getElementById("myCanvas"), antialias: true});

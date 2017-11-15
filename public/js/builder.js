@@ -533,6 +533,8 @@ function getLayeredJSONObject(){
 }
 
 var modal = document.getElementById("submit-modal");
+var bloop = document.getElementsByClassName("texture");
+bloop.style.display = "none";
 
 if(document.body.contains(modal)){
     var btn = document.getElementById("submit"),
