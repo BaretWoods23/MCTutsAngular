@@ -4,6 +4,7 @@
 			<canvas id="myCanvas"></canvas>
 			<div class="inventory">
 				<div class="inventory-container">
+					<p class="required-blocks">Required Blocks:</p><br>
 					<div class="inventory-blocks" ng-repeat="x in blocks">
 						<div id="generateLayers"></div>
 				</div>
@@ -11,6 +12,7 @@
 		</div>
 	</div>
 	<div class="row buttons">
+		<p id="step">Step 0</p>
 		<button id="previous" disabled="true">Previous</button>
 		<button id="next">Next</button>
 	</div>

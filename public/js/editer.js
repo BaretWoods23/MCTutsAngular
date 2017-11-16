@@ -173,9 +173,9 @@ function onDocumentMouseDown(event) {
     var length = cubes.children.length;
     if(event.button == 1){
         rotationActivated = true;
-        if(cursorX > canvWidth/2){
+        if(cursorX-widthOffset > canvWidth/2){
             rotatingRight = true;
-        }else if(cursorX < canvWidth/2){
+        }else if(cursorX-widthOffset < canvWidth/2){
             rotatingRight = false;
         }
     }else if(cursorX < canvWidth  + widthOffset && cursorY < canvHeight + heightOffset && cursorY > heightOffset && !locked){
@@ -578,6 +578,7 @@ function getLayeredJSONObject(){
 		"build_user": buildUser,
 		"build_width": boardWidth,
 		"build_length": boardLength,
+		"screenshot": imgsrc,
 		"layers":[]
 	};
 	var currentLayer = 0;

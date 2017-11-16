@@ -13,6 +13,8 @@ var rotatingRight = false;
 var request = new XMLHttpRequest();
 var buildData, layerData;
 var stepIndex = 0, layerIndex = 0;
+var heightOffset = 155;
+var widthOffset = 340;
 
 app.config(function($interpolateProvider) {
   $interpolateProvider.startSymbol('{[{');
@@ -51,6 +53,8 @@ window.onload = function(){
 function changeLayerVisibility(visible){
 	
 	var layers = document.getElementsByClassName("layer");
+	var stepText = document.getElementById("step");
+	stepText.innerHTML = "Step " + layerIndex;
 	console.log(layers.length);
 	for(var i = 0; i < layers.length; i++){
 		layers[i].style.display = "none";
@@ -237,9 +241,12 @@ function render(){
 function onDocumentMouseDown(event) {
     if(event.button == 1){
         rotationActivated = true;
-        if(cursorX > canvWidth/2){
+		console.log(widthOffset);
+		console.log(cursorX);
+		console.log(canvWidth/2);
+        if(cursorX-widthOffset > canvWidth/2){
             rotatingRight = true;
-        }else if(cursorX < canvWidth/2){
+        }else if(cursorX-widthOffset < canvWidth/2){
             rotatingRight = false;
         }
     }

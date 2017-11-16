@@ -8,7 +8,7 @@ body{
     overflow: hidden;
     background-color: #516066;
 	font-family: 'Open Sans', sans-serif;
-	background-image: url("http://www.minecraftseedslist.org/wp-content/uploads/2017/08/Minecraft-Background-Cute-1024x529.png");
+	background-image: url("/images/background.png");
 	background-repeat: no-repeat;
 	background-size: cover;
 }
@@ -280,12 +280,13 @@ li{
 	font-size: 2em;
 	height: 100px;
 	background: #826E4F;
-	border: #594B36 1px solid;
+	border: #594B36 2px solid;
 }
 
 .profile-text{
 	text-align: center;
 	height: 100%;
+	text-shadow: 2px 2px black;
 }
 
 .builds-button{
@@ -317,13 +318,15 @@ li{
 .tutorial{
 	background: #826E4F;
 	border: #594B36 1px solid;
-	height: 239px;
+/*	height: 239px;*/
+	height: 210px;
 }
 
 .profile-tutorial{
 	background: #826E4F;
 	border: #594B36 1px solid;
-	height: 275px;
+/*	height: 275px;*/
+	height: 250px;
 	position:relative;
 }
 
@@ -374,7 +377,24 @@ li{
 }
 
 .buttons{
-	margin: 20px auto;
+/*	margin: 10px auto auto auto;*/
+	margin: 10px 0px 0px 20px;
+}
+
+#step{
+	text-align: left;
+	color: white;
+	text-shadow: 2px 2px green;
+	font-size: 3em;
+	margin: 0;
+	width: 450px;
+}
+
+.required-blocks{
+	margin: 0 auto auto 10px;
+	font-size: 1.5em;
+	color: white;
+	text-shadow: 2px 2px black;
 }
 
 #next{
@@ -382,24 +402,24 @@ li{
 	border: 1px solid green;
 	padding: 15px;
 	color: white;
-	cursor: pointer;
 	font-size: 1.2em;
 }
 
 #next:hover:enabled{
 	background-color: green;
+	cursor: pointer;
 }
 
 #previous{
 	background-color: white;
 	padding: 15px;
 	color: black;
-	cursor: pointer;
 	font-size: 1.2em;
 }
 
 #previous:hover:enabled{
 	background-color: gainsboro;
+	cursor: pointer;
 }
 
 .logo{
@@ -417,4 +437,13 @@ li{
 
 .tutorial:hover{
 	background: darkseagreen;
+}
+
+.footer{
+	background: #4CAF50;
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	padding: 2px;
+	text-align: center;
 }
