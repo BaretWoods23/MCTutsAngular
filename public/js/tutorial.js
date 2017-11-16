@@ -327,22 +327,28 @@ function onDocumentKeyDown(event){
         var x = camera.position.x;
         var z = camera.position.z;
         var y = camera.position.y;
-        if (keyCode == 37 || keyCode == 65) {
+        if (keyCode == 65) {
             cubes.position.x -= (x * Math.cos(theta) - z * Math.sin(theta)) - camera.position.x;
             cubes.position.z -= (z * Math.cos(theta) + x * Math.sin(theta)) - camera.position.z;
 			fencing.position.x -= (x * Math.cos(theta) - z * Math.sin(theta)) - camera.position.x;
             fencing.position.z -= (z * Math.cos(theta) + x * Math.sin(theta)) - camera.position.z;
-        }else if(keyCode == 39 || keyCode == 68) {
+        }else if(keyCode == 68) {
             cubes.position.x -= (x * Math.cos(theta) + z * Math.sin(theta)) - camera.position.x;
             cubes.position.z -= (z * Math.cos(theta) - x * Math.sin(theta)) - camera.position.z;
 			fencing.position.x -= (x * Math.cos(theta) + z * Math.sin(theta)) - camera.position.x;
             fencing.position.z -= (z * Math.cos(theta) - x * Math.sin(theta)) - camera.position.z;
-        }else if(keyCode == 38 || keyCode == 87) {
+        }else if(keyCode == 87) {
             cubes.position.y -= (y * Math.cos(theta*2) + (y * Math.sin(theta*2)/2)) - camera.position.y;
 			fencing.position.y -= (y * Math.cos(theta*2) + (y * Math.sin(theta*2)/2)) - camera.position.y;
-        }else if(keyCode == 40 || keyCode == 83) {
+        }else if(keyCode == 83) {
             cubes.position.y -= (y * Math.cos(theta*2) - (y * Math.sin(theta*2)/2)) - camera.position.y;
 			fencing.position.y -= (y * Math.cos(theta*2) - (y * Math.sin(theta*2)/2)) - camera.position.y;
+		}else if(keyCode == 39){
+			var nextButton = document.getElementById("next");
+			nextButton.click();
+		}else if(keyCode == 37){
+			var prevButton = document.getElementById("previous");
+			prevButton.click();
         }else if(keyCode == 187){
             camera.zoom += zoom;
             camera.updateProjectionMatrix();
