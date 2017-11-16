@@ -141,6 +141,10 @@ body{
     display: inline-block;
 }
 
+.layer{
+	 margin: 20px;
+}
+
 .submit-modal {
     display: none;
 	margin: 0 auto;
@@ -391,10 +395,10 @@ li{
 }
 
 .required-blocks{
-	margin: 0 auto auto 10px;
+	margin: 10px auto auto 10px;
 	font-size: 1.5em;
 	color: white;
-	text-shadow: 2px 2px black;
+	text-shadow: 2px 2px #826E4F;
 }
 
 #next{
