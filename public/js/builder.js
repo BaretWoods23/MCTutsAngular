@@ -7,7 +7,7 @@ var cubes = new THREE.Object3D();
 var fencing = new THREE.Object3D();
 var cubeOpacity = 0.5;
 var canvWidth = 1000;
-var canvHeight = 800;
+var canvHeight = 600;
 var rotationActivated = false;
 var cursorX = 500;
 var cursorY = 500;
@@ -16,8 +16,8 @@ var currentMaterial;
 var currentTexture = "../images/big/grass_top.png";
 var defaultTexture = "../images/grass_top.png";
 var locked = false;
-var heightOffset = 106;
-var widthOffset = 0;
+var heightOffset = 155;
+var widthOffset = 340;
 var boardWidth, boardLength;
 var imgsrc = "";
 
@@ -121,7 +121,7 @@ function onDocumentMouseDown(event) {
         }else if(cursorX < canvWidth/2){
             rotatingRight = false;
         }
-    }else if(cursorX < canvWidth && cursorY < canvHeight + heightOffset && cursorY > heightOffset){
+    }else if(cursorX < canvWidth + widthOffset && cursorY < canvHeight + heightOffset && cursorY > heightOffset && !locked){
 		var cubeArray = [];
 		var intersects;
 		for(var i = length-1; i >= 1; i--){
@@ -270,6 +270,10 @@ function onmousemove(event) {
 function onWindowResize() {
     camera.aspect = canvWidth / canvHeight;
     camera.updateProjectionMatrix();
+	console.log(window.innerWidth);
+//	if(window.innerWidth != 1920){
+//		widthOffset = widthOffset - (1920-window.innerWidth);	
+//	}
     renderer.setSize(canvWidth, canvHeight);
 };
 
@@ -533,8 +537,6 @@ function getLayeredJSONObject(){
 }
 
 var modal = document.getElementById("submit-modal");
-var bloop = document.getElementsByClassName("texture");
-bloop.style.display = "none";
 
 if(document.body.contains(modal)){
     var btn = document.getElementById("submit"),
@@ -549,8 +551,8 @@ if(document.body.contains(modal)){
     });
     window.addEventListener("click", function(){
         if(event.target == modal){
-			controls.enabled = true;
-			locked = false;
+		//	controls.enabled = true;
+		//	locked = false;
             modal.style.display = "none";
         }
     });

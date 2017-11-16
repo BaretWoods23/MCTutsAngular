@@ -1,25 +1,20 @@
-<div class="column">
-	<div class="row">
-		<canvas id="myCanvas"></canvas>
-		<div class="inventory">
-			<div class="inventory-container">
-				<div class="inventory-blocks" ng-repeat="x in blocks">
-					<div id="generateLayers">
-<!--
-					<button class="texture" id="{[{ x.texture }]}">
-						<img class="texture-picture" src="{[{ x.texture }]}" id="{[{ x.texture }]}" title="{[{ x.texture }]}">
-					</button>
--->
+<div class="canvas-box">
+	<div class="column">
+		<div class="row">
+			<canvas id="myCanvas"></canvas>
+			<div class="inventory">
+				<div class="inventory-container">
+					<div class="inventory-blocks" ng-repeat="x in blocks">
+						<div id="generateLayers"></div>
 				</div>
 			</div>
 		</div>
 	</div>
+	<div class="row buttons">
+		<button id="previous" disabled="true">Previous</button>
+		<button id="next">Next</button>
+	</div>
 </div>
-<div class="row">
-	<button id="previous" disabled="true">Previous</button>
-	<button id="next">Next</button>
-</div>
-<div id="test"></div>
 <script src="../js/three.min.js"></script>
 <script src="../js/three-trackballcontrols.js"></script>
 <script src="../js/tutorial.js"></script>

@@ -1,7 +1,24 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+html, body{
+	height: 100%;
+}
+
 body{
     margin: 0;
     overflow: hidden;
     background-color: #516066;
+	font-family: 'Open Sans', sans-serif;
+	background-image: url("http://www.minecraftseedslist.org/wp-content/uploads/2017/08/Minecraft-Background-Cute-1024x529.png");
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.upload{
+	background-color: whitesmoke;
+	padding: 5px;
+	border: 1px solid green;
+	cursor: pointer;
+	margin: 10px;
 }
 
 .by{
@@ -9,13 +26,30 @@ body{
 }
 
 .box{
-	background-color: whitesmoke;
+	background-color: rgba(215,235,215, 0.7);
 	padding: 10px;
+	width: 1000px;
+	margin: 0px auto;
+	min-height: 100%;
+	border: 1px solid darkseagreen;
+}
+
+.login-box{
+	background: #826E4F;
+	border: #594B36 1px solid;
+	text-align: center;
+	color: white;
+	margin: 40px;
+	padding: 40px;
 }
 
 .searchbar{
 	margin: 0 auto;
 	display: block;
+	width: 600px;
+	font-size: 2em;
+	padding: 5px;
+	border: 1px solid darkseagreen;
 }
 
 .shiny{
@@ -27,46 +61,27 @@ body{
 }
 
 .inventory{
-    height: 800px;
+    height: 600px;
     width: 235px;
     background-color: darkseagreen;
     overflow-y: auto;
 }
 
 .column{
-    display: -webkit-flex;
-    display: -moz-flex;
-    display: -ms-flex;
     display: flex; 
-    flex-wrap: -webkit-wrap;
-    flex-wrap: -moz-wrap;
-    flex-wrap: -ms-wrap;
     flex-wrap: nowrap;
-    flex-direction: -webkit-column;
-    flex-direction: -moz-column;
-    flex-direction: -ms-column;
     flex-direction: column;
 }
 
 .row{
-    display: -webkit-flex;
-    display: -moz-flex;
-    display: -ms-flex;
-    display: flex; 
-    flex-wrap: -webkit-wrap;
-    flex-wrap: -moz-wrap;
-    flex-wrap: -ms-wrap;
-    flex-wrap: nowrap;
-    flex-direction: -webkit-row;
-    flex-direction: -moz-row;
-    flex-direction: -ms-row;
-    flex-direction: row;  
+    display: flex;  
+	flex-flow: row wrap;
 }
 
 .inventory-container{
     margin: 0 auto;
     width: 90%; 
-    padding-bottom: 50px;
+    padding-bottom: 20px;
 }
 
 .texture{
@@ -92,23 +107,29 @@ body{
 }
 
 #screenshot{
-	width: 30%;
+	width: 200px;
 	height: auto;
 	margin-top: 20px;
 }
 
 .tutorials{
-	background-color: white;
 	padding: 0px;
 	text-align: center; 
-	border: 1px solid darkseagreen;
+	width: 265px;
+}
+
+.build-title{
+	color: white;
+	font-weight: bold;
 }
 
 .tutorialbox{
 	height: 500px;
-	overflow-y: auto;
+	overflow-y: scroll;
 	margin: 20px auto;
-	width: 40%;
+	width: 812px;
+	background: gray;
+	border: 1px solid darkseagreen;
 }
 
 .center{
@@ -120,46 +141,56 @@ body{
     display: inline-block;
 }
 
-#profile-header{
-	text-align: center;
-}
-
 .submit-modal {
     display: none;
-    position: fixed;
+	margin: 0 auto;
+    position: absolute;
     z-index: 1;
-    left: 15px;
-    top: 105px;
-    width: 100%;
+    left: 0;
+	right: 0;
+    top: 200px;
+    width: 500px;
     height: 100%;
 }
 
 .submit-modal-content {
-    background-color: #ccc;
+    background-color: green;
     padding: 5px;
     border: 1px solid #000;
-    width: 15%;
 	text-align: center;
 	display: block;
+	color: white;
+	font-weight: bold;
 }
 
 .preferences-modal {
     display: none;
-    position: fixed;
+	margin: 0 auto;
+    position: absolute;
     z-index: 1;
-    left: 15px;
-    top: 105px;
-    width: 100%;
+    left: 0;
+	right: 0;
+    top: 200px;
+    width: 500px;
     height: 100%;
 }
 
 .preferences-modal-content {
-    background-color: #ccc;
+    background-color: green;
     padding: 5px;
     border: 1px solid #000;
-    width: 15%;
 	text-align: center;
 	display: block;
+	color: white;
+	font-weight: bold;
+}
+
+.submitPreferences{
+	background-color: whitesmoke;
+	padding: 5px;
+	border: 1px solid green;
+	cursor: pointer;
+	margin: 10px;
 }
 
 .close {
@@ -170,10 +201,17 @@ body{
 }
 
 .submit{
-	position: fixed;
-	top: 105px;
-	left: 15px;
+	display: block;
+	margin: 0 auto;
 	font-size: 1.5em;
+	background-color: #4CAF50;
+	border: 1px solid green;
+	color: white;
+	cursor: pointer;
+}
+
+.submit:hover{
+	background-color: green;
 }
 
 .close:hover,
@@ -181,4 +219,202 @@ body{
     color: #000;
     text-decoration: none;
     cursor: pointer;
+}
+
+.navbar{
+	margin-left: auto;
+	margin-right: 225px;
+	width: 500px;
+}
+
+.navbar-button{
+	background: white;
+	height: 110px;
+	width: 75px;
+	text-align: center;
+	margin: 0px 2px 2px 2px;
+	color: #516066;
+	font-weight: bold;
+}
+
+.navbar-button:hover{
+	background: darkseagreen;
+}
+
+.navbar-text{
+	font-size: 1.2em;
+	margin-top: 0px;
+}
+
+.navbar-link{
+	text-decoration: none;
+}
+
+li{
+	list-style-type: none;
+}
+
+.builds-box{
+	background-color: rgba(215,235,215, 0.7);
+	padding: 10px;
+	width: 1000px;
+	margin: 0px auto;
+	min-height: 100%;
+	border: 1px solid darkseagreen;
+}
+
+.canvas-box{
+	background-color: rgba(215,235,215, 0.7);
+	padding: 10px;
+	width: 1240px;
+	margin: 0px auto;
+	border: 1px solid darkseagreen;
+}
+
+#profile-header{
+	display: block;
+	margin: 30px auto 30px auto;
+	width: 795px;
+	color: whitesmoke;
+	font-weight: bold;
+	font-size: 2em;
+	height: 100px;
+	background: #826E4F;
+	border: #594B36 1px solid;
+}
+
+.profile-text{
+	text-align: center;
+	height: 100%;
+}
+
+.builds-button{
+	display: block;
+	margin: 30px auto 30px auto;
+	width: 795px;
+	cursor: pointer;
+	color: whitesmoke;
+	font-weight: bold;
+	font-size: 2em;
+	height: 100px;
+	background-color: #4CAF50;
+	border: 1px solid green;
+	text-shadow: 2px 2px black;
+}
+
+.builds-button:hover{
+	background: darkseagreen;
+}
+
+.builds-spacer{
+/*	margin: 200px;*/
+}
+
+.build-link{
+	text-decoration: none;
+}
+
+.tutorial{
+	background: #826E4F;
+	border: #594B36 1px solid;
+	height: 239px;
+}
+
+.profile-tutorial{
+	background: #826E4F;
+	border: #594B36 1px solid;
+	height: 275px;
+	position:relative;
+}
+
+.profile-tutorial:hover{
+	background: darkseagreen;
+}
+
+.edit{
+	position: absolute;
+	background-color: #4CAF50;
+	border: 1px solid green;
+	padding: 5px;
+	bottom: 10px;
+	left: 88px;
+	cursor: pointer;
+	color: white;
+}
+
+.edit:hover{
+	background-color: green;
+}
+
+.back-button{
+	background-color: #BD2E26;
+	border: 1px solid #AF4C50;
+	padding: 5px;
+	cursor: pointer;
+	color: white;
+}
+
+.back-button:hover{
+	background-color: red;
+}
+
+.delete{
+	position: absolute;
+	background-color: #BD2E26;
+	border: 1px solid #AF4C50;
+	padding: 5px;
+	bottom: 10px;
+	right: 88px;
+	cursor: pointer;
+	color: white;
+}
+
+.delete:hover{
+	background-color: red;
+}
+
+.buttons{
+	margin: 20px auto;
+}
+
+#next{
+	background-color: #4CAF50;
+	border: 1px solid green;
+	padding: 15px;
+	color: white;
+	cursor: pointer;
+	font-size: 1.2em;
+}
+
+#next:hover:enabled{
+	background-color: green;
+}
+
+#previous{
+	background-color: white;
+	padding: 15px;
+	color: black;
+	cursor: pointer;
+	font-size: 1.2em;
+}
+
+#previous:hover:enabled{
+	background-color: gainsboro;
+}
+
+.logo{
+	float: left;
+	position: absolute;
+	left: 450px;
+}
+
+.logo-text{
+	color: white;
+	margin: 0px 0px 0px 20px;
+	font-size: 5em;
+	text-shadow: 4px 4px #826E4F;
+}
+
+.tutorial:hover{
+	background: darkseagreen;
 }

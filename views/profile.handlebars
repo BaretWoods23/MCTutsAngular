@@ -1,23 +1,29 @@
-<h2 id="profile-header"></h2>
-<div ng-app="myApp" ng-controller="buildsCtrl" class="box">
-		<h2 id="profile-header">(username)'s Builds: </h2>
+<div class="builds-box">
+	<div ng-app="myApp" ng-controller="buildsCtrl">
+		<h2 id="profile-header"><p class="profile-text">(username)'s Builds: </p></h2>
 		<input type="text" class="searchbar" placeholder="Search" ng-model="filter">
 		<div class="tutorialbox">
-			<div class="tutorials" ng-repeat="x in builds  = (builds | filter:{ build_user: username}) | filter:filter | orderBy:'-'">
-				<img id="screenshot" src="(x.screenshot)">
-				<div class="row">
-					<p class="center">
-						<a href="../tutorial/(x._id)" class="tutorial">( x.build_name )</a>
-						 by ( x.build_user )
-					</p>
-					{{#if user }}
-						<a href="../editer/(x._id)" id="show"><button class="edit">edit</button></a>
-						<a href="../delete/(x._id)" id="show"><button class="delete">x</button></a>
-					{{/if}}
+			<div class="row">
+				<div class="tutorials" ng-repeat="x in builds  = (builds | filter:{ build_user: username}) | filter:filter | orderBy:'-'">
+					<a href="../tutorial/(x._id)" class="build-link">
+						<div class="profile-tutorial">
+							<img id="screenshot" src="(x.screenshot)">
+							<p class="center build-title">( x.build_name ) by ( x.build_user )</p>
+							{{#if user }}
+								<a href="../editer/(x._id)" id="show"><button class="edit">edit</button></a>
+								<a href="../delete/(x._id)" id="show"><button class="delete">delete</button></a>
+							{{/if}}
+						</div>
+					</a>
 				</div>
 			</div>
 		</div>
 	</div>
+</div>
+
+
+
+
 <script src="../js/home.js"></script>
 <script src="../js/handlebars.js"></script>
 <link href="../css/style.css", rel="stylesheet">

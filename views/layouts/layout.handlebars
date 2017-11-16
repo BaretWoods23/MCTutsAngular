@@ -6,17 +6,48 @@
 		<link rel="stylesheet" type="text/css" href="/css/style.css">
 	</head>
 	<body>
-		<div class="box">
-			<ul>
-				<li><a href="/">Home</a></li>
-				{{#if user}}
-					<li><a href="/profile/{{user.username}}">My Profile</a></li>
-					<li><a href="/users/logout">Logout</a></li>
-				{{else}}
-					<li><a href="/users/login">Login</a></li>
-					<li><a href="/users/register">Register</a></li>
-				{{/if}}
-			</ul>
+		<div class="nav-header">
+			<div class="logo row">
+				<img class="logo-icon" src="/images/logo.png">
+				<h1 class="logo-text">MCraft Tutorials</h1>
+			</div>
+			<div class="navbar">
+				<ul class="row">
+					<li><a href="/" class="navbar-link">
+						<div class="navbar-button">
+							<img class="navbar-logo" src="/images/home.png">
+							<p class="navbar-text">Home</p>
+						</div>
+					</a></li>
+					{{#if user}}
+						<li><a href="/profile/{{user.username}}" class="navbar-link">
+							<div class="navbar-button">
+								<img class="navbar-logo" src="/images/profile.png">
+								<p class="navbar-text">Profile</p>
+							</div>
+						</a></li>
+						<li><a href="/users/logout" class="navbar-link">
+							<div class="navbar-button">
+								<img class="navbar-logo" src="/images/logout.png">
+								<p class="navbar-text">Logout</p>
+							</div>
+						</a></li>
+					{{else}}
+						<li><a href="/users/login" class="navbar-link">
+							<div class="navbar-button">
+								<img class="navbar-logo" src="/images/login.png">
+								<p class="navbar-text">Login</p>
+							</div>
+						</a></li>
+						<li><a href="/users/register" class="navbar-link">
+							<div class="navbar-button">
+								<img class="navbar-logo" src="/images/register.png">
+								<p class="navbar-text">Register</p>
+							</div>
+						</a></li>
+					{{/if}}
+				</ul>
+			</div>
 		</div>
 		{{#if success_msg}}
 			{{success_msg}}

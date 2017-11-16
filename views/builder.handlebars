@@ -6,77 +6,80 @@
 			<input id="buildName" type="text" name="buildName" value="My Build">
 			<br>
 			<input id="buildUser" type="text" name="buildUser" value="{{user.username}}">
-			<button class="upload" onclick="upload()">Upload</button>
 			<img id="screenshot">
+			<br>
+			<button class="upload" onclick="upload()">Upload</button>
 		</form>
 	</div>
 </div>
-<div class="column">
-	<div class="row">
-		<canvas id="myCanvas"></canvas>
-		<div class="inventory" ng-app="myApp" ng-controller="blocksCtrl">
-			<div class="inventory-container">
-				<div class="inventory-blocks" ng-repeat="x in blocks">
-					<button class="texture" id="{[{ x.name }]}">
-						<img class="texture-picture" src="{[{ x.icon }]}" id="{[{ x.icon }]}" title="{[{ x.name }]}">
-					</button>
+<div class="canvas-box">
+	<div class="column">
+		<div class="row">
+			<canvas id="myCanvas"></canvas>
+			<div class="inventory" ng-app="myApp" ng-controller="blocksCtrl">
+				<div class="inventory-container">
+					<div class="inventory-blocks" ng-repeat="x in blocks">
+						<button class="texture" id="{[{ x.name }]}">
+							<img class="texture-picture" src="{[{ x.icon }]}" id="{[{ x.icon }]}" title="{[{ x.name }]}">
+						</button>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	<div class="palette"></div>
+	<div class="inventory-container">
+		<button class="texture palette-icon">
+			<img class="texture-picture" src="images/big/transparent.png">
+		</button>
+		<button class="texture palette-icon">
+			<img class="texture-picture" src="images/big/transparent.png">
+		</button>
+		<button class="texture palette-icon">
+			<img class="texture-picture" src="images/big/transparent.png">
+		</button>
+		<button class="texture palette-icon">
+			<img class="texture-picture" src="images/big/transparent.png">
+		</button>
+		<button class="texture palette-icon">
+			<img class="texture-picture" src="images/big/transparent.png">
+		</button>
+		<button class="texture palette-icon">
+			<img class="texture-picture" src="images/big/transparent.png">
+		</button>
+		<button class="texture palette-icon">
+			<img class="texture-picture" src="images/big/transparent.png">
+		</button>
+		<button class="texture palette-icon">
+			<img class="texture-picture" src="images/big/transparent.png">
+		</button>
+		<button class="texture palette-icon">
+			<img class="texture-picture" src="images/big/transparent.png">
+		</button>
+		<button class="texture palette-icon">
+			<img class="texture-picture" src="images/big/transparent.png">
+		</button>
+		<button class="texture palette-icon">
+			<img class="texture-picture" src="images/big/transparent.png">
+		</button>
+		<button class="texture palette-icon">
+			<img class="texture-picture" src="images/big/transparent.png">
+		</button>
+		<button class="texture palette-icon">
+			<img class="texture-picture" src="images/big/transparent.png">
+		</button>
+		<button class="texture palette-icon">
+			<img class="texture-picture" src="images/big/transparent.png">
+		</button>
+		<button class="texture palette-icon">
+			<img class="texture-picture" src="images/big/transparent.png">
+		</button>
+	</div>
+	<button class="submit" id="submit" onclick="submit()">Submit</button>
+	<a href="/">
+		<button class="back-button">Back</button>
+	</a>
 </div>
-<div class="palette"></div>
-<div class="inventory-container">
-	<button class="texture palette-icon">
-		<img class="texture-picture" src="images/big/transparent.png">
-	</button>
-	<button class="texture palette-icon">
-		<img class="texture-picture" src="images/big/transparent.png">
-	</button>
-	<button class="texture palette-icon">
-		<img class="texture-picture" src="images/big/transparent.png">
-	</button>
-	<button class="texture palette-icon">
-		<img class="texture-picture" src="images/big/transparent.png">
-	</button>
-	<button class="texture palette-icon">
-		<img class="texture-picture" src="images/big/transparent.png">
-	</button>
-	<button class="texture palette-icon">
-		<img class="texture-picture" src="images/big/transparent.png">
-	</button>
-	<button class="texture palette-icon">
-		<img class="texture-picture" src="images/big/transparent.png">
-	</button>
-	<button class="texture palette-icon">
-		<img class="texture-picture" src="images/big/transparent.png">
-	</button>
-	<button class="texture palette-icon">
-		<img class="texture-picture" src="images/big/transparent.png">
-	</button>
-	<button class="texture palette-icon">
-		<img class="texture-picture" src="images/big/transparent.png">
-	</button>
-	<button class="texture palette-icon">
-		<img class="texture-picture" src="images/big/transparent.png">
-	</button>
-	<button class="texture palette-icon">
-		<img class="texture-picture" src="images/big/transparent.png">
-	</button>
-	<button class="texture palette-icon">
-		<img class="texture-picture" src="images/big/transparent.png">
-	</button>
-	<button class="texture palette-icon">
-		<img class="texture-picture" src="images/big/transparent.png">
-	</button>
-	<button class="texture palette-icon">
-		<img class="texture-picture" src="images/big/transparent.png">
-	</button>
-</div>
-<button class="submit" id="submit" onclick="submit()">Submit</button>
-<a href="/">
-	<button>Back</button>
-</a>
 <script src="js/three.min.js"></script>
 <script src="js/three-trackballcontrols.js"></script>
 <script src="js/builder.js"></script>

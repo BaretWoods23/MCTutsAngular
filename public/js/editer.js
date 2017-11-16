@@ -7,7 +7,7 @@ var cubes = new THREE.Object3D();
 var fencing = new THREE.Object3D();
 var cubeOpacity = 0.5;
 var canvWidth = 1000;
-var canvHeight = 800;
+var canvHeight = 600;
 var rotationActivated = false;
 var cursorX = 500;
 var cursorY = 500;
@@ -16,8 +16,8 @@ var currentMaterial;
 var currentTexture = "../../images/big/grass_top.png";
 var defaultTexture = "../../images/grass_top.png";
 var locked = false;
-var heightOffset = 106;
-var widthOffset = 0;
+var heightOffset = 155;
+var widthOffset = 340;
 var boardWidth, boardLength;
 var request = new XMLHttpRequest();
 var buildData;
@@ -53,7 +53,7 @@ function initialize(){
 	boardWidth = buildData.build_width;
 	boardLength = buildData.build_length;
 	
-    renderer = new THREE.WebGLRenderer({canvas: document.getElementById("myCanvas"), antialias: true});
+    renderer = new THREE.WebGLRenderer({canvas: document.getElementById("myCanvas"), antialias: true, preserveDrawingBuffer : true});
     renderer.setClearColor(0x9FD6D9);
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(canvWidth, canvHeight);
@@ -178,7 +178,7 @@ function onDocumentMouseDown(event) {
         }else if(cursorX < canvWidth/2){
             rotatingRight = false;
         }
-    }else if(cursorX < canvWidth && cursorY < canvHeight + heightOffset && cursorY > heightOffset){
+    }else if(cursorX < canvWidth  + widthOffset && cursorY < canvHeight + heightOffset && cursorY > heightOffset && !locked){
 		var cubeArray = [];
 		var intersects;
 		for(var i = length-1; i >= 1; i--){
@@ -536,6 +536,10 @@ request.onload = function(){
 function submit(){
 	locked = true;
 	controls.enabled = false;
+	imgsrc = renderer.domElement.toDataURL();
+	//imgsrc = "../images/big/grass_top.png";
+	var img = document.getElementById("screenshot")
+	img.src = imgsrc;
 }
 
 function upload(){

@@ -22,22 +22,21 @@
 		</form>
 	</div>
 </div>
-<div class="box">
+<div class="builds-box">
 	{{#if user}}
-<!--		<a href="builder">-->
-			<button id="create">Create a Build!</button>
-<!--		</a>-->
+		<button class="builds-button" id="create">Create a Tutorial! »</button>
 	{{/if}}
 	<div ng-app="myApp" ng-controller="buildsCtrl">
 		<input type="text" class="searchbar" placeholder="Search" ng-model="filter">
 		<div class="tutorialbox">
-			<div class="tutorials" ng-repeat="x in builds | filter:filter | orderBy:'-'">
-				<img id="screenshot" src="(x.screenshot)">
-				<div class="row">
-					<p class="center">
-						<a href="tutorial/(x._id)" class="tutorial">( x.build_name )</a>
-						by ( x.build_user )
-					</p>
+			<div class="row">
+				<div class="tutorials" ng-repeat="x in builds | filter:filter | orderBy:'-'">
+					<a href="tutorial/(x._id)" class="build-link">
+						<div class="tutorial">
+							<img id="screenshot" src="(x.screenshot)">
+							<p class="center build-title">( x.build_name ) by ( x.build_user )</p>
+						</div>
+					</a>
 				</div>
 			</div>
 		</div>
