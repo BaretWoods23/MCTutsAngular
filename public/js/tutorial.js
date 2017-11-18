@@ -15,6 +15,7 @@ var buildData, layerData;
 var stepIndex = 0, layerIndex = 0;
 var heightOffset = 155;
 var widthOffset = 340;
+var gridEnabled = false;
 
 app.config(function($interpolateProvider) {
   $interpolateProvider.startSymbol('{[{');
@@ -46,6 +47,20 @@ window.onload = function(){
 		stepIndex--;
 		if(stepIndex == 0){
 			this.disabled = true;
+		}
+	});
+	document.getElementById("grid-button").addEventListener("click", function(){
+		gridEnabled = !gridEnabled;
+		for(var i = 0; i < cubes.children.length; i++){
+			var geo = new THREE.EdgesGeometry( cubes.children[i].geometry );
+			var mat = new THREE.LineBasicMaterial( { color: 0xC9F2F2, linewidth: 1 } );
+			var wireframe = new THREE.LineSegments( geo, mat );
+			if(gridEnabled){
+				cubes.children[i].add(wireframe);
+			}else{
+				console.log(cubes.children[i]);
+				cubes.children[i].children.pop();
+			}
 		}
 	});
 };
@@ -225,7 +240,6 @@ function createBuild(){
 			var z = buildData.layers[j][i].z;
 			var rotateDefault = buildData.layers[j][i].rotationAmount === "";
 			var rotationAmount = rotateDefault? 0:buildData.layers[j][i].rotationAmount+1;
-		//	var rotationAmount = buildData.layers[j][i].rotationAmount+1;
 			var rotation = rotationAmount * (-Math.PI/2);
 			var texture = "../" + buildData.layers[j][i].texture;
 			cubes.add(getNewMesh(x, y, z, rotation, texture));
@@ -264,7 +278,12 @@ function onWindowResize() {
 };
 
 function getNewMesh(x, y, z, rotation, texture){
-	var material = new THREE.MeshLambertMaterial({map: THREE.ImageUtils.loadTexture(texture)});
+	var material = new THREE.MeshLambertMaterial({
+		map: THREE.ImageUtils.loadTexture(texture),
+		polygonOffset: true,
+		polygonOffsetFactor: 1,
+		polygonOffsetUnits: 1
+	});
 	material.transparent = true;
 	var newFencing;
 	var currentGeometry;
@@ -355,7 +374,9 @@ function onDocumentKeyDown(event){
         }else if(keyCode == 189 && camera.zoom - zoom > 0){
             camera.zoom -= zoom;
             camera.updateProjectionMatrix();
-        }
+        }else if(keyCode == 71){
+			document.getElementById("grid-button").click();
+		}
     }
 };
 

@@ -218,6 +218,21 @@ body{
 	background-color: green;
 }
 
+#grid-button{
+	background-color: cornflowerblue;
+	color: white;
+	border-radius: 25px;
+	position: absolute;
+	padding: 8px;
+	margin: 5px;
+	cursor: pointer;
+}
+
+#grid-button:hover{
+	background-color: azure;
+	color: black;
+}
+
 .close:hover,
 .close:focus {
     color: #000;

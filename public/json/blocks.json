@@ -20,6 +20,11 @@
             "texture" : "../images/brick.png",
             "icon" : "../images/big/brick.png"
         },
+		{
+			"name" : "cactus",
+            "texture" : "../images/cactus.png",
+            "icon" : "../images/big/cactus.png"
+		},
         {
             "name" : "clay",
             "texture" : "../images/clay.png",

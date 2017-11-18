@@ -4,8 +4,8 @@ var request = new XMLHttpRequest();
 var buildData;
 
 app.config(function($interpolateProvider) {
-  $interpolateProvider.startSymbol('(');
-  $interpolateProvider.endSymbol(')');
+  $interpolateProvider.startSymbol('((');
+  $interpolateProvider.endSymbol('))');
 });
 
 app.service("buildsService", function($http){

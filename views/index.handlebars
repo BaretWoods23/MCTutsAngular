@@ -31,10 +31,10 @@
 		<div class="tutorialbox">
 			<div class="row">
 				<div class="tutorials" ng-repeat="x in builds | filter:filter | orderBy:'-'">
-					<a href="tutorial/(x._id)" class="build-link">
+					<a href="tutorial/((x._id))" class="build-link">
 						<div class="tutorial">
-							<img id="screenshot" src="(x.screenshot)">
-							<p class="center build-title">( x.build_name ) by ( x.build_user )</p>
+							<img id="screenshot" src="((x.screenshot))">
+							<p class="center build-title">(( x.build_name )) by (( x.build_user ))</p>
 						</div>
 					</a>
 				</div>
