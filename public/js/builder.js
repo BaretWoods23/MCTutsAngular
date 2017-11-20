@@ -93,6 +93,10 @@ function initialize(){
     scene.add(cubes);
 	scene.add(fencing);
     createBoard();
+	
+	var canvas = document.getElementById("myCanvas");
+	widthOffset = canvas.offsetLeft;
+	heightOffset = canvas.offsetTop;
 }
 
 function createBoard(){
@@ -270,10 +274,9 @@ function onmousemove(event) {
 function onWindowResize() {
     camera.aspect = canvWidth / canvHeight;
     camera.updateProjectionMatrix();
-	console.log(window.innerWidth);
-//	if(window.innerWidth != 1920){
-//		widthOffset = widthOffset - (1920-window.innerWidth);	
-//	}
+	var canvas = document.getElementById("myCanvas");
+	widthOffset = canvas.offsetLeft;
+	heightOffset = canvas.offsetTop;
     renderer.setSize(canvWidth, canvHeight);
 };
 
