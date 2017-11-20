@@ -327,6 +327,9 @@ function onmousemove(event) {
 function onWindowResize() {
     camera.aspect = canvWidth / canvHeight;
     camera.updateProjectionMatrix();
+	var canvas = document.getElementById("myCanvas");
+	widthOffset = canvas.offsetLeft;
+	heightOffset = canvas.offsetTop;
     renderer.setSize(canvWidth, canvHeight);
 };
 

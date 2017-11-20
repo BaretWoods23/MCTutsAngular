@@ -466,6 +466,7 @@ li{
 	width: 100%;
 	padding: 2px;
 	text-align: center;
+	white-space: nowrap;
 }
 
 .control-key{
@@ -499,6 +500,9 @@ li{
 }
 
 @media all and (max-width: 1300px){
+	#profile-header{
+		width: 100%;
+	}
     .builds-box{
         width: 100%;
 		padding: 0;
@@ -514,7 +518,27 @@ li{
 	.tutorialbox{
 		width: 100%;
 	}
+	.inventory{
+		display: none;
+	}
 	.row{
+		width: 100%;
+	}
+	.canvas-box{
+		width: 100%;
+	}
+	.control-key{
+		display: none;
+	}
+	.back-button{
+		display: none;
+	}
+	.submit{
+		position: absolute;
+		top: 165px;
+		right: 10px;
+	}
+	.box{
 		width: 100%;
 	}
 }
@@ -523,10 +547,43 @@ li{
 	.logo-icon{
 		display: none;
 	}
+	.nav-header{
+		width: 100%;
+	}
+	.navbar{
+		width: 320px;
+		margin: 0 auto;
+	}
 }
 
-@media all and (max-width: 600px){
+@media all and (max-width: 800px){
+	#myCanvas{
+		position: relative;
+		right: 30%;
+	}
+}
+
+@media all and (max-width: 650px){
+	#myCanvas{
+		position: relative;
+		right: 50%;
+	}
 	.tutorials{
 		width: 100%;
+	}
+	#step{
+		display: none;
+	}
+	.buttons{
+		margin: 10px 0 0 0;
+		padding: 0;
+	}
+	#next{
+		width: 100%;
+		margin-right: 25px;
+	}
+	#previous{
+		width: 100%;
+		margin-right: 25px;
 	}
 }

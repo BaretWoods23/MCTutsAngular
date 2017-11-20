@@ -58,7 +58,6 @@ window.onload = function(){
 			if(gridEnabled){
 				cubes.children[i].add(wireframe);
 			}else{
-				console.log(cubes.children[i]);
 				cubes.children[i].children.pop();
 			}
 		}
@@ -70,7 +69,6 @@ function changeLayerVisibility(visible){
 	var layers = document.getElementsByClassName("layer");
 	var stepText = document.getElementById("step");
 	stepText.innerHTML = "Step " + layerIndex;
-	console.log(layers.length);
 	for(var i = 0; i < layers.length; i++){
 		layers[i].style.display = "none";
 		layers[layerIndex].style.display = "block";
@@ -255,9 +253,6 @@ function render(){
 function onDocumentMouseDown(event) {
     if(event.button == 1){
         rotationActivated = true;
-		console.log(widthOffset);
-		console.log(cursorX);
-		console.log(canvWidth/2);
         if(cursorX-widthOffset > canvWidth/2){
             rotatingRight = true;
         }else if(cursorX-widthOffset < canvWidth/2){
@@ -274,6 +269,9 @@ function onmousemove(event) {
 function onWindowResize() {
     camera.aspect = canvWidth / canvHeight;
     camera.updateProjectionMatrix();
+	var canvas = document.getElementById("myCanvas");
+	widthOffset = canvas.offsetLeft;
+	heightOffset = canvas.offsetTop;
     renderer.setSize(canvWidth, canvHeight);
 };
 
