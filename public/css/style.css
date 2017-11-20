@@ -492,3 +492,41 @@ li{
 	margin: 0;
 }
 
+@media all and (max-width: 1900px){
+	.logo-text{
+		display: none;
+	}
+}
+
+@media all and (max-width: 1300px){
+    .builds-box{
+        width: 100%;
+		padding: 0;
+    }
+	.builds-button{
+		width: 100%;
+		padding: 0;
+	}
+	.searchbar{
+		width: 100%;
+		padding: 0;
+	}
+	.tutorialbox{
+		width: 100%;
+	}
+	.row{
+		width: 100%;
+	}
+}
+
+@media all and (max-width: 1200px){
+	.logo-icon{
+		display: none;
+	}
+}
+
+@media all and (max-width: 600px){
+	.tutorials{
+		width: 100%;
+	}
+}
