@@ -437,19 +437,27 @@ function changeTransparentCube(texture){
 	cubes.children[0].name = "";
 }
 
-document.onload = function(){
-    var icons = document.getElementsByClassName("texture");
-    for(var i = 0; i < icons.length; i++){
-        icons[i].addEventListener("click", function(){
-			if(this.childNodes[1].id.length > 0){
-                removeSelector();
-                this.classList.add("shiny");
-				currentTexture = String(this.childNodes[1].id);
-				var texture = currentTexture.replace("/big", "");
-				changeTransparentCube(texture);
-			}
-        });
-    };
+function itemIsClicked(){
+ 	removeSelector();
+	this.classList.add("shiny");
+	currentTexture = String(this.childNodes[1].id);
+	var texture = currentTexture.replace("/big", "");
+	changeTransparentCube(texture);
+}
+
+window.onload = function(){
+    // var icons = document.getElementsByClassName("texture");
+    // for(var i = 0; i < icons.length; i++){
+    //     icons[i].addEventListener("click", function(){
+	// 		if(this.childNodes[1].id.length > 0){
+    //             removeSelector();
+    //             this.classList.add("shiny");
+	// 			currentTexture = String(this.childNodes[1].id);
+	// 			var texture = currentTexture.replace("/big", "");
+	// 			changeTransparentCube(texture);
+	// 		}
+    //     });
+    // };
 	var palette = document.getElementsByClassName("palette-icon");
 	for(var i = 0; i < palette.length; i++){
 		palette[i].addEventListener("contextmenu", function(){
