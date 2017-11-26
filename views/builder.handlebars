@@ -19,7 +19,7 @@
 			<div class="inventory" ng-app="myApp" ng-controller="blocksCtrl">
 				<div class="inventory-container">
 					<div class="inventory-blocks" ng-repeat="x in blocks">
-						<button class="texture" id="{[{ x.name }]}" onclick="itemIsClicked()">
+						<button class="texture" id="{[{ x.name }]}" onclick="itemIsClicked(this)">
 							<img class="texture-picture" src="{[{ x.icon }]}" id="{[{ x.icon }]}" title="{[{ x.name }]}">
 						</button>
 					</div>

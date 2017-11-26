@@ -439,7 +439,7 @@ function changeTransparentCube(texture){
 
 console.log("TESTING");
 
-function itemIsClicked(){
+function itemIsClicked(this){
 	console.log("HELLO");
  	removeSelector();
 	this.classList.add("shiny");
