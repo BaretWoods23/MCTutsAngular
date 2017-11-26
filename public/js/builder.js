@@ -437,7 +437,7 @@ function changeTransparentCube(texture){
 	cubes.children[0].name = "";
 }
 
-window.onload = function(){
+document.onload = function(){
     var icons = document.getElementsByClassName("texture");
     for(var i = 0; i < icons.length; i++){
         icons[i].addEventListener("click", function(){
