@@ -1,7 +1,7 @@
 var mongoose = require("mongoose"), Schema = mongoose.Schema;
 
 //mongoose.connect("mongodb://localhost/mcbuilds");
-mongoose.connect("mongodb://Admin:Nu140859348@ds119436.mlab.com:19436/mcbuilds");
+mongoose.connect("mongodb://Admin:Nu140859348@ds119436.mlab.com:19436/mctutorials");
 
 var BuildSchema = mongoose.Schema({
 	build_name: String,
