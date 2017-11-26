@@ -437,7 +437,10 @@ function changeTransparentCube(texture){
 	cubes.children[0].name = "";
 }
 
+console.log("TESTING");
+
 function itemIsClicked(){
+	console.log("HELLO");
  	removeSelector();
 	this.classList.add("shiny");
 	currentTexture = String(this.childNodes[1].id);
