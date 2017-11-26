@@ -1,6 +1,7 @@
 var mongoose = require("mongoose"), Schema = mongoose.Schema;
 
 var BuildSchema = mongoose.Schema({
+	index: true,
 	build_name: String,
 	build_user: String,
 	build_width: String,
