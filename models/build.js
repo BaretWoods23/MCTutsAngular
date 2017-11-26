@@ -1,13 +1,15 @@
 var mongoose = require("mongoose"), Schema = mongoose.Schema;
 
 var BuildSchema = mongoose.Schema({
-	build_name: String,
+	build_name: {
+		type: String,
+		index: true
+	},
 	build_user: String,
 	build_width: String,
 	build_length: String,
 	screenshot: String,
 	layers: [],
-	index: true
 });
 
 var Build = module.exports = mongoose.model("Build", BuildSchema);
