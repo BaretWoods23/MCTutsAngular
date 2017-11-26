@@ -439,11 +439,11 @@ function changeTransparentCube(texture){
 
 console.log("TESTING");
 
-function itemIsClicked(this){
+function itemIsClicked(item){
 	console.log("HELLO");
  	removeSelector();
-	this.classList.add("shiny");
-	currentTexture = String(this.childNodes[1].id);
+	item.classList.add("shiny");
+	currentTexture = String(item.childNodes[1].id);
 	var texture = currentTexture.replace("/big", "");
 	changeTransparentCube(texture);
 }
