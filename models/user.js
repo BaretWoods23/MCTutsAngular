@@ -1,7 +1,8 @@
 var mongoose = require("mongoose");
 var bcrypt = require("bcryptjs");
 
-mongoose.connect("mongodb://localhost/loginapp");
+//mongoose.connect("mongodb://localhost/loginapp");
+mongoose.connect("mongodb://Admin:Nu140859348@ds119436.mlab.com:19436/mctutorials");
 
 var UserSchema = mongoose.Schema({
 	username: {
