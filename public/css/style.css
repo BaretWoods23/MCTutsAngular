@@ -575,15 +575,28 @@ li{
 		display: none;
 	}
 	.buttons{
-		margin: 10px 0 0 0;
+		margin: 0;
 		padding: 0;
 	}
 	#next{
-		width: 100%;
-		margin-right: 25px;
+		width: 50%;
 	}
 	#previous{
-		width: 100%;
-		margin-right: 25px;
+		width: 50%;
+	}
+	.canvas-box{
+		padding: 0;
+	}
+}
+
+@media all and (max-height: 800px) and (max-width: 650px){
+	.submit{
+		top: 80px;
+	}
+	.navbar-logo{
+		display: none;
+	}
+	.navbar-button{
+		height: 30px;
 	}
 }

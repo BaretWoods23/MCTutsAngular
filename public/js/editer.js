@@ -91,6 +91,10 @@ function initialize(){
     scene.add(cubes);
 	scene.add(fencing);
     createBoard();
+	
+	var canvas = document.getElementById("myCanvas");
+	widthOffset = canvas.offsetLeft;
+	heightOffset = canvas.offsetTop;
 }
 
 function createBoard(){
