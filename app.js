@@ -33,8 +33,12 @@ var handlebars = expressHandlebars.create({
 app.engine(".handlebars", expressHandlebars({defaultLayout:"layout"},{extname: ".handlebars"}));
 app.set("view engine", ".handlebars");
 
-app.use(bodyParser.json({limit: "1000mb"}));
-app.use(bodyParser.urlencoded({extended:false}));
+app.use(bodyParser.urlencoded({
+	parameterLimit: 100000,
+	limit: "500mb",
+	extended: true
+}));
+
 app.use(cookieParser());
 
 app.use(express.static(path.join(__dirname, "/public")));
