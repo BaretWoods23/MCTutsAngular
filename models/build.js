@@ -8,7 +8,7 @@ var BuildSchema = mongoose.Schema({
 	build_user: String,
 	build_width: String,
 	build_length: String,
-	screenshot: String,
+//	screenshot: String,
 	// layers: [],
 });
 
@@ -20,7 +20,7 @@ module.exports.createBuild = function(newBuild, callback){
 	build.build_user = newBuild.build_user;
 	build.build_width = newBuild.build_width;
 	build.build_length = newBuild.build_length;
-	build.screenshot = newBuild.screenshot;
+	//build.screenshot = newBuild.screenshot;
 	// for(var i = 0; i < newBuild.layers.length; i++){
 	// 	var layer = [];
 	// 	for(var j = 0; j < newBuild.layers[i].length; j++){
