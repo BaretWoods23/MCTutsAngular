@@ -58,6 +58,7 @@ router.get("/builder", ensureAuthenticated, function(req, res){
 
 router.post("/index", function(req, res){
 	var jsonBuild = req.body;
+	delete jsonBuild.layers;
 	Build.createBuild(jsonBuild, function(err, build){
 		if(err) throw err;
 	});
