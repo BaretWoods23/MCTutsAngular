@@ -513,7 +513,7 @@ function writeToJSONFile(){
 	xhr.setRequestHeader("content-type", "application/json;charset=UTF-8");
 	var jsonObject = getLayeredJSONObject();
 	console.log(JSON.stringify(jsonObject));
-	xhr.send(jsonObject);
+	xhr.send(JSON.stringify(jsonObject));
 };
 
 function getLayeredJSONObject(){
