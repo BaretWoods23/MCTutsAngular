@@ -508,7 +508,7 @@ function getSortedCubeArray(){
 
 function writeToJSONFile(){
 	var xhr = new XMLHttpRequest();
-	//xhr.withCredentials = true;
+	xhr.withCredentials = true;
 	xhr.open("POST", "/index");
 	xhr.setRequestHeader("content-type", "application/json;charset=UTF-8");
 	var jsonObject = getLayeredJSONObject();
