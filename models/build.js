@@ -10,7 +10,16 @@ var BuildSchema = mongoose.Schema({
 	layers: [],
 });
 
+var BlockSchema = mongoose.Schema({
+	x: int,
+	y: int,
+	z: int,
+	rotationAmount: int,
+	texture: String,
+});
+
 var Build = module.exports = mongoose.model("Build", BuildSchema);
+var Block = module.exports = mongoose.model("Block", BlockSchema);
 
 module.exports.createBuild = function(newBuild, callback){
 	var build = new Build();
@@ -33,6 +42,16 @@ module.exports.createBuild = function(newBuild, callback){
 		build.layers.push(layer);
 	}
 	build.save(callback);
+};
+
+module.exports.createBlock = function(newBlock, callback){
+	var block = new Block();
+	block.x = newBlock.x;
+	block.y = newBlock.y;
+	block.z = newBlock.z;
+	block.rotationAmount = newBlock.rotationAmount;
+	block.texture = newBlock.texture;
+	block.save(callback);
 };
 
 module.exports.getBuildById = function(id, callback){
