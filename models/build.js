@@ -51,13 +51,13 @@ module.exports.createBuild = function(newBuild, callback){
 
 module.exports.createLayer = function(newLayer, callback){
 	var layer = new Layer();
-	for(var j = 0; j < newBuild.layers[i].length; j++){
+	for(var j = 0; j < newLayer.length; j++){
 		var block = {x:0, y:0, z:0, rotationAmount:0, texture:""};
-		block.x = newBuild.layers[i][j].x;
-		block.y = newBuild.layers[i][j].y;
-		block.z = newBuild.layers[i][j].z;
-		block.rotationAmount = newBuild.layers[i][j].rotationAmount;
-		block.texture = newBuild.layers[i][j].texture;
+		block.x = newLayer[j].x;
+		block.y = newLayer[j].y;
+		block.z = newLayer[j].z;
+		block.rotationAmount = newLayer[j].rotationAmount;
+		block.texture = newLayer[j].texture;
 		layer.layers.push(block);
 	}
 	layer.save(callback);
