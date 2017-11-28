@@ -34,7 +34,7 @@ app.engine(".handlebars", expressHandlebars({defaultLayout:"layout"},{extname: "
 app.set("view engine", ".handlebars");
 
 app.use(bodyParser.json({limit: "500mb"}));
-app.use(bodyParser.urlencoded({extended:false}));
+app.use(bodyParser.urlencoded({limit: "500mb", extended:true}));
 
 app.use(cookieParser());
 
