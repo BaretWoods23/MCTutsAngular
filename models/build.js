@@ -11,10 +11,10 @@ var BuildSchema = mongoose.Schema({
 });
 
 var BlockSchema = mongoose.Schema({
-	x: int,
-	y: int,
-	z: int,
-	rotationAmount: int,
+	x: String,
+	y: String,
+	z: String,
+	rotationAmount: String,
 	texture: String,
 });
 
