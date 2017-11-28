@@ -57,7 +57,7 @@ router.get("/builder", ensureAuthenticated, function(req, res){
 });
 
 router.post("/index", function(req, res){
-	var jsonLayer = req.body;
+	var jsonBuild = req.body;
 	// Build.createLayer(jsonLayer, function(err, layer){
 	// 	if(err) throw err;
 	// });
