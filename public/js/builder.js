@@ -515,6 +515,8 @@ function writeToJSONFile(){
 		xhr.open("POST", "/index");
 		xhr.setRequestHeader("content-type", "application/json;charset=UTF-8");
 		xhr.send(JSON.stringify(jsonObject.layers[i]));
+		console.log("NEW");
+		console.log(JSON.stringify(jsonObject.layers[i]));
 	}
 };
 
