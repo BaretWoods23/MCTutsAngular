@@ -1,1 +1,1 @@
-web: node app.js -i custom_options.ini
+web: node app.js -i custom_options.ini .
