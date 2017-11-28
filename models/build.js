@@ -18,8 +18,13 @@ var BlockSchema = mongoose.Schema({
 	texture: String,
 });
 
+var LayerSchema = mongoose.Schema({
+	layers:[],
+})
+
 var Build = module.exports = mongoose.model("Build", BuildSchema);
 var Block = module.exports = mongoose.model("Block", BlockSchema);
+var Layer = module.exports = mongoose.model("Layer", LayerSchema);
 
 module.exports.createBuild = function(newBuild, callback){
 	var build = new Build();
@@ -42,6 +47,20 @@ module.exports.createBuild = function(newBuild, callback){
 		build.layers.push(layer);
 	}
 	build.save(callback);
+};
+
+module.exports.createLayer = function(newLayer, callback){
+	var layer = new Layer();
+	for(var j = 0; j < newBuild.layers[i].length; j++){
+		var block = {x:0, y:0, z:0, rotationAmount:0, texture:""};
+		block.x = newBuild.layers[i][j].x;
+		block.y = newBuild.layers[i][j].y;
+		block.z = newBuild.layers[i][j].z;
+		block.rotationAmount = newBuild.layers[i][j].rotationAmount;
+		block.texture = newBuild.layers[i][j].texture;
+		layer.layers.push(block);
+	}
+	layer.save(callback);
 };
 
 module.exports.createBlock = function(newBlock, callback){

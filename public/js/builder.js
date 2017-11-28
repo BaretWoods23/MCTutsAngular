@@ -510,14 +510,12 @@ function writeToJSONFile(){
 	var jsonObject = getLayeredJSONObject();
 	//console.log(JSON.stringify(jsonObject));
 	for(var i = 0; i < jsonObject.layers.length; i++){
-		for(var j = 0; j < jsonObject.layers[i].length; j++){
-			var xhr = new XMLHttpRequest();
-			xhr.withCredentials = true;
-			xhr.open("POST", "/index");
-			xhr.setRequestHeader("content-type", "application/json;charset=UTF-8");
-			console.log(JSON.stringify(jsonObject.layers[i][j]));
-			xhr.send(JSON.stringify(jsonObject.layers[i][j]));
-		}
+		var xhr = new XMLHttpRequest();
+		xhr.withCredentials = true;
+		xhr.open("POST", "/index");
+		xhr.setRequestHeader("content-type", "application/json;charset=UTF-8");
+		console.log(JSON.stringify(jsonObject.layers[i]));
+		xhr.send(JSON.stringify(jsonObject.layers[i]));
 	}
 };
 

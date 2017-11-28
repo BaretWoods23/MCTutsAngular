@@ -57,8 +57,8 @@ router.get("/builder", ensureAuthenticated, function(req, res){
 });
 
 router.post("/index", function(req, res){
-	var jsonBlock = req.body;
-	Build.createBlock(jsonBlock, function(err, block){
+	var jsonLayer = req.body;
+	Build.createLayer(jsonBlock, function(err, layer){
 		if(err) throw err;
 	});
 	// Build.createBuild(jsonBuild, function(err, build){
