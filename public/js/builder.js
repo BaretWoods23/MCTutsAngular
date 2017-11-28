@@ -509,15 +509,15 @@ function getSortedCubeArray(){
 function writeToJSONFile(){
 	var jsonObject = getLayeredJSONObject();
 	//console.log(JSON.stringify(jsonObject));
-	console.log("HELLO" + jsonObject.layers.length);
 	for(var i = 0; i < jsonObject.layers.length; i++){
-		console.log("NEW");
-		console.log(JSON.stringify(jsonObject.layers[i]));
-		var xhr = new XMLHttpRequest();
-		xhr.withCredentials = true;
-		xhr.open("POST", "/index");
-		xhr.setRequestHeader("content-type", "application/json;charset=UTF-8");
-		xhr.send(JSON.stringify(jsonObject.layers[i]));
+		for(var j = 0; j < jsonObject.layers[i].length; j++){
+			var xhr = new XMLHttpRequest();
+			xhr.withCredentials = true;
+			xhr.open("POST", "/index");
+			xhr.setRequestHeader("content-type", "application/json;charset=UTF-8");
+			console.log(JSON.stringify(jsonObject.layers[i][j]));
+			xhr.send(JSON.stringify(jsonObject.layers[i][j]));
+		}
 	}
 };
 
