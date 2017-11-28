@@ -510,13 +510,13 @@ function writeToJSONFile(){
 	var jsonObject = getLayeredJSONObject();
 	//console.log(JSON.stringify(jsonObject));
 	for(var i = 0; i < jsonObject.length; i++){
+		console.log("NEW");
+		console.log(JSON.stringify(jsonObject.layers[i]));
 		var xhr = new XMLHttpRequest();
 		xhr.withCredentials = true;
 		xhr.open("POST", "/index");
 		xhr.setRequestHeader("content-type", "application/json;charset=UTF-8");
 		xhr.send(JSON.stringify(jsonObject.layers[i]));
-		console.log("NEW");
-		console.log(JSON.stringify(jsonObject.layers[i]));
 	}
 };
 
