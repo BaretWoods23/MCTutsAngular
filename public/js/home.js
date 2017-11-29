@@ -36,6 +36,8 @@ app.controller("buildsCtrl", function($scope, buildsService) {
 
 window.onload = function(){
     var screenshots = document.getElementsByClassName("screenshot");
+    console.log("TEST");
+    console.log("length: " + screenshots.length);
     for(var i = 0; i < screenshots.length; i++){
         screenshots[i].src = URL.createObjectURL(buildData[i].screenshot);
         console.log("BLOOOOOOOP");
