@@ -37,7 +37,8 @@ app.controller("buildsCtrl", function($scope, buildsService) {
 window.onload = function(){
     var screenshots = document.getElementsByClassName("screenshot");
     for(var i = 0; i < screenshots.length; i++){
-        screenshots.src = URL.createObjectURL(buildData[i].screenshot);
+        screenshots[i].src = URL.createObjectURL(buildData[i].screenshot);
+        console.log(screenshots[i].src);
     }
 };
 
