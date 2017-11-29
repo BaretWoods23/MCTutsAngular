@@ -500,6 +500,7 @@ function submit(){
 	//imgsrc = "../images/big/grass_top.png";
 	var img = document.getElementById("screenshot")
 	img.src = imgsrc;
+}
 
 function upload(){
 	writeToJSONFile();
