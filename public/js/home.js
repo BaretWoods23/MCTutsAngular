@@ -38,6 +38,7 @@ window.onload = function(){
     var screenshots = document.getElementsByClassName("screenshot");
     for(var i = 0; i < screenshots.length; i++){
         screenshots[i].src = URL.createObjectURL(buildData[i].screenshot);
+        console.log("BLOOOOOOOP");
         console.log(screenshots[i].src);
     }
 };

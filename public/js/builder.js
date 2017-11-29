@@ -486,7 +486,6 @@ function submit(){
 	renderer.domElement.toBlob(function(blob){imgblob = blob}, 'image/jpeg', 1);
 	var img = document.getElementById("screenshot")
 	img.src = imgsrc;
-	console.log(imgsrc);
 }
 
 function upload(){
