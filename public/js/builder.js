@@ -482,6 +482,7 @@ window.onload = function(){
 function submit(){
 	locked = true;
 	controls.enabled = false;
+	renderer.setSize(10,10);
 	imgsrc = renderer.domElement.toDataURL();
 	var img = document.getElementById("screenshot")
 	img.src = "imgsrc";
@@ -513,12 +514,6 @@ function writeToJSONFile(){
 	xhr.setRequestHeader("content-type", "application/json;charset=UTF-8");
 	var jsonObject = getLayeredJSONObject();
 	xhr.send(JSON.stringify(jsonObject));
-
-	var xhr2 = new XMLHttpRequest();
-	xhr2.withCredentials = true;
-	xhr2.open("POST", "/");
-	xhr2.setRequestHeader("content-type", "application/json;charset=UTF-8");
-	xhr2.send(imgsrc);
 };
 
 function getLayeredJSONObject(){
@@ -530,7 +525,7 @@ function getLayeredJSONObject(){
 		"build_user": buildUser,
 		"build_width": boardWidth,
 		"build_length": boardLength,
-		"screenshot": "imgsrc",
+		"screenshot": imgsrc,
 		"layers":[]
 	};
 	var currentLayer = 0;
