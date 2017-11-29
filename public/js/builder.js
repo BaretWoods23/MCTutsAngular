@@ -482,7 +482,7 @@ window.onload = function(){
 function submit(){
 	locked = true;
 	controls.enabled = false;
-	var newCanvas = document.createElement("screenshot-canvas");
+	var newCanvas = document.getElementById("screenshot-canvas");
 	var newContext = newCanvas.getContext("2d");
 	newCanvas.setSize(canvWidth/5, canvHeight/5);
 	newContext.drawImage(renderer.domElement,0,0);
