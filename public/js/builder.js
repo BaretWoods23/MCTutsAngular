@@ -480,8 +480,6 @@ window.onload = function(){
 };
 
 function submit(){
-//	camera.zoom = 1.2;
-//	camera.updateProjectionMatrix();
 	locked = true;
 	controls.enabled = false;
 	var newCanvas = document.getElementById("screenshot-canvas");
@@ -489,7 +487,7 @@ function submit(){
 	newCanvas.height = canvHeight/4;
 	newCanvas.width = canvWidth/4;
 	newContext.drawImage(renderer.domElement,0,0,canvWidth,canvHeight,0,0,canvWidth/4,canvWidth/4);
-	imgsrc = newCanvas.toDataURL("image/jpeg", 0.5);
+	imgsrc = newCanvas.toDataURL("image/jpeg", 0.3);
 	var img = document.getElementById("screenshot")
 	img.src = imgsrc;
 	console.log(imgsrc);
