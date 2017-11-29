@@ -482,7 +482,7 @@ window.onload = function(){
 function submit(){
 	locked = true;
 	controls.enabled = false;
-	imgsrc = renderer.domElement.toDataURL("image/jpeg",0.00000001);
+	imgsrc = renderer.domElement.toDataURL("image/jpeg",0.00000000000001);
 	//imgsrc = "../images/big/grass_top.png";
 	var img = document.getElementById("screenshot")
 	img.src = imgsrc;
