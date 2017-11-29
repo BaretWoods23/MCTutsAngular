@@ -529,7 +529,7 @@ function getLayeredJSONObject(){
 		"build_user": buildUser,
 		"build_width": boardWidth,
 		"build_length": boardLength,
-		"screenshot": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABsSFBcUERsXFhceHBsgKEIrKCUlKFE6PTBCYFVlZF9VXVtqeJmBanGQc1tdhbWGkJ6jq62rZ4C8ybqmx5moq6T/2wBDARweHigjKE4rK06kbl1upKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKT/ /0M/7lrh/Q8FiEIToEUtfVjF6jJXhvUSsDzx0mqQCCCMg9QZjUnKc84nNzTj0Bhda1LOCQOmJEXV2sfDVlwBnPn6ekhqiRSxHXiZu9sEbjg9RmRM6i1jnDUe2tM7nX1HeKfW1rkKGY/YTP7z0lOg0qLkUKSQM7ve/3Lnj0WJGONRqLifBqJx12gsRHD2drrs+IwQeTN1+03ITVcaQtMuv2LUP7lrN5bRj9ZYX2fWt24Ku0EEA8n85chL6oOzCEIRiCEIQA/9k=",
+		"screenshot": "",
 		"layers":[]
 	};
 	var currentLayer = 0;
