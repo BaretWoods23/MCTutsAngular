@@ -480,7 +480,7 @@ window.onload = function(){
 };
 
 function submit(){
-	camera.zoom = 0;
+	camera.zoom = 0.5;
 	camera.updateProjectionMatrix();
 	locked = true;
 	controls.enabled = false;
