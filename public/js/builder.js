@@ -514,11 +514,11 @@ function writeToJSONFile(){
 	var jsonObject = getLayeredJSONObject();
 	xhr.send(JSON.stringify(jsonObject));
 
-	// var xhr2 = new XMLHttpRequest();
-	// xhr2.withCredentials = true;
-	// xhr2.open("POST", "/");
-	// xhr2.setRequestHeader("content-type", "application/json;charset=UTF-8");
-	// xhr2.send(imgsrc);
+	var xhr2 = new XMLHttpRequest();
+	xhr2.withCredentials = true;
+	xhr2.open("POST", "/");
+	xhr2.setRequestHeader("content-type", "application/json;charset=UTF-8");
+	xhr2.send(imgsrc);
 };
 
 function getLayeredJSONObject(){
