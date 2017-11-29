@@ -484,10 +484,10 @@ function submit(){
 	controls.enabled = false;
 	var newCanvas = document.getElementById("screenshot-canvas");
 	var newContext = newCanvas.getContext("2d");
-	newCanvas.height = canvHeight/3;
-	newCanvas.width = canvWidth/3;
-	newContext.drawImage(renderer.domElement,0,0,canvWidth,canvHeight,0,0,canvWidth/5,canvHeight/5);
-	imgsrc = newCanvas.toDataURL("image/jpeg", 0.2);
+	newCanvas.height = canvHeight/4;
+	newCanvas.width = canvWidth/4;
+	newContext.drawImage(renderer.domElement,0,0,canvWidth,canvHeight,0,0,canvWidth/4,canvHeight/4);
+	imgsrc = newCanvas.toDataURL("image/jpeg", 0.4);
 	var img = document.getElementById("screenshot")
 	img.src = imgsrc;
 	console.log(imgsrc);
