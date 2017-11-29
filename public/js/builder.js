@@ -480,15 +480,15 @@ window.onload = function(){
 };
 
 function submit(){
-	camera.zoom = 0.5;
+	camera.zoom = 1;
 	camera.updateProjectionMatrix();
 	locked = true;
 	controls.enabled = false;
 	var newCanvas = document.getElementById("screenshot-canvas");
 	var newContext = newCanvas.getContext("2d");
-	newCanvas.height = canvHeight/3;
-	newCanvas.width = canvWidth/3;
-	newContext.drawImage(renderer.domElement,-canvWidth/3.5,-canvHeight/3.5);
+	newCanvas.height = canvHeight/4;
+	newCanvas.width = canvWidth/4;
+	newContext.drawImage(renderer.domElement,-canvWidth/3,-canvHeight/3);
 	imgsrc = newCanvas.toDataURL("image/jpeg", 0.5);
 	var img = document.getElementById("screenshot")
 	img.src = imgsrc;
