@@ -22,10 +22,10 @@ app.service("buildsService", function($http){
 app.controller("buildsCtrl", function($scope, buildsService) {  
     buildsService.getData()
     .then(function(builds){
-        for(var i = 0; i < builds.length; i++){
-            builds[i].screenshot = URL.createObjectURL(jsonBuild.screenshot);
-        }
         $scope.builds = builds;
+        for(var i = 0; i < $scope.builds.length; i++){
+            $scope.builds[i].screenshot = URL.createObjectURL($socpe.builds[i].screenshot);
+        }
 		var url = window.location.pathname;
 		var username = url.substr(url.lastIndexOf("/")+1);
 		$scope.username = username;
