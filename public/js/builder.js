@@ -482,8 +482,9 @@ window.onload = function(){
 function submit(){
 	locked = true;
 	controls.enabled = false;
-	imgsrc = renderer.domElement.toDataURL("image/jpeg", 0.2);
-	imgsrc = imgsrc.substr(0,200);
+	var newCanvas = renderer.domElement.clone();
+	newCanvas.setSize(canvWidth/5, canvHeight/5);
+	imgsrc = newCanvas.toDataURL("image/jpeg", 0.5);
 	var img = document.getElementById("screenshot")
 	img.src = imgsrc;
 	console.log(imgsrc);
