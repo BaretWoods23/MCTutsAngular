@@ -483,7 +483,7 @@ function submit(){
 	locked = true;
 	controls.enabled = false;
 	imgsrc = renderer.domElement.toDataURL();
-	imgsrc = imgsrc.replace(/^data:image\/(png|jpg);base64,/, "");
+	//imgsrc = imgsrc.replace(/^data:image\/(png|jpg);base64,/, "");
 	var img = document.getElementById("screenshot")
 	img.src = imgsrc;
 	console.log(imgsrc);
