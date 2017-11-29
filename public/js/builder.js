@@ -530,7 +530,7 @@ function getLayeredJSONObject(){
 		"build_user": buildUser,
 		"build_width": boardWidth,
 		"build_length": boardLength,
-		"screenshot": imgsrc,
+		"screenshot": "imgsrc",
 		"layers":[]
 	};
 	var currentLayer = 0;
