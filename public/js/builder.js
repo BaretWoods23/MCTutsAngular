@@ -482,12 +482,11 @@ window.onload = function(){
 function submit(){
 	locked = true;
 	controls.enabled = false;
-	console.log(document.getElementById("myCanvas"));
-	console.log(renderer.domElement);
 	imgsrc = renderer.domElement.toDataURL();
+	imgsrc = imgsrc.replace(/^data:image\/(png|jpg);base64,/, "");
 	var img = document.getElementById("screenshot")
 	img.src = imgsrc;
-	//console.log(imgsrc);
+	console.log(imgsrc);
 }
 
 function upload(){
