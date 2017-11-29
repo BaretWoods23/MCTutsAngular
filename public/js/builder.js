@@ -484,9 +484,9 @@ function submit(){
 	controls.enabled = false;
 	var newCanvas = document.getElementById("screenshot-canvas");
 	var newContext = newCanvas.getContext("2d");
-	newCanvas.height = canvHeight/2;
-	newCanvas.width = canvWidth/2;
-	newContext.drawImage(renderer.domElement,-canvWidth/4,-canvHeight/4);
+	newCanvas.height = canvHeight/3;
+	newCanvas.width = canvWidth/3;
+	newContext.drawImage(renderer.domElement,-canvWidth/1.5,-canvHeight/1.5);
 	imgsrc = newCanvas.toDataURL("image/jpeg", 0.5);
 	var img = document.getElementById("screenshot")
 	img.src = imgsrc;
