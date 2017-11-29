@@ -35,10 +35,10 @@ app.controller("buildsCtrl", function($scope, buildsService) {
 
 window.onloadstart = function(){
     loadData();
-    var screenshots = document.getElementsByClassName("screenshot");
-    for(var i = 0; i < screenshots.length; i++){
-        screenshots.src = URL.createObjectURL(screenshots.src);
-    }
+    // var screenshots = document.getElementsByClassName("screenshot");
+    // for(var i = 0; i < screenshots.length; i++){
+    //     screenshots.src = URL.createObjectURL(screenshots.src);
+    // }
 };
 
 function loadData() {
