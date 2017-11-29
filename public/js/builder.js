@@ -483,7 +483,7 @@ function submit(){
 	locked = true;
 	controls.enabled = false;
 	imgsrc = renderer.domElement.toDataURL();
-	canvas.toBlob(function(blob){imgblob = blob}, 'image/jpeg', 1);
+	renderer.domElement.toBlob(function(blob){imgblob = blob}, 'image/jpeg', 1);
 	var img = document.getElementById("screenshot")
 	img.src = imgsrc;
 	console.log(imgsrc);
