@@ -487,7 +487,7 @@ function submit(){
 	newCanvas.height = canvHeight/8;
 	newCanvas.width = canvWidth/8;
 	newContext.drawImage(renderer.domElement,0,0,canvWidth,canvHeight,0,0,canvWidth/8,canvHeight/8);
-	imgsrc = newCanvas.toDataURL("image/jpeg", 0.5);
+	imgsrc = newCanvas.toDataURL("image/jpeg", 0.3);
 	var img = document.getElementById("screenshot")
 	img.src = imgsrc;
 	console.log(imgsrc);
