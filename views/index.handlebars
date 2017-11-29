@@ -22,7 +22,6 @@
 		</form>
 	</div>
 </div>
-<img class="screenshot">
 <div class="builds-box">
 	{{#if user}}
 		<button class="builds-button" id="create">Create a Tutorial! »</button>
@@ -34,7 +33,7 @@
 				<div class="tutorials" ng-repeat="x in builds | filter:filter | orderBy:'-'">
 					<a href="tutorial/((x._id))" class="build-link">
 						<div class="tutorial">
-							<img id="screenshot" class="screenshot" src="((x.screenshot))">
+							<img id="screenshot" src="((x.screenshot))">
 							<p class="center build-title">(( x.build_name )) by (( x.build_user ))</p>
 						</div>
 					</a>

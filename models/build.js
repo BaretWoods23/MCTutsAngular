@@ -6,7 +6,7 @@ var BuildSchema = mongoose.Schema({
 	build_user: String,
 	build_width: String,
 	build_length: String,
-	screenshot: Object,
+	screenshot: String,
 	layers: [],
 });
 

@@ -19,7 +19,7 @@ var locked = false;
 var heightOffset = 155;
 var widthOffset = 340;
 var boardWidth, boardLength;
-var imgsrc = "", imgblob;
+var imgsrc = "";
 
 app.config(function($interpolateProvider) {
   $interpolateProvider.startSymbol('{[{');
@@ -483,9 +483,10 @@ function submit(){
 	locked = true;
 	controls.enabled = false;
 	imgsrc = renderer.domElement.toDataURL();
-	renderer.domElement.toBlob(function(blob){imgblob = blob}, 'image/jpeg', 1);
+	//renderer.setSize(canvWidth, canvHeight);
 	var img = document.getElementById("screenshot")
 	img.src = imgsrc;
+	console.log(imgsrc);
 }
 
 function upload(){
@@ -524,7 +525,7 @@ function getLayeredJSONObject(){
 		"build_user": buildUser,
 		"build_width": boardWidth,
 		"build_length": boardLength,
-		"screenshot": imgblob,
+		"screenshot": imgsrc,
 		"layers":[]
 	};
 	var currentLayer = 0;
