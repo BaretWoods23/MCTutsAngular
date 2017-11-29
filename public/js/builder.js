@@ -482,8 +482,8 @@ window.onload = function(){
 function submit(){
 	locked = true;
 	controls.enabled = false;
-	renderer.setSize(canvWidth/2,canvHeight/2);
-	imgsrc = renderer.domElement.toDataURL("image/jpeg",0.000001);
+	renderer.setSize(canvWidth/4,canvHeight/4);
+	imgsrc = renderer.domElement.toDataURL("image/jpeg",0.1);
 	var img = document.getElementById("screenshot")
 	img.src = imgsrc;
 	console.log(imgsrc);
