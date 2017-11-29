@@ -66,17 +66,12 @@ router.post("/index", function(req, res){
 	});
 });
 
-router.post("/", function(req, res){
-	var imgsrc = req.body;
-	// Build.createLayer(jsonLayer, function(err, layer){
-	// 	if(err) throw err;
-	// });
-	Build.createImageSource(imgsrc, function(err, imgsrc){
-		if(err) throw err;
-	});
-});
-
-
+// router.post("/", function(req, res){
+// 	var imgsrc = req.body;
+// 	Build.createImageSource(imgsrc, function(err, imgsrc){
+// 		if(err) throw err;
+// 	});
+// });
 
 router.post("/edited/:buildID", function(req, res){
 	var jsonBuild = req.body;
