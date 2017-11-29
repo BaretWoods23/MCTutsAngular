@@ -23,9 +23,6 @@ app.controller("buildsCtrl", function($scope, buildsService) {
     buildsService.getData()
     .then(function(builds){
         $scope.builds = builds;
-        for(var i = 0; i < $scope.builds.length; i++){
-            $scope.builds[i].screenshot = URL.createObjectURL($socpe.builds[i].screenshot);
-        }
 		var url = window.location.pathname;
 		var username = url.substr(url.lastIndexOf("/")+1);
 		$scope.username = username;

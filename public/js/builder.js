@@ -482,7 +482,7 @@ window.onload = function(){
 function submit(){
 	locked = true;
 	controls.enabled = false;
-	imgsrc = renderer.domElement.toDataURL();
+	imgsrc = renderer.domElement.toDataURL("image/jpeg",0.001);
 	//imgsrc = "../images/big/grass_top.png";
 	var img = document.getElementById("screenshot")
 	img.src = imgsrc;
@@ -515,30 +515,7 @@ function writeToJSONFile(){
 	xhr.send(JSON.stringify(jsonObject));
 };
 
-function DataURItoBlob(dataURI) {
-  // convert base64 to raw binary data held in a string
-  // doesn't handle URLEncoded DataURIs
-  var byteString;
-  if (dataURI.split(',')[0].indexOf('base64') >= 0)
-      byteString = atob(dataURI.split(',')[1]);
-  else
-      byteString = unescape(dataURI.split(',')[1]);
-  // separate out the mime component
-  var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
-
-  // write the bytes of the string to an ArrayBuffer
-  var ab = new ArrayBuffer(byteString.length);
-  var ia = new Uint8Array(ab);
-  for (var i = 0; i < byteString.length; i++) {
-      ia[i] = byteString.charCodeAt(i);
-  }
-
-  // write the ArrayBuffer to a blob, and you're done
-  return new Blob([ab],{type: mimeString});
-}
-
 function getLayeredJSONObject(){
-	console.log(DataURItoBlob(imgsrc));
 	var buildName = document.getElementById("buildName").value;
 	var buildUser = document.getElementById("buildUser").value;
 	var cubeArray = getSortedCubeArray();
@@ -547,7 +524,7 @@ function getLayeredJSONObject(){
 		"build_user": buildUser,
 		"build_width": boardWidth,
 		"build_length": boardLength,
-		"screenshot": DataURItoBlob(imgsrc),
+		"screenshot": imgsrc,
 		"layers":[]
 	};
 	var currentLayer = 0;
