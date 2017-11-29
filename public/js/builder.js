@@ -479,19 +479,27 @@ window.onload = function(){
 	};
 };
 
+// function submit(){
+// 	locked = true;
+// 	controls.enabled = false;
+// 	var newCanvas = document.getElementById("screenshot-canvas");
+// 	var newContext = newCanvas.getContext("2d");
+// 	newCanvas.height = canvHeight/8;
+// 	newCanvas.width = canvWidth/8;
+// 	newContext.drawImage(renderer.domElement,0,0,canvWidth,canvHeight,0,0,canvWidth/8,canvHeight/8);
+// 	imgsrc = newCanvas.toDataURL("image/jpeg", 0.3);
+// 	var img = document.getElementById("screenshot")
+// 	img.src = imgsrc;
+// 	console.log(imgsrc);
+// }
+
 function submit(){
 	locked = true;
 	controls.enabled = false;
-	var newCanvas = document.getElementById("screenshot-canvas");
-	var newContext = newCanvas.getContext("2d");
-	newCanvas.height = canvHeight/8;
-	newCanvas.width = canvWidth/8;
-	newContext.drawImage(renderer.domElement,0,0,canvWidth,canvHeight,0,0,canvWidth/8,canvHeight/8);
-	imgsrc = newCanvas.toDataURL("image/jpeg", 0.3);
+	imgsrc = renderer.domElement.toDataURL();
+	//imgsrc = "../images/big/grass_top.png";
 	var img = document.getElementById("screenshot")
 	img.src = imgsrc;
-	console.log(imgsrc);
-}
 
 function upload(){
 	writeToJSONFile();
