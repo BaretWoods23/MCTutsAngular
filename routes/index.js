@@ -61,7 +61,6 @@ router.post("/index", function(req, res){
 	// Build.createLayer(jsonLayer, function(err, layer){
 	// 	if(err) throw err;
 	// });
-	jsonBuild.screenshot = URL.createObjectURL(jsonBuild.screenshot);
 	Build.createBuild(jsonBuild, function(err, build){
 		if(err) throw err;
 	});
