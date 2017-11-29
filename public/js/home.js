@@ -42,13 +42,13 @@ window.onloadstart = function(){
 };
 
 function loadData() {
+    console.log("PRETEST");
     request.open("GET", "../json/builds.json");
     request.onload = loadComplete;
     request.send();
 };
  
 function loadComplete(evt) {
-    buildData = JSON.parse(request.responseText);
     var screenshots = document.getElementsByClassName("screenshot");
     console.log("TEST");
     console.log("length: " + screenshots.length);
