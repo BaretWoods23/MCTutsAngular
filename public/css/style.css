@@ -13,6 +13,10 @@ body{
 	background-size: cover;
 }
 
+#screenshot-canvas{
+	display: hidden;
+}
+
 .upload{
 	background-color: whitesmoke;
 	padding: 5px;
