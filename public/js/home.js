@@ -14,10 +14,10 @@ app.service("buildsService", function($http){
         return $http.get(path)
         .then(function(response){
             this.builds = response.data;
-            for(var i = 0; i < this.builds.length; i++){
-                var blob = URL.createObjectURL(this.builds[i].screenshot);
-                this.builds[i].screenshot = blob;
-            }
+            // for(var i = 0; i < this.builds.length; i++){
+            //     var blob = URL.createObjectURL(this.builds[i].screenshot);
+            //     this.builds[i].screenshot = blob;
+            // }
             return this.builds;
         });
     };
