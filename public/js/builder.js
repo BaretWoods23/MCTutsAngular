@@ -482,10 +482,11 @@ window.onload = function(){
 function submit(){
 	locked = true;
 	controls.enabled = false;
-	imgsrc = renderer.domElement.toDataURL();
+	imgsrc = renderer.domElement.toDataURL("image/jpeg", 0.2);
 	//imgsrc = imgsrc.replace(/^data:image\/(png|jpg);base64,/, "");
 	for(var i = 0; i<imgsrc.length; i++){
 		if(i%2==0){
+			console.log("bloop");
 			imgsrc.charAt(i) == "";
 		}
 	}
