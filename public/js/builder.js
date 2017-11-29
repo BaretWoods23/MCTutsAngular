@@ -480,7 +480,8 @@ window.onload = function(){
 };
 
 function submit(){
-	camera.zoom = -5;
+	camera.zoom = -2;
+	camera.updateProjectionMatrix();
 	locked = true;
 	controls.enabled = false;
 	var newCanvas = document.getElementById("screenshot-canvas");
