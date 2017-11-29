@@ -14,7 +14,7 @@ body{
 }
 
 #screenshot-canvas{
-	display: hidden;
+	display: none;
 }
 
 .upload{
