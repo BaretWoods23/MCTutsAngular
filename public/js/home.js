@@ -34,7 +34,11 @@ app.controller("buildsCtrl", function($scope, buildsService) {
 });
 
 window.onloadstart = function(){
-	loadData();
+    loadData();
+    var screenshots = document.getElementsByClassName("screenshot");
+    for(var i = 0; i < screenshots.length; i++){
+        screenshots.src = URL.createObjectURL(screenshots.src);
+    }
 };
 
 function loadData() {
@@ -44,7 +48,7 @@ function loadData() {
 };
  
 function loadComplete(evt) {
-    buildData = JSON.parse(request.responseText); 
+    buildData = JSON.parse(request.responseText);
 };
 
 var modal = document.getElementById("preferences-modal");
