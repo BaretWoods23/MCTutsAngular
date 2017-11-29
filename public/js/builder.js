@@ -483,11 +483,11 @@ function submit(){
 	locked = true;
 	controls.enabled = false;
 	console.log(document.getElementById("myCanvas"));
-	console.log(document.getElementById("myCanvas").getContext("2d"));
-	imgsrc = document.getElementById("myCanvas").getContext("2d").getImageData(0, 0, canvWidth, canvHeight).toDataURL();
+	console.log(renderer.domElement);
+	imgsrc = renderer.domElement.toDataURL();
 	var img = document.getElementById("screenshot")
 	img.src = imgsrc;
-	console.log(imgsrc);
+	//console.log(imgsrc);
 }
 
 function upload(){
