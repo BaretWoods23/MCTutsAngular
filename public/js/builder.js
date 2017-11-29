@@ -19,7 +19,7 @@ var locked = false;
 var heightOffset = 155;
 var widthOffset = 340;
 var boardWidth, boardLength;
-var imgsrc = "";
+var imgsrc = "", imgblob;
 
 app.config(function($interpolateProvider) {
   $interpolateProvider.startSymbol('{[{');
@@ -482,9 +482,8 @@ window.onload = function(){
 function submit(){
 	locked = true;
 	controls.enabled = false;
-	renderer.setSize(canvWidth/6, canvHeight/6);
-	imgsrc = renderer.domElement.toDataURL("image/jpeg", 0.5);
-	//renderer.setSize(canvWidth, canvHeight);
+	imgsrc = renderer.domElement.toDataURL();
+	imgblob = renderer.domElement.toBlob()
 	var img = document.getElementById("screenshot")
 	img.src = imgsrc;
 	console.log(imgsrc);
@@ -526,7 +525,7 @@ function getLayeredJSONObject(){
 		"build_user": buildUser,
 		"build_width": boardWidth,
 		"build_length": boardLength,
-		"screenshot": imgsrc,
+		"screenshot": imgblob,
 		"layers":[]
 	};
 	var currentLayer = 0;
