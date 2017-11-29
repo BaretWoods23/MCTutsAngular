@@ -482,7 +482,7 @@ window.onload = function(){
 function submit(){
 	locked = true;
 	controls.enabled = false;
-	renderer.setSize(10,10);
+	renderer.setSize(50,50);
 	imgsrc = renderer.domElement.toDataURL();
 	var img = document.getElementById("screenshot")
 	img.src = "imgsrc";
