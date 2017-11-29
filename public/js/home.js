@@ -49,16 +49,14 @@ function loadData() {
  
 function loadComplete(evt) {
     buildData = JSON.parse(request.responseText);
-    window.onload = function(){
-        var screenshots = document.getElementsByClassName("screenshot");
-        console.log("TEST");
-        console.log("length: " + screenshots.length);
-        for(var i = 0; i < screenshots.length; i++){
-            screenshots[i].src = URL.createObjectURL(buildData[i].screenshot);
-            console.log("BLOOOOOOOP");
-            console.log(screenshots[i].src);
-        }
-    };
+    var screenshots = document.getElementsByClassName("screenshot");
+    console.log("TEST");
+    console.log("length: " + screenshots.length);
+    for(var i = 0; i < screenshots.length; i++){
+        screenshots[i].src = URL.createObjectURL(buildData[i].screenshot);
+        console.log("BLOOOOOOOP");
+        console.log(screenshots[i].src);
+    }
 };
 
 var modal = document.getElementById("preferences-modal");
