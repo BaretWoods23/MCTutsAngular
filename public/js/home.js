@@ -33,7 +33,8 @@ app.controller("buildsCtrl", function($scope, buildsService) {
     })
 });
 
-window.onloadstart = function(){
+window.onload = function(){
+    console.log("PREPRETEST");
     loadData();
     // var screenshots = document.getElementsByClassName("screenshot");
     // for(var i = 0; i < screenshots.length; i++){
