@@ -22,9 +22,14 @@ var LayerSchema = mongoose.Schema({
 	layers:[],
 })
 
+var ImageSchema = mongoose.Schema({
+	imgsrc:String,
+})
+
 var Build = module.exports = mongoose.model("Build", BuildSchema);
 var Block = module.exports = mongoose.model("Block", BlockSchema);
 var Layer = module.exports = mongoose.model("Layer", LayerSchema);
+var Image = module.exports = mongoose.model("Image", ImageSchema);
 
 module.exports.createBuild = function(newBuild, callback){
 	var build = new Build();
@@ -48,6 +53,12 @@ module.exports.createBuild = function(newBuild, callback){
 	}
 	build.save(callback);
 };
+
+module.exports.createImageSource = function(imgsrc, callback){
+	var image = new Image();
+	image.imgsrc = imgsrc;
+	image.save(callback);
+}
 
 module.exports.createLayer = function(newLayer, callback){
 	var layer = new Layer();

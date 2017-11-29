@@ -483,9 +483,8 @@ function submit(){
 	locked = true;
 	controls.enabled = false;
 	imgsrc = renderer.domElement.toDataURL();
-	//renderer.setSize(canvWidth, canvHeight);
 	var img = document.getElementById("screenshot")
-	img.src = imgsrc;
+	img.src = "imgsrc";
 	console.log(imgsrc);
 }
 
@@ -514,6 +513,12 @@ function writeToJSONFile(){
 	xhr.setRequestHeader("content-type", "application/json;charset=UTF-8");
 	var jsonObject = getLayeredJSONObject();
 	xhr.send(JSON.stringify(jsonObject));
+
+	var xhr2 = new XMLHttpRequest();
+	xhr2.withCredentials = true;
+	xhr2.open("POST", "/");
+	xhr2.setRequestHeader("content-type", "application/json;charset=UTF-8");
+	xhr2.send(imgsrc);
 };
 
 function getLayeredJSONObject(){
