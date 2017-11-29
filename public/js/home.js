@@ -34,29 +34,9 @@ app.controller("buildsCtrl", function($scope, buildsService) {
 });
 
 window.onload = function(){
-    console.log("PREPRETEST");
-    loadData();
-    // var screenshots = document.getElementsByClassName("screenshot");
-    // for(var i = 0; i < screenshots.length; i++){
-    //     screenshots.src = URL.createObjectURL(screenshots.src);
-    // }
-};
-
-function loadData() {
-    console.log("PRETEST");
-    request.open("GET", "../json/builds.json");
-    request.onload = loadComplete;
-    request.send();
-};
- 
-function loadComplete(evt) {
     var screenshots = document.getElementsByClassName("screenshot");
-    console.log("TEST");
-    console.log("length: " + screenshots.length);
     for(var i = 0; i < screenshots.length; i++){
-        screenshots[i].src = URL.createObjectURL(buildData[i].screenshot);
-        console.log("BLOOOOOOOP");
-        console.log(screenshots[i].src);
+        screenshots.src = URL.createObjectURL(screenshots.src);
     }
 };
 
