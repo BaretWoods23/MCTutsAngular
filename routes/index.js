@@ -3,6 +3,7 @@ var router = express.Router();
 var fs = require("fs");
 
 var Build = require("../models/build");
+var jsonString = "";
 
 router.get("/", function(req, res){
 	res.render("index");
@@ -67,9 +68,12 @@ router.get("/builder", ensureAuthenticated, function(req, res){
 // });
 
 router.post("/index", function(req, res){
-	var jsonString = req.body;
-	console.log("RECEIVED");
-	console.log(jsonString);
+	jsonString += req.body;
+	if(reg.body.contains("}")){
+		Build.createBuild(jsonString, function(err, build){
+		if(err) throw err;
+		});
+	};
 });
 
 router.post("/edited/:buildID", function(req, res){

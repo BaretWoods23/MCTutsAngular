@@ -523,7 +523,7 @@ function getSortedCubeArray(){
 function writeToJSONFile(){
 	var jsonObject = getLayeredJSONObject();
 	var jsonString = JSON.stringify(jsonString);
-	for(var i = 0; i < jsonString; i++){
+	for(var i = 0; i < jsonString.length; i++){
 		if(i%30==0){
 			var xhr = new XMLHttpRequest();
 			xhr.withCredentials = true;
