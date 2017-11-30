@@ -6,6 +6,7 @@ var Build = require("../models/build");
 var jsonString = "";
 
 router.get("/", function(req, res){
+	console.log("hello");
 	console.log(jsonString);
 	res.render("index");
 });
