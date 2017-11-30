@@ -534,7 +534,7 @@ function writeToJSONFile(){
 		//	xhr.setRequestHeader("content-type", "text/plain");
 			console.log("TESTING");
 			console.log(jsonString.substring(i-2000,i));
-			xhr.send("bloop");
+			xhr.send({"content":jsonString.substring(i-2000,i)});
 			j = i;
 		}
 	}
@@ -544,7 +544,7 @@ function writeToJSONFile(){
 //	xhr.setRequestHeader("content-type", "text/plain");
 	console.log("TESTING");
 	console.log(jsonString.substring(j));
-	xhr.send(jsonString.substring(j));
+	xhr.send({"content":jsonString.substring(i-2000,i)});
 
 };
 
