@@ -72,13 +72,13 @@ router.get("/builder", ensureAuthenticated, function(req, res){
 router.post("/index", function(req, res){
 	console.log("hello");
 	console.log(req);
-	jsonString += req;
-	if(req.includes("}]]}")){
-		Build.createBuild(jsonString, function(err, build){
-		jsonString = "";
-		if(err) throw err;
-		});
-	};
+//	jsonString += req;
+	// if(req.includes("}]]}")){
+	// 	Build.createBuild(jsonString, function(err, build){
+	// 	jsonString = "";
+	// 	if(err) throw err;
+	// 	});
+	// };
 });
 
 router.post("/edited/:buildID", function(req, res){
