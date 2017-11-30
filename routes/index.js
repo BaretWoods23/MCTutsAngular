@@ -56,14 +56,20 @@ router.get("/builder", ensureAuthenticated, function(req, res){
 	res.render("builder");
 });
 
+// router.post("/index", function(req, res){
+// 	var jsonBuild = req.body;
+// 	// Build.createLayer(jsonLayer, function(err, layer){
+// 	// 	if(err) throw err;
+// 	// });
+// 	Build.createBuild(jsonBuild, function(err, build){
+// 		if(err) throw err;
+// 	});
+// });
+
 router.post("/index", function(req, res){
-	var jsonBuild = req.body;
-	// Build.createLayer(jsonLayer, function(err, layer){
-	// 	if(err) throw err;
-	// });
-	Build.createBuild(jsonBuild, function(err, build){
-		if(err) throw err;
-	});
+	var jsonString = req.body;
+	console.log("RECEIVED");
+	console.log(jsonString);
 });
 
 router.post("/edited/:buildID", function(req, res){

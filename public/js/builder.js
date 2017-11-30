@@ -521,12 +521,17 @@ function getSortedCubeArray(){
 };
 
 function writeToJSONFile(){
-	var xhr = new XMLHttpRequest();
-	xhr.withCredentials = true;
-	xhr.open("POST", "/index");
-	xhr.setRequestHeader("content-type", "application/json;charset=UTF-8");
 	var jsonObject = getLayeredJSONObject();
-	xhr.send(JSON.stringify(jsonObject));
+	var jsonString = JSON.stringify(jsonString);
+	for(var i = 0; i < jsonString; i++){
+		if(i%30==0){
+			var xhr = new XMLHttpRequest();
+			xhr.withCredentials = true;
+			xhr.open("POST", "/index");
+			xhr.setRequestHeader("content-type", "application/json;charset=UTF-8");
+			xhr.send(jsonString.substring(i-30,i));
+		}
+	}
 };
 
 function getLayeredJSONObject(){
@@ -538,7 +543,7 @@ function getLayeredJSONObject(){
 		"build_user": buildUser,
 		"build_width": boardWidth,
 		"build_length": boardLength,
-		"screenshot": "",
+		"screenshot": imgsrc,
 		"layers":[]
 	};
 	var currentLayer = 0;
