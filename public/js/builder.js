@@ -531,8 +531,6 @@ function writeToJSONFile(){
 			xhr.withCredentials = true;
 			xhr.open("POST", "/index");
 			xhr.setRequestHeader("content-type", "application/json;charset=UTF-8");
-			console.log("TESTING");
-			console.log(jsonString.substring(i-2000,i));
 			var object = {"content":jsonString.substring(i-2000,i)}
 			xhr.send(JSON.stringify(object));
 			j = i;
@@ -542,8 +540,6 @@ function writeToJSONFile(){
 	xhr.withCredentials = true;
 	xhr.open("POST", "/index");
 	xhr.setRequestHeader("content-type", "application/json;charset=UTF-8");
-	console.log("TESTING");
-	console.log(jsonString.substring(j));
 	var object = {"content":jsonString.substring(i-2000,i)}
 	xhr.send(JSON.stringify(object));
 
