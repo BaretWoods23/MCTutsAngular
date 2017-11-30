@@ -3,11 +3,8 @@ var router = express.Router();
 var fs = require("fs");
 
 var Build = require("../models/build");
-var jsonString = "";
 
 router.get("/", function(req, res){
-	// console.log("hello");
-	// console.log(jsonString);
 	res.render("index");
 });
 
@@ -59,29 +56,14 @@ router.get("/builder", ensureAuthenticated, function(req, res){
 	res.render("builder");
 });
 
-// router.post("/index", function(req, res){
-// 	var jsonBuild = req.body;
-// 	// Build.createLayer(jsonLayer, function(err, layer){
-// 	// 	if(err) throw err;
-// 	// });
-// 	Build.createBuild(jsonBuild, function(err, build){
-// 		if(err) throw err;
-// 	});
-// });
-
 router.post("/index", function(req, res){
-	var content = JSON.stringify(req.body.content);
-	jsonString = jsonString.concat(content);
-	console.log("HELLO");
-	console.log(jsonString);
-	if(content.includes("}]]}")){
-		Build.createBuild(jsonString, function(err, build){
-			console.log("string");
-			console.log(jsonString);
-			jsonString = "";
-			if(err) throw err;
-		});
-	};
+	var jsonBuild = req.body;
+	// Build.createLayer(jsonLayer, function(err, layer){
+	// 	if(err) throw err;
+	// });
+	Build.createBuild(jsonBuild, function(err, build){
+		if(err) throw err;
+	});
 });
 
 router.post("/edited/:buildID", function(req, res){

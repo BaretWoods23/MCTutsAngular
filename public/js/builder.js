@@ -479,27 +479,13 @@ window.onload = function(){
 	};
 };
 
-// function submit(){
-// 	locked = true;
-// 	controls.enabled = false;
-// 	var newCanvas = document.getElementById("screenshot-canvas");
-// 	var newContext = newCanvas.getContext("2d");
-// 	newCanvas.height = canvHeight/8;
-// 	newCanvas.width = canvWidth/8;
-// 	newContext.drawImage(renderer.domElement,0,0,canvWidth,canvHeight,0,0,canvWidth/8,canvHeight/8);
-// 	imgsrc = newCanvas.toDataURL("image/jpeg", 0.3);
-// 	var img = document.getElementById("screenshot")
-// 	img.src = imgsrc;
-// 	console.log(imgsrc);
-// }
-
 function submit(){
 	locked = true;
 	controls.enabled = false;
-	imgsrc = renderer.domElement.toDataURL("image/jpeg", 0.3);
-	//imgsrc = "../images/big/grass_top.png";
+	imgsrc = renderer.domElement.toDataURL();
 	var img = document.getElementById("screenshot")
 	img.src = imgsrc;
+	//console.log(imgsrc);
 }
 
 function upload(){
@@ -521,28 +507,12 @@ function getSortedCubeArray(){
 };
 
 function writeToJSONFile(){
-	var jsonObject = getLayeredJSONObject();
-	var jsonString = JSON.stringify(jsonObject);
-//	console.log(jsonString);
-	var j = 0;
-	for(var i = 0; i < jsonString.length; i++){
-		if(i%2000==0){
-			var xhr = new XMLHttpRequest();
-			xhr.withCredentials = true;
-			xhr.open("POST", "/index");
-			xhr.setRequestHeader("content-type", "application/json;charset=UTF-8");
-			var object = {"content":jsonString.substring(i-2000,i)}
-			xhr.send(JSON.stringify(object));
-			j = i;
-		}
-	}
 	var xhr = new XMLHttpRequest();
 	xhr.withCredentials = true;
 	xhr.open("POST", "/index");
 	xhr.setRequestHeader("content-type", "application/json;charset=UTF-8");
-	var object = {"content":jsonString.substring(i-2000,i)}
-	xhr.send(JSON.stringify(object));
-
+	var jsonObject = getLayeredJSONObject();
+	xhr.send(JSON.stringify(jsonObject));
 };
 
 function getLayeredJSONObject(){
@@ -554,7 +524,7 @@ function getLayeredJSONObject(){
 		"build_user": buildUser,
 		"build_width": boardWidth,
 		"build_length": boardLength,
-		"screenshot": imgsrc,
+		"screenshot": "imgsrc",
 		"layers":[]
 	};
 	var currentLayer = 0;
