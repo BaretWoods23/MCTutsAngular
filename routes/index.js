@@ -69,7 +69,7 @@ router.get("/builder", ensureAuthenticated, function(req, res){
 
 router.post("/index", function(req, res){
 	jsonString += req.body;
-	if(reg.body.contains("}")){
+	if(reg.body.substring(reg.body.length-1)=="}"){
 		Build.createBuild(jsonString, function(err, build){
 		if(err) throw err;
 		});
