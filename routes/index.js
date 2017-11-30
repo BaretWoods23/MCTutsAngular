@@ -6,8 +6,8 @@ var Build = require("../models/build");
 var jsonString = "";
 
 router.get("/", function(req, res){
-	console.log("hello");
-	console.log(jsonString);
+	// console.log("hello");
+	// console.log(jsonString);
 	res.render("index");
 });
 
@@ -71,7 +71,7 @@ router.get("/builder", ensureAuthenticated, function(req, res){
 
 router.post("/index", function(req, res){
 	jsonString += req.body;
-	if(req.body.substring("}]]}")){
+	if(req.body.contains("}]]}")){
 		Build.createBuild(jsonString, function(err, build){
 		jsonString = "";
 		if(err) throw err;
