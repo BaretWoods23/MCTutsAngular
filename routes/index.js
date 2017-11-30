@@ -72,6 +72,8 @@ router.get("/builder", ensureAuthenticated, function(req, res){
 router.post("/index", function(req, res){
 	var content = JSON.stringify(req.body.content);
 	jsonString += content;
+	console.log("HELLO");
+	console.log(jsonString);
 	if(content.includes("}]]}")){
 		Build.createBuild(jsonString, function(err, build){
 			console.log("string");
