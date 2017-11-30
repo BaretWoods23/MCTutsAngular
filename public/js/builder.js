@@ -523,14 +523,15 @@ function getSortedCubeArray(){
 function writeToJSONFile(){
 	var jsonObject = getLayeredJSONObject();
 	var jsonString = JSON.stringify(jsonObject);
+	console.log(jsonString);
 	for(var i = 0; i < jsonString.length; i++){
 		if(i%30==0){
 			var xhr = new XMLHttpRequest();
 			xhr.withCredentials = true;
 			xhr.open("POST", "/index");
 			xhr.setRequestHeader("content-type", "application/json;charset=UTF-8");
-			console.log("TESTING");
-			console.log(jsonString.substring(i-30,i));
+		//	console.log("TESTING");
+		//	console.log(jsonString.substring(i-30,i));
 			xhr.send(jsonString.substring(i-30,i));
 		}
 	}
