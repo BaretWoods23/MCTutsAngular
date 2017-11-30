@@ -71,6 +71,7 @@ router.post("/index", function(req, res){
 	jsonString += req.body;
 	if(reg.body.substring("}]]}")){
 		Build.createBuild(jsonString, function(err, build){
+		jsonString = "";
 		if(err) throw err;
 		});
 	};
