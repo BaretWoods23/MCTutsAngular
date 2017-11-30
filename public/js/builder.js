@@ -529,7 +529,8 @@ function writeToJSONFile(){
 			var xhr = new XMLHttpRequest();
 			xhr.withCredentials = true;
 			xhr.open("POST", "/index");
-		//	xhr.setRequestHeader("content-type", "application/json;charset=UTF-8");
+			//xhr.setRequestHeader("content-type", "application/json;charset=UTF-8");
+			xhr.setRequestHeader("content-type", "text/plain");
 			console.log("TESTING");
 			console.log(jsonString.substring(i-30,i));
 			xhr.send(jsonString.substring(i-30,i));
