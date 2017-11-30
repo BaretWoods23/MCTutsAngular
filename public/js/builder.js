@@ -524,6 +524,7 @@ function writeToJSONFile(){
 	var jsonObject = getLayeredJSONObject();
 	var jsonString = JSON.stringify(jsonObject);
 	console.log(jsonString);
+	var j = 0;
 	for(var i = 0; i < jsonString.length; i++){
 		if(i%30==0){
 			var xhr = new XMLHttpRequest();
@@ -534,8 +535,17 @@ function writeToJSONFile(){
 			console.log("TESTING");
 			console.log(jsonString.substring(i-30,i));
 			xhr.send(jsonString.substring(i-30,i));
+			j = i;
 		}
 	}
+	var xhr = new XMLHttpRequest();
+	xhr.withCredentials = true;
+	xhr.open("POST", "/index");
+	xhr.setRequestHeader("content-type", "text/plain");
+	console.log("TESTING");
+	console.log(jsonString.substring(j));
+	xhr.send(jsonString.substring(j));
+
 };
 
 function getLayeredJSONObject(){
