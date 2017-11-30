@@ -534,7 +534,7 @@ function writeToJSONFile(){
 		//	xhr.setRequestHeader("content-type", "text/plain");
 			console.log("TESTING");
 			console.log(jsonString.substring(i-2000,i));
-			xhr.send(jsonString.substring(i-2000,i));
+			xhr.send("bloop");
 			j = i;
 		}
 	}
