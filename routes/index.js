@@ -70,8 +70,8 @@ router.get("/builder", ensureAuthenticated, function(req, res){
 // });
 
 router.post("/index", function(req, res){
-	jsonString += req.body;
-	if(req.body.includes("}]]}")){
+	jsonString += req;
+	if(req.includes("}]]}")){
 		Build.createBuild(jsonString, function(err, build){
 		jsonString = "";
 		if(err) throw err;
