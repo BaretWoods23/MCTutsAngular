@@ -70,13 +70,13 @@ router.get("/builder", ensureAuthenticated, function(req, res){
 // });
 
 router.post("/index", function(req, res){
-	console.log("hello");
-	console.log(req.body.content);
 	jsonString += req.body.content;
 	if(req.body.content.includes("}]]}")){
 		Build.createBuild(jsonString, function(err, build){
-		jsonString = "";
-		if(err) throw err;
+			console.log("string");
+			console.log(jsonString);
+			jsonString = "";
+			if(err) throw err;
 		});
 	};
 });
