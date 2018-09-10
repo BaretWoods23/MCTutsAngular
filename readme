@@ -1,2 +1,2 @@
-The command to run the application is "node app.js".
+The command to run the application is "node app.js". Make sure to do an "npm install" first.
 The application uses Mongo to store users, builds, and tutorials. Make sure to run Mongod in order to have your user data and build data save. Without Mongod, the application may break.
